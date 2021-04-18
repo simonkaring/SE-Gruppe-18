@@ -25,6 +25,7 @@ public class Person {
         this.roller = new ArrayList<>();
     }
 
+    //Tilføjer rolle som er tilknyttet til person og program.
     public void addRolle(Program program, String navn, String type){
         this.roller.add(new Rolle(program.getProgramID(), navn, type));
     }
@@ -38,6 +39,7 @@ public class Person {
         return getFornavn() + " " + getEfternavn() + " " + getAlder() + " " + getNationalitet() + " " + getPersonID() + "\n" + getRoller() + "\n";
     }
 
+    //Udskriver personens roller som har samme ID som programmet.
     public List<Rolle> printRoller(Program program){
         ArrayList<Rolle> temp = new ArrayList<>();
         for(Rolle rolle : getRoller()){

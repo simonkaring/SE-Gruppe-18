@@ -16,6 +16,7 @@ public class Program {
         this.medvirkende = new ArrayList<>();
     }
 
+    //Tilknytter person til programmet. Er personen allerede tilknyttet programmet, stopper metoden.
     public void addMedvirkende(Person person){
         for(int i = 0 ; i < getMedvirkende().size() ; i++){
             if(getMedvirkende().get(i).getPersonID() == person.getPersonID()){
@@ -25,6 +26,7 @@ public class Program {
         medvirkende.add(person);
     }
 
+    //Fjerner person fra program.
     public void fjernMedvirkende(Person person){
         for(int i = 0 ; i < getMedvirkende().size() ; i++){
             if(getMedvirkende().get(i).getPersonID() == person.getPersonID()){
@@ -34,9 +36,11 @@ public class Program {
         }
     }
 
+    //Udskriver den medvirkendes navn og en liste over hvilke roller personen har i programmet.
+    //Kan evt udvides så krediteringerne udskrives i korrekt rækkefølge i forhold til rolle type.
     public void udskrivKreditering(){
-        for(int i = 0 ; i < medvirkende.size() ; i++){
-            System.out.println(getMedvirkende().get(i) + " som: " + getMedvirkende().get(i).printRoller(this));
+        for(Person personIProgram : medvirkende){
+            System.out.println(personIProgram + " som: " + personIProgram.printRoller(this));
         }
     }
 

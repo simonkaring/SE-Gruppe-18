@@ -16,6 +16,7 @@ public class Producent {
         this.programmer = new ArrayList<>();
     }
 
+    //Opretter et program, som bliver sat en på "programmer"-listen.
     public void opretProgram(String navn){
         programmer.add(new Program(navn));
     }
