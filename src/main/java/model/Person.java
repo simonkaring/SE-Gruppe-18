@@ -9,7 +9,7 @@ import java.util.UUID;
 
 public class Person {
 
-    private UUID personID;
+    private final UUID personID;
     private String fornavn;
     private String efternavn;
     private LocalDate alder;

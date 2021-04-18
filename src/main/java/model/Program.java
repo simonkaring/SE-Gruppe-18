@@ -36,7 +36,6 @@ public class Program {
 
     public void udskrivKreditering(){
         for(int i = 0 ; i < medvirkende.size() ; i++){
-
             System.out.println(getMedvirkende().get(i) + " som: " + getMedvirkende().get(i).printRoller(this));
         }
     }
