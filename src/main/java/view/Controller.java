@@ -54,6 +54,18 @@ public class Controller {
 
         textArea.setText(textAreaString);
     }
+    public void changeScene(){
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("editor.fxml"));
+            Parent root = (Parent) fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+            Main.stg.close();
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 
 
