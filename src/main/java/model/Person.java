@@ -1,29 +1,46 @@
 package model;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 public class Person {
 
-    private int personID;
+    private final UUID personID;
     private String fornavn;
     private String efternavn;
-    private Date alder;
     private String nationalitet;
+    private LocalDate alder;
+    private List<Rolle> roller;
 
-    public Person(int personID, String fornavn, String efternavn, Date alder, String nationalitet) {
-        this.personID = personID;
+    public Person(String fornavn, String efternavn, LocalDate alder, String nationalitet) {
+        this.personID = UUID.randomUUID();
         this.fornavn = fornavn;
         this.efternavn = efternavn;
         this.alder = alder;
         this.nationalitet = nationalitet;
+        this.roller = new ArrayList<>();
+        KrediteringSystem.getSamletPersoner().add(this);
     }
 
-    public int getPersonID() {
+    public void tilknytTilRolle(Rolle rolle){
+        rolle.tilknytPersonTilRolle(this);
+    }
+
+    public void fjernRolle(Rolle rolle){
+        rolle.fjernPersonFraRolle(this);
+    }
+
+    @Override
+    public String toString(){
+        return fornavn + " " + efternavn;
+    }
+
+    //Gettere og settere
+
+    public UUID getPersonID() {
         return personID;
-    }
-
-    public void setPersonID(int personID) {
-        this.personID = personID;
     }
 
     public String getFornavn() {
@@ -42,19 +59,27 @@ public class Person {
         this.efternavn = efternavn;
     }
 
-    public Date getAlder() {
-        return alder;
-    }
-
-    public void setAlder(Date alder) {
-        this.alder = alder;
-    }
-
     public String getNationalitet() {
         return nationalitet;
     }
 
     public void setNationalitet(String nationalitet) {
         this.nationalitet = nationalitet;
+    }
+
+    public LocalDate getAlder() {
+        return alder;
+    }
+
+    public void setAlder(LocalDate alder) {
+        this.alder = alder;
+    }
+
+    public List<Rolle> getRoller() {
+        return roller;
+    }
+
+    public void setRoller(List<Rolle> roller) {
+        this.roller = roller;
     }
 }
