@@ -10,16 +10,25 @@ public class Producent {
     private String navn;
     private List<Program> programmer;
 
-    public Producent(String navn) {
-        this.navn = navn;
+    public Producent(String navn){
         this.producentID = UUID.randomUUID();
+        this.navn = navn;
         this.programmer = new ArrayList<>();
+        KrediteringSystem.getSamletProducenter().add(this);
     }
 
     //Opretter et program, som bliver sat en på "programmer"-listen.
     public void opretProgram(String navn){
-        programmer.add(new Program(navn));
+        Program nytProgram = new Program(navn);
+        programmer.add(nytProgram);
     }
+
+    @Override
+    public String toString() {
+        return navn;
+    }
+
+    //Gettere og settere
 
     public UUID getProducentID() {
         return producentID;

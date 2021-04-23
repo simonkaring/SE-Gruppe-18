@@ -1,8 +1,6 @@
 package model;
 
 import java.time.LocalDate;
-import java.time.Period;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -12,43 +10,34 @@ public class Person {
     private final UUID personID;
     private String fornavn;
     private String efternavn;
-    private LocalDate alder;
     private String nationalitet;
+    private LocalDate alder;
     private List<Rolle> roller;
 
     public Person(String fornavn, String efternavn, LocalDate alder, String nationalitet) {
+        this.personID = UUID.randomUUID();
         this.fornavn = fornavn;
         this.efternavn = efternavn;
         this.alder = alder;
         this.nationalitet = nationalitet;
-        this.personID = UUID.randomUUID();
         this.roller = new ArrayList<>();
+        KrediteringSystem.getSamletPersoner().add(this);
     }
 
-    //Tilføjer rolle som er tilknyttet til person og program.
-    public void addRolle(Program program, String navn, String type){
-        this.roller.add(new Rolle(program.getProgramID(), navn, type));
+    public void tilknytTilRolle(Rolle rolle){
+        rolle.tilknytPersonTilRolle(this);
+    }
+
+    public void fjernRolle(Rolle rolle){
+        rolle.fjernPersonFraRolle(this);
     }
 
     @Override
     public String toString(){
-        return getFornavn() + " " + getEfternavn();
+        return fornavn + " " + efternavn;
     }
 
-    public String toFullString(){
-        return getFornavn() + " " + getEfternavn() + " " + getAlder() + " " + getNationalitet() + " " + getPersonID() + "\n" + getRoller() + "\n";
-    }
-
-    //Udskriver personens roller som har samme ID som programmet.
-    public List<Rolle> printRoller(Program program){
-        ArrayList<Rolle> temp = new ArrayList<>();
-        for(Rolle rolle : getRoller()){
-            if(rolle.getProgramID().equals(program.getProgramID())){
-                temp.add(rolle);
-            }
-        }
-        return temp;
-    }
+    //Gettere og settere
 
     public UUID getPersonID() {
         return personID;
@@ -70,28 +59,20 @@ public class Person {
         this.efternavn = efternavn;
     }
 
-    public int getAlder() {
-        return Period.between(alder, LocalDate.now()).getYears();
-    }
-
-    public LocalDate getAlderLocalDate(){
-        return alder;
-    }
-
-    public String getAlderDato() {
-        return alder.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-    }
-
-    public void setAlder(LocalDate alder) {
-        this.alder = alder;
-    }
-
     public String getNationalitet() {
         return nationalitet;
     }
 
     public void setNationalitet(String nationalitet) {
         this.nationalitet = nationalitet;
+    }
+
+    public LocalDate getAlder() {
+        return alder;
+    }
+
+    public void setAlder(LocalDate alder) {
+        this.alder = alder;
     }
 
     public List<Rolle> getRoller() {

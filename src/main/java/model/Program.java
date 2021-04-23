@@ -8,46 +8,65 @@ public class Program {
 
     private final UUID programID;
     private String titel;
-    private List<Person> medvirkende;
+    private List<Rolle> rollerIProgram;
 
-    public Program(String titel) {
-        this.titel = titel;
+    public Program(String titel){
         this.programID = UUID.randomUUID();
-        this.medvirkende = new ArrayList<>();
+        this.titel = titel;
+        this.rollerIProgram = new ArrayList<>();
+        KrediteringSystem.getSamletProgrammer().add(this);
     }
 
-    //Tilknytter person til programmet. Er personen allerede tilknyttet programmet, stopper metoden.
-    public void addMedvirkende(Person person){
-        for(int i = 0 ; i < getMedvirkende().size() ; i++){
-            if(getMedvirkende().get(i).getPersonID() == person.getPersonID()){
-                return;
-            }
+    //Laver rolle i programmet i rollerIProgram-listen, uden at tilknytte person til rollen.
+    public void addRolle(String navn, String type){
+        Rolle rolle = new Rolle(navn, type);
+        rollerIProgram.add(rolle);
+        Rolle.addRolleType(rolle);
+    }
+
+    //Laver rolle i programmet i rollerIProgram-listen, og tilknytter person til rollen.
+    public void addRolle(String navn, String type, Person person){
+        Rolle rolle = new Rolle(navn, type, person);
+        rollerIProgram.add(rolle);
+        Rolle.addRolleType(rolle);
+    }
+
+    //Fjerner den valgte rolle fra programmet.
+    public void fjernRolle(Rolle rolle){
+        rollerIProgram.remove(rolle);
+        rolle.fjernPersonFraRolle(rolle.getSpillesAf());
+    }
+
+    public String udskrivRollerIProgram() {
+        StringBuilder returner = new StringBuilder();
+        for(Rolle roller : rollerIProgram){
+            returner.append(roller);
+            returner.append("\n");
         }
-        medvirkende.add(person);
+        return returner.toString();
     }
 
-    //Fjerner person fra program.
-    public void fjernMedvirkende(Person person){
-        for(int i = 0 ; i < getMedvirkende().size() ; i++){
-            if(getMedvirkende().get(i).getPersonID() == person.getPersonID()){
-                medvirkende.remove(i);
-                return;
+    //Udskriver krediteringen sorteret i forhold til static-listen rolleTyper i Rolle-klassen.
+    //Der skal fikses så den ikke skriver typer ud, som ikke er i programmet.
+    public void udskrivKreditering(Producent producent){
+        System.out.println("Programmet er lavet af " + producent + "\n");
+        for(String type : Rolle.getRolleTyper()){
+            System.out.println(type + ":");
+            for(Rolle rolle : rollerIProgram){
+                if(rolle.getType().equals(type)){
+                    System.out.println(rolle);
+                }
             }
-        }
-    }
-
-    //Udskriver den medvirkendes navn og en liste over hvilke roller personen har i programmet.
-    //Kan evt udvides så krediteringerne udskrives i korrekt rækkefølge i forhold til rolle type.
-    public void udskrivKreditering(){
-        for(Person personIProgram : medvirkende){
-            System.out.println(personIProgram + " som: " + personIProgram.printRoller(this));
+            System.out.println("");
         }
     }
 
     @Override
-    public String toString(){
-        return getTitel() + " " + getProgramID() + "\n" + getMedvirkende() + "\n";
+    public String toString() {
+        return titel;
     }
+
+    //Gettere og settere
 
     public UUID getProgramID() {
         return programID;
@@ -61,12 +80,13 @@ public class Program {
         this.titel = titel;
     }
 
-    public List<Person> getMedvirkende() {
-        return medvirkende;
+    public List<Rolle> getRollerIProgram() {
+        return rollerIProgram;
     }
 
-    public void setMedvirkende(List<Person> medvirkende) {
-        this.medvirkende = medvirkende;
+    public void setRollerIProgram(List<Rolle> rollerIProgram) {
+        this.rollerIProgram = rollerIProgram;
     }
+
 
 }
