@@ -1,7 +1,5 @@
 package model;
 
-import view.Main;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -62,7 +60,7 @@ public class KrediteringSystem {
         System.out.println(getSamletProducenter());
         System.out.println("........-------------''''''''");
         System.out.println(getSamletProgrammer());
-        opretprogram(getSamletProducenter().get(0),"programTest");
+        opretProgram(getSamletProducenter().get(0),"programTest");
         System.out.println(getSamletProgrammer());
         System.out.println("........-------------''''''''");
         System.out.println(getSamletProducenter());
@@ -77,14 +75,20 @@ public class KrediteringSystem {
         System.out.println(testRolle);
         System.out.println(nyPerson);
         System.out.println(program1.getRollerIProgram());
-        Main.main(args);
+        System.out.println("........-------------''''''''");
+        System.out.println("........-------------''''''''");
+        System.out.println("........-------------''''''''");
+        System.out.println("........-------------''''''''");
+        System.out.println(program1.udskrivKreditering(producent));
+        System.out.println(program1.getRollerIProgram());
+
     }
 
     public static void opretProducent(String navn){
         new Producent(navn);
     }
 
-    public static void opretprogram(Producent producent, String navn){
+    public static void opretProgram(Producent producent, String navn){
         for(Producent producenten : getSamletProducenter()){
             if(producenten.equals(producent)){
                 new Program(navn);
@@ -140,12 +144,12 @@ public class KrediteringSystem {
     }
 
     //Tilknyt person til rollen.
-    public void tilknytPersonTilRolle(Rolle rolle, Person person){
+    public static void tilknytPersonTilRolle(Rolle rolle, Person person){
         rolle.setSpillesAf(person);
     }
 
     //Fjern person fra rollen.
-    public void fjernPersonFraRolle(Rolle rolle, Person person){
+    public static void fjernPersonFraRolle(Rolle rolle, Person person){
         if(rolle.getSpillesAf().equals(person)){
             rolle.setSpillesAf(null);
         }
