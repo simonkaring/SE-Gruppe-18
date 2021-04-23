@@ -1,6 +1,8 @@
 package model;
 
 import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -67,8 +69,12 @@ public class Person {
         this.nationalitet = nationalitet;
     }
 
-    public LocalDate getAlder() {
-        return alder;
+    public int getAlder() {
+        return Period.between(alder, LocalDate.now()).getYears();
+    }
+
+    public String getAlderDato() {
+        return alder.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
     }
 
     public void setAlder(LocalDate alder) {
