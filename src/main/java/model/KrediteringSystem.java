@@ -68,7 +68,7 @@ public class KrediteringSystem {
         System.out.println(getSamletRoller());
         System.out.println(getSamletPersoner());
         System.out.println("........-------------''''''''");
-        udskrivKreditering(producent, program1);
+        System.out.println(udskrivKreditering(producent, program1));
         System.out.println("........-------------''''''''");
         System.out.println("........-------------''''''''");
         System.out.println("........-------------''''''''");
@@ -81,6 +81,8 @@ public class KrediteringSystem {
         System.out.println("........-------------''''''''");
         System.out.println(program1.udskrivKreditering(producent));
         System.out.println(program1.getRollerIProgram());
+        System.out.println("........-------------''''''''");
+        System.out.println(udskrivKreditering(producent, program1));
 
     }
 
@@ -89,58 +91,32 @@ public class KrediteringSystem {
     }
 
     public static void opretProgram(Producent producent, String navn){
-        for(Producent producenten : getSamletProducenter()){
-            if(producenten.equals(producent)){
-                new Program(navn);
-                return;
+        producent.opretProgram(navn);
             }
-        }
-        System.out.println("Programmet kunne ikke oprettes.");
-    }
 
     //Laver rolle i programmet i rollerIProgram-listen, uden at tilknytte person til rollen.
     public static void addRolle(Program program, String navn, String type){
-        Rolle rolle = new Rolle(navn, type);
-        program.getRollerIProgram().add(rolle);
-        Rolle.addRolleType(rolle);
+        program.addRolle(navn, type);
     }
 
     //Laver rolle i programmet i rollerIProgram-listen, og tilknytter person til rollen.
     public static void addRolle(Program program, String navn, String type, Person person){
-        Rolle rolle = new Rolle(navn, type, person);
-        program.getRollerIProgram().add(rolle);
-        Rolle.addRolleType(rolle);
+        program.addRolle(navn, type, person);
     }
 
     //Fjerner den valgte rolle fra programmet.
     public static void fjernRolle(Program program, Rolle rolle){
-        program.getRollerIProgram().remove(rolle);
-        rolle.fjernPersonFraRolle(rolle.getSpillesAf());
-        getSamletRoller().remove(rolle);
+        program.fjernRolle(rolle);
     }
 
     public static String udskrivRollerIProgram(Program program) {
-        StringBuilder returner = new StringBuilder();
-        for(Rolle roller : program.getRollerIProgram()){
-            returner.append(roller);
-            returner.append("\n");
-        }
-        return returner.toString();
+        return program.udskrivRollerIProgram();
     }
 
     //Udskriver krediteringen sorteret i forhold til static-listen rolleTyper i Rolle-klassen.
     //Der skal fikses så den ikke skriver typer ud, som ikke er i programmet.
-    public static void udskrivKreditering(Producent producent, Program program){
-        System.out.println("Programmet er lavet af " + producent + "\n");
-        for(String type : Rolle.getRolleTyper()){
-            System.out.println(type + ":");
-            for(Rolle rolle : program.getRollerIProgram()){
-                if(rolle.getType().equals(type)){
-                    System.out.println(rolle);
-                }
-            }
-            System.out.println("");
-        }
+    public static String udskrivKreditering(Producent producent, Program program){
+        return program.udskrivKreditering(producent);
     }
 
     //Tilknyt person til rollen.
