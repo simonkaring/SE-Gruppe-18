@@ -97,6 +97,7 @@ public class KrediteringSystem {
         System.out.println(Soeg.getSoegeResultater());
         System.out.println(Soeg.soegPaaID(program1.getProgramID()));
         System.out.println(Soeg.soegPaaID(UUID.randomUUID()));
+        Soeg.soege("x");
     }
 
     public static void opretProducent(String navn){
