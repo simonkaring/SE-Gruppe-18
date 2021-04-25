@@ -17,6 +17,18 @@ public class Soeg {
         soegPerson(soegeTekst);
         soegProducent(soegeTekst);
 
+        int tomSoegning = 0;
+
+        for (List<Object> objects : soegeResultater) {
+            if (objects.isEmpty()) {
+                tomSoegning += 1;
+            }
+        }
+
+        if(tomSoegning == 0){
+            System.out.println("Der blev ikke fundet nogle resultater");
+        }
+
     }
 
     //Søger i den statiske list samletProgrammer under KrediteringSystem.
