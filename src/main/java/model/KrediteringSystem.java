@@ -3,6 +3,7 @@ package model;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class KrediteringSystem {
 
@@ -33,12 +34,12 @@ public class KrediteringSystem {
         program1.addRolle("Tekstforfatter", "Tekstforfatter");
         System.out.println(program1.udskrivRollerIProgram());
         program1.getRollerIProgram().get(0).tilknytPersonTilRolle(new Person("Hans", "Hansen", LocalDate.of(1965, 11, 30), "Danmark"));
-        program1.getRollerIProgram().get(1).tilknytPersonTilRolle(new Person("Peter", "Petersen", LocalDate.of(1999, 1, 14), "Danmark"));
-        program1.getRollerIProgram().get(2).tilknytPersonTilRolle(new Person("Lonnie", "Lonniesen", LocalDate.of(2010, 4, 18), "Danmark"));
-        program1.getRollerIProgram().get(3).tilknytPersonTilRolle(new Person("Søren", "Sørensen", LocalDate.of(1987, 8, 1), "Tyskland"));
+        program1.getRollerIProgram().get(6).tilknytPersonTilRolle(new Person("Peter", "Petersen", LocalDate.of(1999, 1, 14), "Danmark"));
+        program1.getRollerIProgram().get(3).tilknytPersonTilRolle(new Person("Lonnie", "Lonniesen", LocalDate.of(2010, 4, 18), "Danmark"));
+        program1.getRollerIProgram().get(2).tilknytPersonTilRolle(new Person("Søren", "Sørensen", LocalDate.of(1987, 8, 1), "Tyskland"));
         program1.getRollerIProgram().get(4).tilknytPersonTilRolle(new Person("Gitte", "Gittesen", LocalDate.of(1998, 8, 29), "Danmark"));
         program1.getRollerIProgram().get(5).tilknytPersonTilRolle(new Person("Sofie", "Sofiesen", LocalDate.of(1988, 2, 3), "Danmark"));
-        program1.getRollerIProgram().get(6).tilknytPersonTilRolle(new Person("Thomas", "Thomassen", LocalDate.of(1998, 6, 12), "Sverige"));
+        program1.getRollerIProgram().get(1).tilknytPersonTilRolle(new Person("Thomas", "Thomassen", LocalDate.of(1998, 6, 12), "Sverige"));
         System.out.println(program1.udskrivRollerIProgram());
         System.out.println("........-------------''''''''");
         program1.udskrivKreditering(producent);
@@ -83,7 +84,19 @@ public class KrediteringSystem {
         System.out.println(program1.getRollerIProgram());
         System.out.println("........-------------''''''''");
         System.out.println(udskrivKreditering(producent, program1));
-
+        System.out.println(udskrivRollerIProgram(program1));
+        if(program1.getTitel().contains("ør")){
+            System.out.println("Det gør den!");
+        }
+        System.out.println("........-------------''''''''");
+        System.out.println("........-------------''''''''");
+        System.out.println("........-------------''''''''");
+        Soeg.soege("r");
+        System.out.println(Soeg.getSoegeResultater());
+        Soeg.soege("e");
+        System.out.println(Soeg.getSoegeResultater());
+        System.out.println(Soeg.soegPaaID(program1.getProgramID()));
+        System.out.println(Soeg.soegPaaID(UUID.randomUUID()));
     }
 
     public static void opretProducent(String navn){
@@ -92,7 +105,7 @@ public class KrediteringSystem {
 
     public static void opretProgram(Producent producent, String navn){
         producent.opretProgram(navn);
-            }
+    }
 
     //Laver rolle i programmet i rollerIProgram-listen, uden at tilknytte person til rollen.
     public static void addRolle(Program program, String navn, String type){
