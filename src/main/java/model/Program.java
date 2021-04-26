@@ -19,6 +19,11 @@ public class Program {
 
     //Laver rolle i programmet i rollerIProgram-listen, uden at tilknytte person til rollen.
     public void addRolle(String navn, String type){
+        for(Rolle rolleIProgram : getRollerIProgram()){
+            if(rolleIProgram.getNavn().equals(navn) && rolleIProgram.getType().equals(type)){
+                return;
+            }
+        }
         Rolle rolle = new Rolle(navn, type);
         rollerIProgram.add(rolle);
         Rolle.addRolleType(rolle);
@@ -26,6 +31,11 @@ public class Program {
 
     //Laver rolle i programmet i rollerIProgram-listen, og tilknytter person til rollen.
     public void addRolle(String navn, String type, Person person){
+        for(Rolle rolleIProgram : getRollerIProgram()){
+            if(rolleIProgram.getNavn().equals(navn) && rolleIProgram.getType().equals(type)){
+                return;
+            }
+        }
         Rolle rolle = new Rolle(navn, type, person);
         rollerIProgram.add(rolle);
         Rolle.addRolleType(rolle);
@@ -48,17 +58,19 @@ public class Program {
 
     //Udskriver krediteringen sorteret i forhold til static-listen rolleTyper i Rolle-klassen.
     //Der skal fikses så den ikke skriver typer ud, som ikke er i programmet.
-    public void udskrivKreditering(Producent producent){
-        System.out.println("Programmet er lavet af " + producent + "\n");
+    public String udskrivKreditering(Producent producent){
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("Programmet er lavet af ").append(producent).append("\n\n");
         for(String type : Rolle.getRolleTyper()){
-            System.out.println(type + ":");
+            stringBuilder.append(type).append("\n");
             for(Rolle rolle : rollerIProgram){
                 if(rolle.getType().equals(type)){
-                    System.out.println(rolle);
+                    stringBuilder.append(rolle).append("\n");
                 }
             }
-            System.out.println("");
+            stringBuilder.append("\n");
         }
+        return stringBuilder.toString();
     }
 
     @Override

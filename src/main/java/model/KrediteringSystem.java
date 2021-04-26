@@ -5,6 +5,7 @@ import view.Main;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class KrediteringSystem {
 
@@ -35,12 +36,12 @@ public class KrediteringSystem {
         program1.addRolle("Tekstforfatter", "Tekstforfatter");
         System.out.println(program1.udskrivRollerIProgram());
         program1.getRollerIProgram().get(0).tilknytPersonTilRolle(new Person("Hans", "Hansen", LocalDate.of(1965, 11, 30), "Danmark"));
-        program1.getRollerIProgram().get(1).tilknytPersonTilRolle(new Person("Peter", "Petersen", LocalDate.of(1999, 1, 14), "Danmark"));
-        program1.getRollerIProgram().get(2).tilknytPersonTilRolle(new Person("Lonnie", "Lonniesen", LocalDate.of(2010, 4, 18), "Danmark"));
-        program1.getRollerIProgram().get(3).tilknytPersonTilRolle(new Person("Søren", "Sørensen", LocalDate.of(1987, 8, 1), "Tyskland"));
+        program1.getRollerIProgram().get(6).tilknytPersonTilRolle(new Person("Peter", "Petersen", LocalDate.of(1999, 1, 14), "Danmark"));
+        program1.getRollerIProgram().get(3).tilknytPersonTilRolle(new Person("Lonnie", "Lonniesen", LocalDate.of(2010, 4, 18), "Danmark"));
+        program1.getRollerIProgram().get(2).tilknytPersonTilRolle(new Person("Søren", "Sørensen", LocalDate.of(1987, 8, 1), "Tyskland"));
         program1.getRollerIProgram().get(4).tilknytPersonTilRolle(new Person("Gitte", "Gittesen", LocalDate.of(1998, 8, 29), "Danmark"));
         program1.getRollerIProgram().get(5).tilknytPersonTilRolle(new Person("Sofie", "Sofiesen", LocalDate.of(1988, 2, 3), "Danmark"));
-        program1.getRollerIProgram().get(6).tilknytPersonTilRolle(new Person("Thomas", "Thomassen", LocalDate.of(1998, 6, 12), "Sverige"));
+        program1.getRollerIProgram().get(1).tilknytPersonTilRolle(new Person("Thomas", "Thomassen", LocalDate.of(1998, 6, 12), "Sverige"));
         System.out.println(program1.udskrivRollerIProgram());
         System.out.println("........-------------''''''''");
         program1.udskrivKreditering(producent);
@@ -62,7 +63,7 @@ public class KrediteringSystem {
         System.out.println(getSamletProducenter());
         System.out.println("........-------------''''''''");
         System.out.println(getSamletProgrammer());
-        opretprogram(getSamletProducenter().get(0),"programTest");
+        opretProgram(getSamletProducenter().get(0),"programTest");
         System.out.println(getSamletProgrammer());
         System.out.println("........-------------''''''''");
         System.out.println(getSamletProducenter());
@@ -70,13 +71,35 @@ public class KrediteringSystem {
         System.out.println(getSamletRoller());
         System.out.println(getSamletPersoner());
         System.out.println("........-------------''''''''");
-        udskrivKreditering(producent, program1);
+        System.out.println(udskrivKreditering(producent, program1));
         System.out.println("........-------------''''''''");
         System.out.println("........-------------''''''''");
         System.out.println("........-------------''''''''");
         System.out.println(testRolle);
         System.out.println(nyPerson);
         System.out.println(program1.getRollerIProgram());
+        System.out.println("........-------------''''''''");
+        System.out.println("........-------------''''''''");
+        System.out.println("........-------------''''''''");
+        System.out.println("........-------------''''''''");
+        System.out.println(program1.udskrivKreditering(producent));
+        System.out.println(program1.getRollerIProgram());
+        System.out.println("........-------------''''''''");
+        System.out.println(udskrivKreditering(producent, program1));
+        System.out.println(udskrivRollerIProgram(program1));
+        if(program1.getTitel().contains("ør")){
+            System.out.println("Det gør den!");
+        }
+        System.out.println("........-------------''''''''");
+        System.out.println("........-------------''''''''");
+        System.out.println("........-------------''''''''");
+        Soeg.soege("r");
+        System.out.println(Soeg.getSoegeResultater());
+        Soeg.soege("e");
+        System.out.println(Soeg.getSoegeResultater());
+        System.out.println(Soeg.soegPaaID(program1.getProgramID()));
+        System.out.println(Soeg.soegPaaID(UUID.randomUUID()));
+        Soeg.soege("x");
         Main.main(args);
     }
 
@@ -84,68 +107,42 @@ public class KrediteringSystem {
         new Producent(navn);
     }
 
-    public static void opretprogram(Producent producent, String navn){
-        for(Producent producenten : getSamletProducenter()){
-            if(producenten.equals(producent)){
-                new Program(navn);
-                return;
-            }
-        }
-        System.out.println("Programmet kunne ikke oprettes.");
+    public static void opretProgram(Producent producent, String navn){
+        producent.opretProgram(navn);
     }
 
     //Laver rolle i programmet i rollerIProgram-listen, uden at tilknytte person til rollen.
     public static void addRolle(Program program, String navn, String type){
-        Rolle rolle = new Rolle(navn, type);
-        program.getRollerIProgram().add(rolle);
-        Rolle.addRolleType(rolle);
+        program.addRolle(navn, type);
     }
 
     //Laver rolle i programmet i rollerIProgram-listen, og tilknytter person til rollen.
     public static void addRolle(Program program, String navn, String type, Person person){
-        Rolle rolle = new Rolle(navn, type, person);
-        program.getRollerIProgram().add(rolle);
-        Rolle.addRolleType(rolle);
+        program.addRolle(navn, type, person);
     }
 
     //Fjerner den valgte rolle fra programmet.
     public static void fjernRolle(Program program, Rolle rolle){
-        program.getRollerIProgram().remove(rolle);
-        rolle.fjernPersonFraRolle(rolle.getSpillesAf());
-        getSamletRoller().remove(rolle);
+        program.fjernRolle(rolle);
     }
 
     public static String udskrivRollerIProgram(Program program) {
-        StringBuilder returner = new StringBuilder();
-        for(Rolle roller : program.getRollerIProgram()){
-            returner.append(roller);
-            returner.append("\n");
-        }
-        return returner.toString();
+        return program.udskrivRollerIProgram();
     }
 
     //Udskriver krediteringen sorteret i forhold til static-listen rolleTyper i Rolle-klassen.
     //Der skal fikses så den ikke skriver typer ud, som ikke er i programmet.
-    public static void udskrivKreditering(Producent producent, Program program){
-        System.out.println("Programmet er lavet af " + producent + "\n");
-        for(String type : Rolle.getRolleTyper()){
-            System.out.println(type + ":");
-            for(Rolle rolle : program.getRollerIProgram()){
-                if(rolle.getType().equals(type)){
-                    System.out.println(rolle);
-                }
-            }
-            System.out.println("");
-        }
+    public static String udskrivKreditering(Producent producent, Program program){
+        return program.udskrivKreditering(producent);
     }
 
     //Tilknyt person til rollen.
-    public void tilknytPersonTilRolle(Rolle rolle, Person person){
+    public static void tilknytPersonTilRolle(Rolle rolle, Person person){
         rolle.setSpillesAf(person);
     }
 
     //Fjern person fra rollen.
-    public void fjernPersonFraRolle(Rolle rolle, Person person){
+    public static void fjernPersonFraRolle(Rolle rolle, Person person){
         if(rolle.getSpillesAf().equals(person)){
             rolle.setSpillesAf(null);
         }
