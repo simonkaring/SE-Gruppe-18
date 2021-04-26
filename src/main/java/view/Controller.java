@@ -22,7 +22,7 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
 import model.KrediteringSystem;
-import model.Producent;
+import model.*;
 import model.Program;
 
 import java.util.ArrayList;

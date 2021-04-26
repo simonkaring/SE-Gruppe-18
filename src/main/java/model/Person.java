@@ -74,6 +74,10 @@ public class Person {
         return Period.between(alder, LocalDate.now()).getYears();
     }
 
+    public LocalDate getAlderDate() {
+        return alder;
+    }
+
     public String getAlderDato() {
         return alder.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
     }
