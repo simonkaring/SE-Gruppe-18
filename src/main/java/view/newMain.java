@@ -5,4 +5,3 @@ public class newMain {
         Main.main(args);
     }
 }
-

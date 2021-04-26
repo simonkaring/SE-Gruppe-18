@@ -34,7 +34,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
@@ -43,9 +43,12 @@
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="480.0" prefWidth="720.0" VBox.vgrow="ALWAYS">
          <children>
             <ListView fx:id="listView" layoutX="14.0" layoutY="7.0" prefHeight="467.0" prefWidth="320.0" />
-            <Button fx:id="jButton" layoutX="360.0" layoutY="139.0" mnemonicParsing="false" onAction="#listViewButtonPushed" prefHeight="29.0" prefWidth="102.0" text="Se Krediteringer" />
-            <TextArea fx:id="textArea" layoutX="384.0" layoutY="240.0" prefHeight="200.0" prefWidth="200.0" />
-            <Button fx:id="jButton1" layoutX="533.0" layoutY="139.0" mnemonicParsing="false" onAction="#changeScene" prefHeight="29.0" prefWidth="102.0" text="Rediger" />
+            <Button fx:id="seeCredits" layoutX="360.0" layoutY="122.0" mnemonicParsing="false" onAction="#listViewButtonPushed" prefHeight="29.0" prefWidth="102.0" text="Se Krediteringer" />
+            <Button fx:id="editCredits" layoutX="360.0" layoutY="186.0" mnemonicParsing="false" onAction="#changeScene" prefHeight="29.0" prefWidth="119.0" text="Rediger Kreditering" />
+            <Button fx:id="searchButton" layoutX="617.0" layoutY="56.0" mnemonicParsing="false" text="Søg" />
+            <TextField fx:id="searchTextField" layoutX="360.0" layoutY="56.0" prefHeight="25.0" prefWidth="235.0" />
+            <TextField fx:id="programNameTextField" layoutX="360.0" layoutY="378.0" prefHeight="25.0" prefWidth="235.0" />
+            <Button fx:id="addProgramButton" layoutX="617.0" layoutY="378.0" mnemonicParsing="false" onAction="#addProgramButtonPushed" text="Tilføj Program" />
          </children>
     </AnchorPane>
   </children>

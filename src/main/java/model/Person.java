@@ -13,6 +13,7 @@ public class Person {
     private String nationalitet;
     private LocalDate alder;
     private List<Rolle> roller;
+    private String rolle;
 
     public Person(String fornavn, String efternavn, LocalDate alder, String nationalitet) {
         this.personID = UUID.randomUUID();
@@ -81,5 +82,12 @@ public class Person {
 
     public void setRoller(List<Rolle> roller) {
         this.roller = roller;
+    }
+    public String getRolle() {
+        return rolle;
+    }
+
+    public void setRolle(String rolle) {
+        this.rolle = rolle;
     }
 }

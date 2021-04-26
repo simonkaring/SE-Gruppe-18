@@ -1,5 +1,7 @@
 package model;
 
+import view.Main;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -75,7 +77,7 @@ public class KrediteringSystem {
         System.out.println(testRolle);
         System.out.println(nyPerson);
         System.out.println(program1.getRollerIProgram());
-
+        Main.main(args);
     }
 
     public static void opretProducent(String navn){
