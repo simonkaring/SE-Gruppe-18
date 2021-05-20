@@ -10,41 +10,81 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.*;
+
+import java.io.IOException;
 import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class editorController {
+public class EditorController {
     //Initlaizer alle FXML objekterne
-    @FXML private TableView<Person> tableView;
-    @FXML private TableColumn fornavnColumn;
-    @FXML private TableColumn efternavnColumn;
-    @FXML private TableColumn alderColumn;
-    @FXML private TableColumn nationalitetColumn;
-    @FXML private TableColumn rolleColumn;
-    @FXML private TextField fornavnTextField;
-    @FXML private TextField efternavnTextField;
-    @FXML private TextField nationalitetTextField;
-    @FXML private TextField rolleTextField;
-    @FXML private DatePicker dobDatePicker;
-    @FXML private TableView<Rolle> rolleTableView;
-     String title;
+    @FXML
+    private TableView<Person> tableView;
+    @FXML
+    private TableColumn fornavnColumn;
+    @FXML
+    private TableColumn efternavnColumn;
+    @FXML
+    private TableColumn alderColumn;
+    @FXML
+    private TableColumn nationalitetColumn;
+    @FXML
+    private TableColumn rolleColumn;
+    @FXML
+    private TextField fornavnTextField;
+    @FXML
+    private TextField efternavnTextField;
+    @FXML
+    private TextField nationalitetTextField;
+    @FXML
+    private TextField rolleTextField;
+    @FXML
+    private DatePicker dobDatePicker;
+    @FXML
+    private TableView<Rolle> rolleTableView;
 
+    Program currentProgram;
 
-        //Metode til at tilføje alle medvirkende af et program ind i tableView tabellen
+    //Metode til at tilføje alle medvirkende af et program ind i tableView tabellen
     public ObservableList<Person> getActors() {
+        TitleHolder holder = TitleHolder.getInstance();
+        System.out.println(holder.getTitle());
         ObservableList<Person> actors = FXCollections.observableArrayList();
         ArrayList<Producent> producent = new ArrayList<>(KrediteringSystem.getSamletProducenter());
-        for (Producent p  : producent ){
+        for (Producent p : producent) {
             ArrayList<Program> programs = new ArrayList<>(p.getProgrammer());
-            for (Program pro : programs ){
-               if (pro.getTitel().equals(title)){
-
-               }
+            for (Program pro : programs) {
+                if (pro.getTitel().equals(holder.getTitle())) {
+                    System.out.println("Finds program");
+                    ArrayList<Rolle> rolle = new ArrayList<>(pro.getRollerIProgram());
+                    System.out.println("Size of role array "+rolle.size());
+                    for (Rolle role : rolle) {
+                        System.out.println("Adds actor");
+                        actors.add(role.getSpillesAf());
+                        rolleTableView.getItems().add(role);
+                    }
+                }
             }
         }
         return actors;
+    }
+    public Program findProgram(){
+        TitleHolder holder = TitleHolder.getInstance();
+        ArrayList<Producent> producent = new ArrayList<>(KrediteringSystem.getSamletProducenter());
+        for(Producent p : producent){
+            ArrayList<Program> programs = new ArrayList<>(p.getProgrammer());
+            for(Program pro : programs){
+                if (pro.getTitel().equals(holder.getTitle())){
+                    return pro;
+                }
+                else{
+                    return null;
+                }
+            }
+
+        }
+        return null;
     }
 
     //Argumenter der sker når scenen initializer. Specificer hvad for nogle værdier de forskellige kolonner skal bruge.
@@ -54,24 +94,43 @@ public class editorController {
         efternavnColumn.setCellValueFactory(new PropertyValueFactory<Person, String>("efternavn"));
         alderColumn.setCellValueFactory(new PropertyValueFactory<Person, LocalDate>("alder"));
         nationalitetColumn.setCellValueFactory(new PropertyValueFactory<Person, String>("nationalitet"));
-        tableView.setItems(getActors());
         rolleColumn.setCellValueFactory(new PropertyValueFactory<>("navn"));
+        tableView.setItems(getActors());
+        Stage stage = new Stage();
+        currentProgram = findProgram();
+
     }
+
     //Knap der tilføjer en ny medvirkende til programmet og fremviser det i listen.
-    public void onAddButtonPush(){
-        Person p = new Person (fornavnTextField.getText(), efternavnTextField.getText(),dobDatePicker.getValue(),nationalitetTextField.getText());
+    public void onAddButtonPush() {
+        Person p = new Person(fornavnTextField.getText(), efternavnTextField.getText(), dobDatePicker.getValue(), nationalitetTextField.getText());
         tableView.getItems().add(p);
+        //TODO Eventuelt tilføj ny tekstfield hvor man kan definer type af rolle eller erstat type med navn. (Burde man vise hvad navnet på rollen var, eller hvad for en type rolle det var?)
         Rolle r = new Rolle(rolleTextField.getText(), null, p);
         rolleTableView.getItems().add(r);
+        currentProgram.addRolle(rolleTextField.getText(),null, p);
+
     }
+
     //Knap der fjerner en medvirkende i programmet og fjerner den medvirkende i listen.
-    public void onRemoveButtonPush(){
+    public void onRemoveButtonPush() {
+        ObservableList<Rolle> temprolle = rolleTableView.getSelectionModel().getSelectedItems();
+        ArrayList<Rolle> roller = new ArrayList<>(currentProgram.getRollerIProgram());
+            for(Rolle rolle : roller){
+                if(temprolle.get(0).getRolleID()==rolle.getRolleID()) {
+                    System.out.println(temprolle.get(0).getSpillesAf().getFornavn() + " is the person thats getting removed");
+                    System.out.println("Sucessfully removed the role!");
+                    currentProgram.fjernRolle(rolle);
+
+                }
+            }
         tableView.getItems().removeAll(tableView.getSelectionModel().getSelectedItems());
         rolleTableView.getItems().removeAll(rolleTableView.getSelectionModel().getSelectedItems());
     }
+
     //Knap der henter dataen om en valgt medvirkende og udfylder den i tekstfelterne på højre side.
-    public void onGetDataButtonPushed(){
-        if (tableView.getSelectionModel().getSelectedItems() != null){
+    public void onGetDataButtonPushed() {
+        if (tableView.getSelectionModel().getSelectedItems() != null) {
 
             int index = tableView.getSelectionModel().getSelectedIndex();
             Person person = tableView.getItems().get(index);
@@ -83,8 +142,9 @@ public class editorController {
             rolleTextField.setText(rolle.getNavn());
         }
     }
+
     //Knap der erstatter data på en valgt medvirkende.
-    public void onSetDataButtonPushed(){
+    public void onSetDataButtonPushed() {
         if (tableView.getSelectionModel().getSelectedItems() != null) {
 
             Person person = tableView.getSelectionModel().getSelectedItem();
@@ -100,22 +160,31 @@ public class editorController {
             rolleTableView.getItems().add(rolleTableView.getSelectionModel().getSelectedIndex(), rolle);
             rolleTableView.getItems().remove(rolleTableView.getSelectionModel().getSelectedIndex() - 1);
             rolleTableView.refresh();
+
+            ArrayList<Rolle> roller = new ArrayList<>(currentProgram.getRollerIProgram());
+                for(Rolle rolleliste : roller){
+                    if (rolle.getRolleID()==rolleliste.getRolleID()){
+                        int i = roller.indexOf(rolleliste);
+                        roller.get(i).setNavn(rolleTextField.getText());
+                        roller.get(i).setSpillesAf(person);
+                    }
+                }
         }
     }
+
     //Synkroniser den valgte medvirkende med den rigtige rolle i den anden tabel.
-    public void SyncronizerolleTableView(){
+    public void SyncronizerolleTableView() {
         int i = tableView.getSelectionModel().getSelectedIndex();
         rolleTableView.getSelectionModel().select(i);
     }
+
     //Synkroniser den valgte rolle med den rigtige medvirkende i den anden tabel.
-    public void SyncronizeTableView(){
+    public void SyncronizeTableView() {
         int i = rolleTableView.getSelectionModel().getSelectedIndex();
         tableView.getSelectionModel().select(i);
     }
-    //Bruges til at få titel af programmet baseret fra valg i tidligere scene.
-    public void getTitle(String s) {
-        title = s;
-    }
+
 }
+
 
 
