@@ -58,6 +58,7 @@ public class ProgramListController {
         if(listView.getSelectionModel().getSelectedItem() != null) {
             TitleHolder holder = TitleHolder.getInstance();
             holder.setTitle(listView.getSelectionModel().getSelectedItem().toString());
+            holder.setIsViewer(false);
             try {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("editor.fxml"));
                 Parent root = fxmlLoader.load();
@@ -69,8 +70,21 @@ public class ProgramListController {
             }
         }
     }
-    public String getTitle(){
-        return listView.getSelectionModel().getSelectedItem().toString();
+    public void openViewerPage(){
+        if(listView.getSelectionModel().getSelectedItem() != null) {
+            TitleHolder holder = TitleHolder.getInstance();
+            holder.setTitle(listView.getSelectionModel().getSelectedItem().toString());
+            holder.setIsViewer(true);
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("editor.fxml"));
+                Parent root = fxmlLoader.load();
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.show();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
 

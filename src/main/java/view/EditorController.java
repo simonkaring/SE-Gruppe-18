@@ -43,6 +43,16 @@ public class EditorController {
     private DatePicker dobDatePicker;
     @FXML
     private TableView<Rolle> rolleTableView;
+    @FXML private Button tilfojButton;
+    @FXML private Button fjernButton;
+    @FXML private Button hentButton;
+    @FXML private Button saetButton;
+
+    @FXML private Label fornavnLabel;
+    @FXML private Label efternavnLabel;
+    @FXML private Label dobLabel;
+    @FXML private Label nationalitetLabel;
+    @FXML private Label rolleLabel;
 
     Program currentProgram;
 
@@ -76,14 +86,12 @@ public class EditorController {
             ArrayList<Program> programs = new ArrayList<>(p.getProgrammer());
             for(Program pro : programs){
                 if (pro.getTitel().equals(holder.getTitle())){
+                    System.out.println("Sucessfully found program");
                     return pro;
                 }
-                else{
-                    return null;
-                }
             }
-
         }
+        System.out.println("Did not find matching program title");
         return null;
     }
 
@@ -98,7 +106,8 @@ public class EditorController {
         tableView.setItems(getActors());
         Stage stage = new Stage();
         currentProgram = findProgram();
-
+        System.out.println(TitleHolder.getInstance().getIsViewer());
+        hideGuiElements(TitleHolder.getInstance().getIsViewer());
     }
 
     //Knap der tilføjer en ny medvirkende til programmet og fremviser det i listen.
@@ -109,7 +118,6 @@ public class EditorController {
         Rolle r = new Rolle(rolleTextField.getText(), null, p);
         rolleTableView.getItems().add(r);
         currentProgram.addRolle(rolleTextField.getText(),null, p);
-
     }
 
     //Knap der fjerner en medvirkende i programmet og fjerner den medvirkende i listen.
@@ -183,7 +191,24 @@ public class EditorController {
         int i = rolleTableView.getSelectionModel().getSelectedIndex();
         tableView.getSelectionModel().select(i);
     }
-
+    public void hideGuiElements(boolean b){
+        if(b){
+            fornavnTextField.setVisible(false);
+            efternavnTextField.setVisible(false);
+            nationalitetTextField.setVisible(false);
+            rolleTextField.setVisible(false);
+            dobDatePicker.setVisible(false);
+            tilfojButton.setVisible(false);
+            fjernButton.setVisible(false);
+            hentButton.setVisible(false);
+            saetButton.setVisible(false);
+            fornavnLabel.setVisible(false);
+            efternavnLabel.setVisible(false);
+            dobLabel.setVisible(false);
+            nationalitetLabel.setVisible(false);
+            rolleLabel.setVisible(false);
+        }
+    }
 }
 
 

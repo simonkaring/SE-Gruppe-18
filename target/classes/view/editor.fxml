@@ -46,22 +46,40 @@
   <children>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
          <children>
-            <Button layoutX="451.0" layoutY="441.0" mnemonicParsing="false" onAction="#onGetDataButtonPushed" text="Hent data" AnchorPane.leftAnchor="451.0" />
-            <Button layoutX="551.0" layoutY="441.0" mnemonicParsing="false" onAction="#onSetDataButtonPushed" text="Sæt data" />
+            <Button fx:id="hentButton" layoutX="451.0" layoutY="441.0" mnemonicParsing="false" onAction="#onGetDataButtonPushed" text="Hent data" AnchorPane.leftAnchor="451.0" />
+            <Button fx:id="saetButton" layoutX="551.0" layoutY="441.0" mnemonicParsing="false" onAction="#onSetDataButtonPushed" text="Sæt data" />
+            <Button fx:id="tilfojButton" layoutX="449.0" layoutY="388.0" mnemonicParsing="false" onAction="#onAddButtonPush" prefHeight="25.0" prefWidth="69.0" text="Tilføj" />
+            <Button fx:id="fjernButton" layoutX="549.0" layoutY="388.0" mnemonicParsing="false" onAction="#onRemoveButtonPush" prefHeight="25.0" prefWidth="64.0" text="Fjern" />
+            <Label fx:id="fornavnLabel" layoutX="477.0" layoutY="32.0" prefHeight="17.0" prefWidth="74.0" text="Fornavn">
+               <font>
+                  <Font name="System Bold Italic" size="17.0" />
+               </font>
+            </Label>
             <TextField fx:id="fornavnTextField" layoutX="477.0" layoutY="58.0" prefHeight="25.0" prefWidth="174.0" />
-            <Label layoutX="477.0" layoutY="32.0" prefHeight="17.0" prefWidth="74.0" text="Fornavn">
+            <Label fx:id="efternavnLabel" layoutX="477.0" layoutY="102.0" prefHeight="26.0" prefWidth="85.0" text="Efternavn">
                <font>
                   <Font name="System Bold Italic" size="17.0" />
                </font>
             </Label>
             <TextField fx:id="efternavnTextField" layoutX="477.0" layoutY="128.0" prefHeight="25.0" prefWidth="174.0" />
-            <Label layoutX="477.0" layoutY="102.0" prefHeight="26.0" prefWidth="85.0" text="Efternavn">
+            <Label fx:id="dobLabel" layoutX="477.0" layoutY="172.0" prefHeight="17.0" prefWidth="74.0" text="Født d.">
                <font>
                   <Font name="System Bold Italic" size="17.0" />
                </font>
             </Label>
-            <Button layoutX="449.0" layoutY="388.0" mnemonicParsing="false" onAction="#onAddButtonPush" prefHeight="25.0" prefWidth="69.0" text="Tilføj" />
-            <Button layoutX="549.0" layoutY="388.0" mnemonicParsing="false" onAction="#onRemoveButtonPush" prefHeight="25.0" prefWidth="64.0" text="Fjern" />
+            <DatePicker fx:id="dobDatePicker" layoutX="475.0" layoutY="198.0" />
+            <Label fx:id="nationalitetLabel" layoutX="477.0" layoutY="242.0" prefHeight="26.0" prefWidth="102.0" text="Nationalitet">
+               <font>
+                  <Font name="System Bold Italic" size="17.0" />
+               </font>
+            </Label>
+            <TextField fx:id="nationalitetTextField" layoutX="475.0" layoutY="268.0" prefHeight="25.0" prefWidth="174.0" />
+            <Label fx:id="rolleLabel" layoutX="477.0" layoutY="312.0" prefHeight="26.0" prefWidth="102.0" text="Rolle">
+               <font>
+                  <Font name="System Bold Italic" size="17.0" />
+               </font>
+            </Label>
+            <TextField fx:id="rolleTextField" layoutX="477.0" layoutY="338.0" prefHeight="25.0" prefWidth="174.0" />
             <TableView fx:id="tableView" layoutX="14.0" layoutY="32.0" onMouseClicked="#SyncronizerolleTableView" prefHeight="440.0" prefWidth="350.0">
               <columns>
                 <TableColumn fx:id="fornavnColumn" prefWidth="91.0" text="Fornavn" />
@@ -70,24 +88,6 @@
                 <TableColumn fx:id="nationalitetColumn" prefWidth="78.0" text="Nationalitet" />
               </columns>
             </TableView>
-            <Label layoutX="477.0" layoutY="172.0" prefHeight="17.0" prefWidth="74.0" text="Født d.">
-               <font>
-                  <Font name="System Bold Italic" size="17.0" />
-               </font>
-            </Label>
-            <DatePicker fx:id="dobDatePicker" layoutX="475.0" layoutY="198.0" />
-            <TextField fx:id="nationalitetTextField" layoutX="475.0" layoutY="268.0" prefHeight="25.0" prefWidth="174.0" />
-            <Label layoutX="477.0" layoutY="242.0" prefHeight="26.0" prefWidth="102.0" text="Nationalitet">
-               <font>
-                  <Font name="System Bold Italic" size="17.0" />
-               </font>
-            </Label>
-            <TextField fx:id="rolleTextField" layoutX="477.0" layoutY="338.0" prefHeight="25.0" prefWidth="174.0" />
-            <Label layoutX="477.0" layoutY="312.0" prefHeight="26.0" prefWidth="102.0" text="Rolle">
-               <font>
-                  <Font name="System Bold Italic" size="17.0" />
-               </font>
-            </Label>
             <TableView fx:id="rolleTableView" layoutX="364.0" layoutY="32.0" onMouseClicked="#SyncronizeTableView" prefHeight="440.0" prefWidth="74.0">
               <columns>
                   <TableColumn fx:id="rolleColumn" prefWidth="75.0" text="Rolle" />

@@ -1,5 +1,7 @@
 package model;
 
+import view.Main;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -98,6 +100,7 @@ public class KrediteringSystem {
         System.out.println(Soeg.soegPaaID(program1.getProgramID()));
         System.out.println(Soeg.soegPaaID(UUID.randomUUID()));
         Soeg.soege("x");
+        Main.main(args);
     }
 
     public static void opretProducent(String navn){
