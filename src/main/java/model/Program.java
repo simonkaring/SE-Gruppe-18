@@ -74,6 +74,20 @@ public class Program extends ConnectionDatabase {
 
     //Fjerner den valgte rolle fra programmet.
     public void fjernRolle(Rolle rolle){
+        try {
+            PreparedStatement insertStatement = connection.prepareStatement("DELETE FROM program_rolle WHERE rolle_id = ?");
+            insertStatement.setInt(1, rolle.getRolleID());
+            insertStatement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            PreparedStatement insertStatement = connection.prepareStatement("DELETE FROM roller WHERE rolle_id = ?");
+            insertStatement.setInt(1, rolle.getRolleID());
+            insertStatement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         rollerIProgram.remove(rolle);
         rolle.fjernPersonFraRolle(rolle.getSpillesAf());
     }
@@ -120,6 +134,14 @@ public class Program extends ConnectionDatabase {
     }
 
     public void setTitel(String titel) {
+        try{
+            PreparedStatement insertStatement = connection.prepareStatement("UPDATE programmer SET navn = ? WHERE id = ?");
+            insertStatement.setString(1, titel);
+            insertStatement.setInt(2, this.programID);
+            insertStatement.execute();
+        } catch(SQLException e){
+            e.printStackTrace();
+        }
         this.titel = titel;
     }
 

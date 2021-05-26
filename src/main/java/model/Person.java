@@ -19,7 +19,6 @@ public class Person extends ConnectionDatabase {
     private String nationalitet;
     private LocalDate alder;
     private List<Rolle> roller;
-    private String rolle;
 
     public Person(String fornavn, String efternavn, LocalDate alder, String nationalitet) {
         indsaetPerson(fornavn, efternavn, nationalitet, Integer.parseInt(alder.format(DateTimeFormatter.ofPattern("dd"))), Integer.parseInt(alder.format(DateTimeFormatter.ofPattern("MM"))), Integer.parseInt(alder.format(DateTimeFormatter.ofPattern("yyyy"))));
@@ -66,6 +65,14 @@ public class Person extends ConnectionDatabase {
     }
 
     public void setFornavn(String fornavn) {
+        try{
+            PreparedStatement insertStatement = connection.prepareStatement("UPDATE personer SET fornavn = ? WHERE id = ?");
+            insertStatement.setString(1, fornavn);
+            insertStatement.setInt(2, this.personID);
+            insertStatement.execute();
+        } catch(SQLException e){
+            e.printStackTrace();
+        }
         this.fornavn = fornavn;
     }
 
@@ -74,6 +81,14 @@ public class Person extends ConnectionDatabase {
     }
 
     public void setEfternavn(String efternavn) {
+        try{
+            PreparedStatement insertStatement = connection.prepareStatement("UPDATE personer SET efternavn = ? WHERE id = ?");
+            insertStatement.setString(1, efternavn);
+            insertStatement.setInt(2, this.personID);
+            insertStatement.execute();
+        } catch(SQLException e){
+            e.printStackTrace();
+        }
         this.efternavn = efternavn;
     }
 
@@ -82,6 +97,14 @@ public class Person extends ConnectionDatabase {
     }
 
     public void setNationalitet(String nationalitet) {
+        try{
+            PreparedStatement insertStatement = connection.prepareStatement("UPDATE personer SET nationalitet = ? WHERE id = ?");
+            insertStatement.setString(1, nationalitet);
+            insertStatement.setInt(2, this.personID);
+            insertStatement.execute();
+        } catch(SQLException e){
+            e.printStackTrace();
+        }
         this.nationalitet = nationalitet;
     }
 
@@ -98,6 +121,16 @@ public class Person extends ConnectionDatabase {
     }
 
     public void setAlder(LocalDate alder) {
+        try{
+            PreparedStatement insertStatement = connection.prepareStatement("UPDATE personer SET dag = ?, maaned = ?, aar = ? WHERE id = ?");
+            insertStatement.setInt(1, Integer.parseInt(alder.format(DateTimeFormatter.ofPattern("dd"))));
+            insertStatement.setInt(2, Integer.parseInt(alder.format(DateTimeFormatter.ofPattern("MM"))));
+            insertStatement.setInt(3, Integer.parseInt(alder.format(DateTimeFormatter.ofPattern("yyyy"))));
+            insertStatement.setInt(4, this.personID);
+            insertStatement.execute();
+        } catch(SQLException e){
+            e.printStackTrace();
+        }
         this.alder = alder;
     }
 
@@ -107,12 +140,5 @@ public class Person extends ConnectionDatabase {
 
     public void setRoller(List<Rolle> roller) {
         this.roller = roller;
-    }
-    public String getRolle() {
-        return rolle;
-    }
-
-    public void setRolle(String rolle) {
-        this.rolle = rolle;
     }
 }

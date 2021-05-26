@@ -18,98 +18,111 @@ public class KrediteringSystem extends ConnectionDatabase {
 
         opretForbindelse();
 
-        System.out.println("Nuværende rolle typer: " + Rolle.getRolleTyper());
-
-        Producent producent = new Producent("Top Dogs");
-        System.out.println(producent);
-        System.out.println(producent.getProgrammer());
-        producent.opretProgram("Bjørnehunden Silver", producent);
-        System.out.println(producent.getProgrammer());
-        producent.opretProgram("Rambo", producent);
-        producent.opretProgram("Terminator", producent);
-        System.out.println(producent.getProgrammer());
-        Program program1 = producent.getProgrammer().get(0);
-        program1.addRolle("Overproducer", "Producer");
-        program1.addRolle("Torben", "Skuespiller");
-        program1.addRolle("Lise", "Skuespiller");
-        program1.addRolle("Tim", "Skuespiller");
-        program1.addRolle("Henriette", "Skuespiller");
-        program1.addRolle("Lydeffekter", "Lyd");
-        program1.addRolle("Tekstforfatter", "Tekstforfatter");
-        System.out.println(program1.udskrivRollerIProgram());
-        program1.getRollerIProgram().get(0).tilknytPersonTilRolle(new Person("Hans", "Hansen", LocalDate.of(1965, 11, 30), "Danmark"));
-        program1.getRollerIProgram().get(6).tilknytPersonTilRolle(new Person("Peter", "Petersen", LocalDate.of(1999, 1, 14), "Danmark"));
-        program1.getRollerIProgram().get(3).tilknytPersonTilRolle(new Person("Lonnie", "Lonniesen", LocalDate.of(2010, 4, 18), "Danmark"));
-        program1.getRollerIProgram().get(2).tilknytPersonTilRolle(new Person("Søren", "Sørensen", LocalDate.of(1987, 8, 1), "Tyskland"));
-        program1.getRollerIProgram().get(4).tilknytPersonTilRolle(new Person("Gitte", "Gittesen", LocalDate.of(1998, 8, 29), "Danmark"));
-        program1.getRollerIProgram().get(5).tilknytPersonTilRolle(new Person("Sofie", "Sofiesen", LocalDate.of(1988, 2, 3), "Danmark"));
-        program1.getRollerIProgram().get(1).tilknytPersonTilRolle(new Person("Thomas", "Thomassen", LocalDate.of(1998, 6, 12), "Sverige"));
-        System.out.println(program1.udskrivRollerIProgram());
-        System.out.println("........-------------''''''''");
-        program1.udskrivKreditering(producent);
-        System.out.println("Nuværende rolle typer: " + Rolle.getRolleTyper());
-
-
-
-        Person nyPerson = new Person("Kasper", "Sørensen", LocalDate.of(1998, 8, 29), "Danmark");
-
-        program1.addRolle("Klipper", "Klipper", nyPerson);
-
-        nyPerson.tilknytTilRolle(program1.getRollerIProgram().get(7));
-        Rolle testRolle = new Rolle("Klipper", "Klipper");
-        Rolle.addRolleType(testRolle);
-        System.out.println("Nuværende rolle typer: " + Rolle.getRolleTyper());
-        System.out.println("........-------------''''''''");
-        program1.udskrivKreditering(producent);
-        System.out.println("........-------------''''''''");
-
-        System.out.println(getSamletProducenter());
-        opretProducent("TestProducent");
-        System.out.println(getSamletProducenter());
-        System.out.println("........-------------''''''''");
-        System.out.println(getSamletProgrammer());
-        opretProgram("programTest", getSamletProducenter().get(0));
-        System.out.println(getSamletProgrammer());
-        System.out.println("........-------------''''''''");
-        System.out.println(getSamletProducenter());
-        System.out.println(getSamletProgrammer());
-        System.out.println(getSamletRoller());
-        System.out.println(getSamletPersoner());
-        System.out.println("........-------------''''''''");
-        System.out.println(udskrivKreditering(producent, program1));
-        System.out.println("........-------------''''''''");
-        System.out.println("........-------------''''''''");
-        System.out.println("........-------------''''''''");
-        System.out.println(testRolle);
-        System.out.println(nyPerson);
-        System.out.println(program1.getRollerIProgram());
-        System.out.println("........-------------''''''''");
-        System.out.println("........-------------''''''''");
-        System.out.println("........-------------''''''''");
-        System.out.println("........-------------''''''''");
-        System.out.println(program1.udskrivKreditering(producent));
-        System.out.println(program1.getRollerIProgram());
-        System.out.println("........-------------''''''''");
-        System.out.println(udskrivKreditering(producent, program1));
-        System.out.println(udskrivRollerIProgram(program1));
-        if(program1.getTitel().contains("ør")){
-            System.out.println("Det gør den!");
-        }
-        System.out.println("........-------------''''''''");
-        System.out.println("........-------------''''''''");
-        System.out.println("........-------------''''''''");
-        Soeg.soege("r");
-        System.out.println(Soeg.getSoegeResultater());
-        Soeg.soege("e");
-        System.out.println(Soeg.getSoegeResultater());
-        System.out.println(Soeg.soegPaaID(program1.getProgramID()));
-        Soeg.soege("x");
-
-        System.out.println("........-------------''''''''");
-        System.out.println("........-------------''''''''");
-        System.out.println("........-------------''''''''");
-
-        System.out.println(program1.getRollerIProgram());
+        //System.out.println("Nuværende rolle typer: " + Rolle.getRolleTyper());
+//
+        //Producent producent = new Producent("Top Dogs");
+        //System.out.println(producent);
+        //System.out.println(producent.getProgrammer());
+        //producent.opretProgram("Bjørnehunden Silver");
+        //System.out.println(producent.getProgrammer());
+        //producent.opretProgram("Rambo");
+        //producent.opretProgram("Terminator");
+        //System.out.println(producent.getProgrammer());
+        //Program program1 = producent.getProgrammer().get(0);
+        //program1.addRolle("Overproducer", "Producer");
+        //program1.addRolle("Torben", "Skuespiller");
+        //program1.addRolle("Lise", "Skuespiller");
+        //program1.addRolle("Tim", "Skuespiller");
+        //program1.addRolle("Henriette", "Skuespiller");
+        //program1.addRolle("Lydeffekter", "Lyd");
+        //program1.addRolle("Tekstforfatter", "Tekstforfatter");
+        //System.out.println(program1.udskrivRollerIProgram());
+        //program1.getRollerIProgram().get(0).tilknytPersonTilRolle(new Person("Hans", "Hansen", LocalDate.of(1965, 11, 30), "Danmark"));
+        //program1.getRollerIProgram().get(6).tilknytPersonTilRolle(new Person("Peter", "Petersen", LocalDate.of(1999, 1, 14), "Danmark"));
+        //program1.getRollerIProgram().get(3).tilknytPersonTilRolle(new Person("Lonnie", "Lonniesen", LocalDate.of(2010, 4, 18), "Danmark"));
+        //program1.getRollerIProgram().get(2).tilknytPersonTilRolle(new Person("Søren", "Sørensen", LocalDate.of(1987, 8, 1), "Tyskland"));
+        //program1.getRollerIProgram().get(4).tilknytPersonTilRolle(new Person("Gitte", "Gittesen", LocalDate.of(1998, 8, 29), "Danmark"));
+        //program1.getRollerIProgram().get(5).tilknytPersonTilRolle(new Person("Sofie", "Sofiesen", LocalDate.of(1988, 2, 3), "Danmark"));
+        //program1.getRollerIProgram().get(1).tilknytPersonTilRolle(new Person("Thomas", "Thomassen", LocalDate.of(1998, 6, 12), "Sverige"));
+        //System.out.println(program1.udskrivRollerIProgram());
+        //System.out.println("........-------------''''''''");
+        //program1.udskrivKreditering(producent);
+        //System.out.println("Nuværende rolle typer: " + Rolle.getRolleTyper());
+//
+//
+//
+        //Person nyPerson = new Person("Kasper", "Sørensen", LocalDate.of(1998, 8, 29), "Danmark");
+//
+        //program1.addRolle("Klipper", "Klipper", nyPerson);
+//
+        //nyPerson.tilknytTilRolle(program1.getRollerIProgram().get(7));
+        //Rolle testRolle = new Rolle("Klipper", "Klipper");
+        //Rolle.addRolleType(testRolle);
+        //System.out.println("Nuværende rolle typer: " + Rolle.getRolleTyper());
+        //System.out.println("........-------------''''''''");
+        //program1.udskrivKreditering(producent);
+        //System.out.println("........-------------''''''''");
+//
+        //System.out.println(getSamletProducenter());
+        //opretProducent("TestProducent");
+        //System.out.println(getSamletProducenter());
+        //System.out.println("........-------------''''''''");
+        //System.out.println(getSamletProgrammer());
+        //opretProgram("programTest", getSamletProducenter().get(0));
+        //System.out.println(getSamletProgrammer());
+        //System.out.println("........-------------''''''''");
+        //System.out.println(getSamletProducenter());
+        //System.out.println(getSamletProgrammer());
+        //System.out.println(getSamletRoller());
+        //System.out.println(getSamletPersoner());
+        //System.out.println("........-------------''''''''");
+        //System.out.println(udskrivKreditering(producent, program1));
+        //System.out.println("........-------------''''''''");
+        //System.out.println("........-------------''''''''");
+        //System.out.println("........-------------''''''''");
+        //System.out.println(testRolle);
+        //System.out.println(nyPerson);
+        //System.out.println(program1.getRollerIProgram());
+        //System.out.println("........-------------''''''''");
+        //System.out.println("........-------------''''''''");
+        //System.out.println("........-------------''''''''");
+        //System.out.println("........-------------''''''''");
+        //System.out.println(program1.udskrivKreditering(producent));
+        //System.out.println(program1.getRollerIProgram());
+        //System.out.println("........-------------''''''''");
+        //System.out.println(udskrivKreditering(producent, program1));
+        //System.out.println(udskrivRollerIProgram(program1));
+        //if(program1.getTitel().contains("ør")){
+        //    System.out.println("Det gør den!");
+        //}
+        //System.out.println("........-------------''''''''");
+        //System.out.println("........-------------''''''''");
+        //System.out.println("........-------------''''''''");
+        //Soeg.soege("r");
+        //System.out.println(Soeg.getSoegeResultater());
+        //Soeg.soege("e");
+        //System.out.println(Soeg.getSoegeResultater());
+        //System.out.println(Soeg.soegPaaID(program1.getProgramID()));
+        //Soeg.soege("x");
+//
+        //System.out.println("........-------------''''''''");
+        //System.out.println("........-------------''''''''");
+        //System.out.println("........-------------''''''''");
+//
+        //System.out.println(program1.getRollerIProgram());
+        //producent.setNavn("Lille mus 2");
+        //program1.setTitel("Lille misser");
+        Person person = new Person("Lonnie", "Lonniesen", LocalDate.of(2010, 4, 18), "Danmark");
+        //person.setEfternavn("Hansen");
+        //person.setFornavn("Rikke");
+        //person.setNationalitet("Kina");
+        //person.setAlder(LocalDate.of(2001,8,26));
+        Producent producent = new Producent("TV6");
+        //producent.setNavn("TV2");
+        Program program = new Program("Mda i huset", producent);
+        program.setTitel("Mad i huset");
+        program.addRolle("Mand1", "Statist", person);
+        program.addRolle("Mand2", "Statist");
         Main.main(args);
     }
 
@@ -118,7 +131,7 @@ public class KrediteringSystem extends ConnectionDatabase {
     }
 
     public static void opretProgram(String navn, Producent producent){
-        producent.opretProgram(navn, producent);
+        producent.opretProgram(navn);
     }
 
     //Laver rolle i programmet i rollerIProgram-listen, uden at tilknytte person til rollen.

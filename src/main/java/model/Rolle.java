@@ -57,12 +57,27 @@ public class Rolle extends ConnectionDatabase {
 
     //Tilknyt person til rollen.
     public void tilknytPersonTilRolle(Person person){
+        try {
+            PreparedStatement insertStatement = connection.prepareStatement("UPDATE roller SET person_id = ? WHERE id = ?");
+            insertStatement.setInt(1, person.getPersonID());
+            insertStatement.setInt(1, this.rolleID);
+            insertStatement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         this.spillesAf = person;
     }
 
     //Fjern person fra rollen.
     public void fjernPersonFraRolle(Person person){
         if(this.spillesAf.equals(person)){
+            try {
+                PreparedStatement insertStatement = connection.prepareStatement("UPDATE roller SET person_id = null WHERE id = ?");
+                insertStatement.setInt(1, this.rolleID);
+                insertStatement.execute();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
             this.spillesAf = null;
         }
     }
@@ -99,6 +114,14 @@ public class Rolle extends ConnectionDatabase {
     }
 
     public void setNavn(String navn) {
+        try{
+            PreparedStatement insertStatement = connection.prepareStatement("UPDATE roller SET navn = ? WHERE id = ?");
+            insertStatement.setString(1, navn);
+            insertStatement.setInt(2, this.rolleID);
+            insertStatement.execute();
+        } catch(SQLException e){
+            e.printStackTrace();
+        }
         this.navn = navn;
     }
 
@@ -107,6 +130,14 @@ public class Rolle extends ConnectionDatabase {
     }
 
     public void setType(String type) {
+        try{
+            PreparedStatement insertStatement = connection.prepareStatement("UPDATE roller SET type = ? WHERE id = ?");
+            insertStatement.setString(1, type);
+            insertStatement.setInt(2, this.rolleID);
+            insertStatement.execute();
+        } catch(SQLException e){
+            e.printStackTrace();
+        }
         this.type = type;
     }
 

@@ -59,7 +59,7 @@ public class Controller {
         Producent producent = new Producent("Placeholder");
         int temp = producent.getProgrammer().size();
         if(programNameTextField.getText() != null) {
-            producent.opretProgram(programNameTextField.getText(), producent);
+            producent.opretProgram(programNameTextField.getText());
             listView.getItems().add(producent.getProgrammer().get(temp));
         }
     }

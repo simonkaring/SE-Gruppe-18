@@ -33,7 +33,7 @@ public class Producent extends ConnectionDatabase {
     }
 
     //Opretter et program, som bliver sat en på "programmer"-listen.
-    public void opretProgram(String navn, Producent p){
+    public void opretProgram(String navn){
         Program nytProgram = new Program(navn, this);
         programmer.add(nytProgram);
     }
@@ -54,6 +54,14 @@ public class Producent extends ConnectionDatabase {
     }
 
     public void setNavn(String navn) {
+        try{
+            PreparedStatement insertStatement = connection.prepareStatement("UPDATE producenter SET navn = ? WHERE id = ?");
+            insertStatement.setString(1, navn);
+            insertStatement.setInt(2, this.producentID);
+            insertStatement.execute();
+        } catch(SQLException e){
+            e.printStackTrace();
+        }
         this.navn = navn;
     }
 
