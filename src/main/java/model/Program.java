@@ -17,11 +17,13 @@ public class Program extends ConnectionDatabase {
     public Program(String titel, Producent producent){
         indsaetProgram(titel, producent);
         try{
-            PreparedStatement queryStatement = connection.prepareStatement("SELECT * FROM producenter");
+            int id = 0;
+            PreparedStatement queryStatement = connection.prepareStatement("SELECT * FROM programmer ORDER BY id DESC LIMIT 1");
             ResultSet queryResultSet = queryStatement.executeQuery();
             while(queryResultSet.next()){
-                new Producent(queryResultSet.getString("navn"), queryResultSet.getInt("id"));
+                id = queryResultSet.getInt("id");
             }
+            this.programID = id;
         } catch(SQLException e){
             e.printStackTrace();
         }
@@ -68,6 +70,7 @@ public class Program extends ConnectionDatabase {
         Rolle rolle = new Rolle(navn, type, person);
         rollerIProgram.add(rolle);
         Rolle.addRolleType(rolle);
+        person.getRoller().add(rolle);
         try {
             PreparedStatement insertStatement = connection.prepareStatement("Insert INTO program_rolle (program_id, rolle_id) VALUES (?,?)");
             insertStatement.setInt(1, this.programID);

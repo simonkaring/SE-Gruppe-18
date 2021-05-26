@@ -23,33 +23,48 @@ public class KrediteringSystem extends ConnectionDatabase {
         Main.main(args);
     }
 
-    // Køres ved opstart af programmet, og henter al data fra databasen og opretter objekter af det.
+    //Køres ved opstart af programmet, og henter al data fra databasen og opretter objekter af det.
     public static void opstart(){
         opretForbindelse();
-        // Indsætter producenter fra database til programmet.
+        int counter = 0;
+        //Indsætter producenter fra database til programmet.
         try {
             PreparedStatement queryStatement = connection.prepareStatement("SELECT * FROM producenter ORDER BY id");
             ResultSet queryResultSet = queryStatement.executeQuery();
+            if(!queryResultSet.isBeforeFirst()){
+                counter++;
+            }
             while(queryResultSet.next()){
                 new Producent(queryResultSet.getString("navn"), queryResultSet.getInt("id"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        // Indsætter programmer fra database til programmet.
+        //Indsætter programmer fra database til programmet.
         try {
             PreparedStatement queryStatement = connection.prepareStatement("SELECT * FROM programmer ORDER BY id");
             ResultSet queryResultSet = queryStatement.executeQuery();
+            if(!queryResultSet.isBeforeFirst()){
+                counter++;
+            }
             while(queryResultSet.next()){
-                new Program(queryResultSet.getString("navn"), queryResultSet.getInt("id"));
+                Program programmet = new Program(queryResultSet.getString("navn"), queryResultSet.getInt("id"));
+                for(Producent producent : samletProducenter){
+                    if(producent.getProducentID() == queryResultSet.getInt("producent_id")){
+                        producent.getProgrammer().add(programmet);
+                    }
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        // Indsætter personer fra database til programmet.
+        //Indsætter personer fra database til programmet.
         try {
             PreparedStatement queryStatement = connection.prepareStatement("SELECT * FROM personer ORDER BY id");
             ResultSet queryResultSet = queryStatement.executeQuery();
+            if(!queryResultSet.isBeforeFirst()){
+                counter++;
+            }
             while(queryResultSet.next()){
                 new Person(queryResultSet.getString("fornavn"),
                         queryResultSet.getString("efternavn"),
@@ -60,10 +75,13 @@ public class KrediteringSystem extends ConnectionDatabase {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        // Indsætter roller fra database til programmet.
+        //Indsætter roller fra database til programmet.
         try {
             PreparedStatement queryStatement = connection.prepareStatement("SELECT * FROM roller ORDER BY id");
             ResultSet queryResultSet = queryStatement.executeQuery();
+            if(!queryResultSet.isBeforeFirst()){
+                counter++;
+            }
             while(queryResultSet.next()){
                 if(queryResultSet.getInt("person_id") > 0){
                     Person denValgtePerson = null;
@@ -72,13 +90,37 @@ public class KrediteringSystem extends ConnectionDatabase {
                             denValgtePerson = person;
                         }
                     }
-                    new Rolle(queryResultSet.getString("navn"), queryResultSet.getString("type"), denValgtePerson, queryResultSet.getInt("id"));
+                    Rolle rolle = new Rolle(queryResultSet.getString("navn"), queryResultSet.getString("type"), denValgtePerson, queryResultSet.getInt("id"));
+                    denValgtePerson.getRoller().add(rolle);
                 } else {
                     new Rolle(queryResultSet.getString("navn"), queryResultSet.getString("type"), null, queryResultSet.getInt("id"));
                 }
             }
+
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+
+        try {
+            PreparedStatement queryStatement = connection.prepareStatement("SELECT * FROM program_rolle");
+            ResultSet queryResultSet = queryStatement.executeQuery();
+            while(queryResultSet.next()){
+                for(Program program : samletProgrammer){
+                    if(program.getProgramID() == queryResultSet.getInt("program_id")){
+                        for(Rolle rolle : samletRoller){
+                            if(rolle.getRolleID() == queryResultSet.getInt("rolle_id")){
+                                program.getRollerIProgram().add(rolle);
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        //Hvis databasen er tom, oprettes der data.
+        if(counter == 4){
+            opretData();
         }
     }
 
@@ -125,6 +167,34 @@ public class KrediteringSystem extends ConnectionDatabase {
         if(rolle.getSpillesAf().equals(person)){
             rolle.setSpillesAf(null);
         }
+    }
+
+    //Hvis databasen er tom, opret data.
+    public static void opretData(){
+        Producent producent1 = new Producent("Den vilde producent");
+        Producent producent2 = new Producent("ProdDK");
+        Producent producent3 = new Producent("Danmarks helt egen producent");
+        producent1.opretProgram("Drengerøvene");
+        producent1.opretProgram("Er sparegrisen tom?");
+        producent2.opretProgram("Den forsvundene skat");
+        producent2.opretProgram("Vild med lakridser");
+        producent3.opretProgram("Den døve bager");
+        producent3.opretProgram("Tordenskrald");
+        Person person1 = new Person("Hans", "Hansen", LocalDate.of(1965, 11, 30), "Danmark");
+        Person person2 = new Person("Peter", "Petersen", LocalDate.of(1999, 1, 14), "Danmark");
+        Person person3 = new Person("Lonnie", "Lonniesen", LocalDate.of(2010, 4, 18), "Danmark");
+        Person person4 = new Person("Søren", "Sørensen", LocalDate.of(1987, 8, 1), "Tyskland");
+        Person person5 = new Person("Gitte", "Gittesen", LocalDate.of(1998, 8, 29), "Danmark");
+        Person person6 = new Person("Sofie", "Sofiesen", LocalDate.of(1988, 2, 3), "Danmark");
+        Person person7 = new Person("Thomas", "Thomassen", LocalDate.of(1998, 6, 12), "Sverige");
+        samletProgrammer.get(0).addRolle("Producer", "Producer", person1);
+        samletProgrammer.get(0).addRolle("Thomas", "Skuespiller", person2);
+        samletProgrammer.get(0).addRolle("Signe", "Skuespiller", person3);
+        samletProgrammer.get(0).addRolle("Karsten", "Skuespiller", person4);
+        samletProgrammer.get(0).addRolle("Karstens onde tvilling", "Skuespiller", person4);
+        samletProgrammer.get(0).addRolle("Musik", "Lydteknikker", person5);
+        samletProgrammer.get(0).addRolle("Lydeffekter", "Lydteknikker", person6);
+        samletProgrammer.get(0).addRolle("Statist", "Statist", person7);
     }
 
     //Gettere og settere
