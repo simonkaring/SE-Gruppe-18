@@ -32,6 +32,13 @@ public class Producent extends ConnectionDatabase {
         KrediteringSystem.getSamletProducenter().add(this);
     }
 
+    public Producent(String navn, int producentID){
+        this.producentID = producentID;
+        this.navn = navn;
+        this.programmer = new ArrayList<>();
+        KrediteringSystem.getSamletProducenter().add(this);
+    }
+
     //Opretter et program, som bliver sat en på "programmer"-listen.
     public void opretProgram(String navn){
         Program nytProgram = new Program(navn, this);

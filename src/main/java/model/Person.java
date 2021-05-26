@@ -41,6 +41,16 @@ public class Person extends ConnectionDatabase {
         KrediteringSystem.getSamletPersoner().add(this);
     }
 
+    public Person(String fornavn, String efternavn, LocalDate alder, String nationalitet, int personID) {
+        this.personID = personID;
+        this.fornavn = fornavn;
+        this.efternavn = efternavn;
+        this.alder = alder;
+        this.nationalitet = nationalitet;
+        this.roller = new ArrayList<>();
+        KrediteringSystem.getSamletPersoner().add(this);
+    }
+
     public void tilknytTilRolle(Rolle rolle){
         rolle.tilknytPersonTilRolle(this);
     }

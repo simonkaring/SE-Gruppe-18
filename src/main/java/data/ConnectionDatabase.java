@@ -2,13 +2,10 @@ package data;
 
 import model.Person;
 import model.Producent;
-import model.Program;
-import model.Rolle;
 
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.time.LocalDate;
 
 public class ConnectionDatabase {
 
@@ -19,28 +16,10 @@ public class ConnectionDatabase {
     public static String username="postgres";
     public static String password="root";
 
-    public static void main(String[] args) {
-        opretForbindelse();
-        Producent produ = new Producent("TESTER");
-        System.out.println("Navn: " + produ.getNavn() + " ID: " + produ.getProducentID());
-        Program program1 = new Program("Test 1 - program", produ);
-        Program program2 = new Program("Test 2 - program", produ);
-        Person person1 = new Person("Helle1","Kristensen", LocalDate.of(1965, 11, 30),"Tyskland");
-        Person person2 = new Person("Helle2","Kristensen", LocalDate.of(1988, 1, 25),"Danmark");
-        Rolle rolle1 = new Rolle("THOMAS", "test", null);
-        Rolle rolle2 = new Rolle("PETER", "test", person1);
-        Rolle rolle3 = new Rolle("LONE", "test", person2);
-    }
-
     public static void opretForbindelse(){
         try {
             Class.forName("org.postgresql.Driver");
             connection = DriverManager.getConnection("jdbc:postgresql://"+host+":"+port+"/"+db_name+"", ""+username+"", ""+password+"");
-            if (connection != null) {
-                System.out.println("Connection OK");
-            } else {
-                System.out.println("Connection Failed");
-            }
         } catch (Exception e) {
             e.printStackTrace();
         }

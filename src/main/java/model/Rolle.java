@@ -55,6 +55,21 @@ public class Rolle extends ConnectionDatabase {
         KrediteringSystem.getSamletRoller().add(this);
     }
 
+    public Rolle(String navn, String type, int rolleID){
+        this.rolleID = rolleID;
+        this.navn = navn;
+        this.type = type;
+        KrediteringSystem.getSamletRoller().add(this);
+    }
+
+    public Rolle(String navn, String type, Person spillesAF, int rolleID){
+        this.rolleID = rolleID;
+        this.navn = navn;
+        this.type = type;
+        this.spillesAf = spillesAF;
+        KrediteringSystem.getSamletRoller().add(this);
+    }
+
     //Tilknyt person til rollen.
     public void tilknytPersonTilRolle(Person person){
         try {

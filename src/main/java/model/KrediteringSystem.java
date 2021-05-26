@@ -3,6 +3,9 @@ package model;
 import data.ConnectionDatabase;
 import view.Main;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,114 +19,67 @@ public class KrediteringSystem extends ConnectionDatabase {
 
     public static void main(String[] args) {
 
-        opretForbindelse();
-
-        //System.out.println("Nuværende rolle typer: " + Rolle.getRolleTyper());
-//
-        //Producent producent = new Producent("Top Dogs");
-        //System.out.println(producent);
-        //System.out.println(producent.getProgrammer());
-        //producent.opretProgram("Bjørnehunden Silver");
-        //System.out.println(producent.getProgrammer());
-        //producent.opretProgram("Rambo");
-        //producent.opretProgram("Terminator");
-        //System.out.println(producent.getProgrammer());
-        //Program program1 = producent.getProgrammer().get(0);
-        //program1.addRolle("Overproducer", "Producer");
-        //program1.addRolle("Torben", "Skuespiller");
-        //program1.addRolle("Lise", "Skuespiller");
-        //program1.addRolle("Tim", "Skuespiller");
-        //program1.addRolle("Henriette", "Skuespiller");
-        //program1.addRolle("Lydeffekter", "Lyd");
-        //program1.addRolle("Tekstforfatter", "Tekstforfatter");
-        //System.out.println(program1.udskrivRollerIProgram());
-        //program1.getRollerIProgram().get(0).tilknytPersonTilRolle(new Person("Hans", "Hansen", LocalDate.of(1965, 11, 30), "Danmark"));
-        //program1.getRollerIProgram().get(6).tilknytPersonTilRolle(new Person("Peter", "Petersen", LocalDate.of(1999, 1, 14), "Danmark"));
-        //program1.getRollerIProgram().get(3).tilknytPersonTilRolle(new Person("Lonnie", "Lonniesen", LocalDate.of(2010, 4, 18), "Danmark"));
-        //program1.getRollerIProgram().get(2).tilknytPersonTilRolle(new Person("Søren", "Sørensen", LocalDate.of(1987, 8, 1), "Tyskland"));
-        //program1.getRollerIProgram().get(4).tilknytPersonTilRolle(new Person("Gitte", "Gittesen", LocalDate.of(1998, 8, 29), "Danmark"));
-        //program1.getRollerIProgram().get(5).tilknytPersonTilRolle(new Person("Sofie", "Sofiesen", LocalDate.of(1988, 2, 3), "Danmark"));
-        //program1.getRollerIProgram().get(1).tilknytPersonTilRolle(new Person("Thomas", "Thomassen", LocalDate.of(1998, 6, 12), "Sverige"));
-        //System.out.println(program1.udskrivRollerIProgram());
-        //System.out.println("........-------------''''''''");
-        //program1.udskrivKreditering(producent);
-        //System.out.println("Nuværende rolle typer: " + Rolle.getRolleTyper());
-//
-//
-//
-        //Person nyPerson = new Person("Kasper", "Sørensen", LocalDate.of(1998, 8, 29), "Danmark");
-//
-        //program1.addRolle("Klipper", "Klipper", nyPerson);
-//
-        //nyPerson.tilknytTilRolle(program1.getRollerIProgram().get(7));
-        //Rolle testRolle = new Rolle("Klipper", "Klipper");
-        //Rolle.addRolleType(testRolle);
-        //System.out.println("Nuværende rolle typer: " + Rolle.getRolleTyper());
-        //System.out.println("........-------------''''''''");
-        //program1.udskrivKreditering(producent);
-        //System.out.println("........-------------''''''''");
-//
-        //System.out.println(getSamletProducenter());
-        //opretProducent("TestProducent");
-        //System.out.println(getSamletProducenter());
-        //System.out.println("........-------------''''''''");
-        //System.out.println(getSamletProgrammer());
-        //opretProgram("programTest", getSamletProducenter().get(0));
-        //System.out.println(getSamletProgrammer());
-        //System.out.println("........-------------''''''''");
-        //System.out.println(getSamletProducenter());
-        //System.out.println(getSamletProgrammer());
-        //System.out.println(getSamletRoller());
-        //System.out.println(getSamletPersoner());
-        //System.out.println("........-------------''''''''");
-        //System.out.println(udskrivKreditering(producent, program1));
-        //System.out.println("........-------------''''''''");
-        //System.out.println("........-------------''''''''");
-        //System.out.println("........-------------''''''''");
-        //System.out.println(testRolle);
-        //System.out.println(nyPerson);
-        //System.out.println(program1.getRollerIProgram());
-        //System.out.println("........-------------''''''''");
-        //System.out.println("........-------------''''''''");
-        //System.out.println("........-------------''''''''");
-        //System.out.println("........-------------''''''''");
-        //System.out.println(program1.udskrivKreditering(producent));
-        //System.out.println(program1.getRollerIProgram());
-        //System.out.println("........-------------''''''''");
-        //System.out.println(udskrivKreditering(producent, program1));
-        //System.out.println(udskrivRollerIProgram(program1));
-        //if(program1.getTitel().contains("ør")){
-        //    System.out.println("Det gør den!");
-        //}
-        //System.out.println("........-------------''''''''");
-        //System.out.println("........-------------''''''''");
-        //System.out.println("........-------------''''''''");
-        //Soeg.soege("r");
-        //System.out.println(Soeg.getSoegeResultater());
-        //Soeg.soege("e");
-        //System.out.println(Soeg.getSoegeResultater());
-        //System.out.println(Soeg.soegPaaID(program1.getProgramID()));
-        //Soeg.soege("x");
-//
-        //System.out.println("........-------------''''''''");
-        //System.out.println("........-------------''''''''");
-        //System.out.println("........-------------''''''''");
-//
-        //System.out.println(program1.getRollerIProgram());
-        //producent.setNavn("Lille mus 2");
-        //program1.setTitel("Lille misser");
-        Person person = new Person("Lonnie", "Lonniesen", LocalDate.of(2010, 4, 18), "Danmark");
-        //person.setEfternavn("Hansen");
-        //person.setFornavn("Rikke");
-        //person.setNationalitet("Kina");
-        //person.setAlder(LocalDate.of(2001,8,26));
-        Producent producent = new Producent("TV6");
-        //producent.setNavn("TV2");
-        Program program = new Program("Mda i huset", producent);
-        program.setTitel("Mad i huset");
-        program.addRolle("Mand1", "Statist", person);
-        program.addRolle("Mand2", "Statist");
+        opstart();
         Main.main(args);
+    }
+
+    // Køres ved opstart af programmet, og henter al data fra databasen og opretter objekter af det.
+    public static void opstart(){
+        opretForbindelse();
+        // Indsætter producenter fra database til programmet.
+        try {
+            PreparedStatement queryStatement = connection.prepareStatement("SELECT * FROM producenter ORDER BY id");
+            ResultSet queryResultSet = queryStatement.executeQuery();
+            while(queryResultSet.next()){
+                new Producent(queryResultSet.getString("navn"), queryResultSet.getInt("id"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        // Indsætter programmer fra database til programmet.
+        try {
+            PreparedStatement queryStatement = connection.prepareStatement("SELECT * FROM programmer ORDER BY id");
+            ResultSet queryResultSet = queryStatement.executeQuery();
+            while(queryResultSet.next()){
+                new Program(queryResultSet.getString("navn"), queryResultSet.getInt("id"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        // Indsætter personer fra database til programmet.
+        try {
+            PreparedStatement queryStatement = connection.prepareStatement("SELECT * FROM personer ORDER BY id");
+            ResultSet queryResultSet = queryStatement.executeQuery();
+            while(queryResultSet.next()){
+                new Person(queryResultSet.getString("fornavn"),
+                        queryResultSet.getString("efternavn"),
+                        LocalDate.of(queryResultSet.getInt("aar"), queryResultSet.getInt("maaned"), queryResultSet.getInt("dag")),
+                        queryResultSet.getString("nationalitet"), queryResultSet.getInt("id")
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        // Indsætter roller fra database til programmet.
+        try {
+            PreparedStatement queryStatement = connection.prepareStatement("SELECT * FROM roller ORDER BY id");
+            ResultSet queryResultSet = queryStatement.executeQuery();
+            while(queryResultSet.next()){
+                if(queryResultSet.getInt("person_id") > 0){
+                    Person denValgtePerson = null;
+                    for(Person person : samletPersoner){
+                        if(person.getPersonID() == queryResultSet.getInt("person_id")){
+                            denValgtePerson = person;
+                        }
+                    }
+                    new Rolle(queryResultSet.getString("navn"), queryResultSet.getString("type"), denValgtePerson, queryResultSet.getInt("id"));
+                } else {
+                    new Rolle(queryResultSet.getString("navn"), queryResultSet.getString("type"), null, queryResultSet.getInt("id"));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void opretProducent(String navn){

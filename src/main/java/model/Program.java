@@ -17,13 +17,11 @@ public class Program extends ConnectionDatabase {
     public Program(String titel, Producent producent){
         indsaetProgram(titel, producent);
         try{
-            int id = 0;
-            PreparedStatement queryStatement = connection.prepareStatement("SELECT * FROM programmer ORDER BY id DESC LIMIT 1");
+            PreparedStatement queryStatement = connection.prepareStatement("SELECT * FROM producenter");
             ResultSet queryResultSet = queryStatement.executeQuery();
             while(queryResultSet.next()){
-                id = queryResultSet.getInt("id");
+                new Producent(queryResultSet.getString("navn"), queryResultSet.getInt("id"));
             }
-            this.programID = id;
         } catch(SQLException e){
             e.printStackTrace();
         }
@@ -31,6 +29,14 @@ public class Program extends ConnectionDatabase {
         this.rollerIProgram = new ArrayList<>();
         KrediteringSystem.getSamletProgrammer().add(this);
     }
+
+    public Program(String titel, int programID){
+        this.programID = programID;
+        this.titel = titel;
+        this.rollerIProgram = new ArrayList<>();
+        KrediteringSystem.getSamletProgrammer().add(this);
+    }
+
 
     //Laver rolle i programmet i rollerIProgram-listen, uden at tilknytte person til rollen.
     public void addRolle(String navn, String type){
