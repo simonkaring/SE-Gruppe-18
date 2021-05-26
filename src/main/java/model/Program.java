@@ -1,17 +1,32 @@
 package model;
 
+import data.ConnectionDatabase;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
-public class Program {
+public class Program extends ConnectionDatabase {
 
-    private final UUID programID;
+    private int programID;
     private String titel;
     private List<Rolle> rollerIProgram;
 
-    public Program(String titel){
-        this.programID = UUID.randomUUID();
+    public Program(String titel, Producent producent){
+        indsaetProgram(titel, producent);
+        try{
+            int id = 0;
+            PreparedStatement queryStatement = connection.prepareStatement("SELECT * FROM programmer ORDER BY id DESC LIMIT 1");
+            ResultSet queryResultSet = queryStatement.executeQuery();
+            while(queryResultSet.next()){
+                id = queryResultSet.getInt("id");
+            }
+            this.programID = id;
+        } catch(SQLException e){
+            e.printStackTrace();
+        }
         this.titel = titel;
         this.rollerIProgram = new ArrayList<>();
         KrediteringSystem.getSamletProgrammer().add(this);
@@ -27,6 +42,14 @@ public class Program {
         Rolle rolle = new Rolle(navn, type);
         rollerIProgram.add(rolle);
         Rolle.addRolleType(rolle);
+        try {
+            PreparedStatement insertStatement = connection.prepareStatement("Insert INTO program_rolle (program_id, rolle_id) VALUES (?,?)");
+            insertStatement.setInt(1, this.programID);
+            insertStatement.setInt(2, rolle.getRolleID());
+            insertStatement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     //Laver rolle i programmet i rollerIProgram-listen, og tilknytter person til rollen.
@@ -39,6 +62,14 @@ public class Program {
         Rolle rolle = new Rolle(navn, type, person);
         rollerIProgram.add(rolle);
         Rolle.addRolleType(rolle);
+        try {
+            PreparedStatement insertStatement = connection.prepareStatement("Insert INTO program_rolle (program_id, rolle_id) VALUES (?,?)");
+            insertStatement.setInt(1, this.programID);
+            insertStatement.setInt(2, rolle.getRolleID());
+            insertStatement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     //Fjerner den valgte rolle fra programmet.
@@ -80,7 +111,7 @@ public class Program {
 
     //Gettere og settere
 
-    public UUID getProgramID() {
+    public int getProgramID() {
         return programID;
     }
 

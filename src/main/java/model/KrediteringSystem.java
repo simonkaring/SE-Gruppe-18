@@ -1,13 +1,13 @@
 package model;
 
+import data.ConnectionDatabase;
 import view.Main;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
-public class KrediteringSystem {
+public class KrediteringSystem extends ConnectionDatabase {
 
     private static List<Producent> samletProducenter = new ArrayList<>();
     private static List<Program> samletProgrammer = new ArrayList<>();
@@ -16,15 +16,17 @@ public class KrediteringSystem {
 
     public static void main(String[] args) {
 
+        opretForbindelse();
+
         System.out.println("Nuværende rolle typer: " + Rolle.getRolleTyper());
 
         Producent producent = new Producent("Top Dogs");
         System.out.println(producent);
         System.out.println(producent.getProgrammer());
-        producent.opretProgram("Bjørnehunden Silver");
+        producent.opretProgram("Bjørnehunden Silver", producent);
         System.out.println(producent.getProgrammer());
-        producent.opretProgram("Rambo");
-        producent.opretProgram("Terminator");
+        producent.opretProgram("Rambo", producent);
+        producent.opretProgram("Terminator", producent);
         System.out.println(producent.getProgrammer());
         Program program1 = producent.getProgrammer().get(0);
         program1.addRolle("Overproducer", "Producer");
@@ -47,9 +49,12 @@ public class KrediteringSystem {
         program1.udskrivKreditering(producent);
         System.out.println("Nuværende rolle typer: " + Rolle.getRolleTyper());
 
-        program1.addRolle("Klipper", "Klipper");
+
 
         Person nyPerson = new Person("Kasper", "Sørensen", LocalDate.of(1998, 8, 29), "Danmark");
+
+        program1.addRolle("Klipper", "Klipper", nyPerson);
+
         nyPerson.tilknytTilRolle(program1.getRollerIProgram().get(7));
         Rolle testRolle = new Rolle("Klipper", "Klipper");
         Rolle.addRolleType(testRolle);
@@ -63,7 +68,7 @@ public class KrediteringSystem {
         System.out.println(getSamletProducenter());
         System.out.println("........-------------''''''''");
         System.out.println(getSamletProgrammer());
-        opretProgram(getSamletProducenter().get(0),"programTest");
+        opretProgram("programTest", getSamletProducenter().get(0));
         System.out.println(getSamletProgrammer());
         System.out.println("........-------------''''''''");
         System.out.println(getSamletProducenter());
@@ -98,8 +103,13 @@ public class KrediteringSystem {
         Soeg.soege("e");
         System.out.println(Soeg.getSoegeResultater());
         System.out.println(Soeg.soegPaaID(program1.getProgramID()));
-        System.out.println(Soeg.soegPaaID(UUID.randomUUID()));
         Soeg.soege("x");
+
+        System.out.println("........-------------''''''''");
+        System.out.println("........-------------''''''''");
+        System.out.println("........-------------''''''''");
+
+        System.out.println(program1.getRollerIProgram());
         Main.main(args);
     }
 
@@ -107,8 +117,8 @@ public class KrediteringSystem {
         new Producent(navn);
     }
 
-    public static void opretProgram(Producent producent, String navn){
-        producent.opretProgram(navn);
+    public static void opretProgram(String navn, Producent producent){
+        producent.opretProgram(navn, producent);
     }
 
     //Laver rolle i programmet i rollerIProgram-listen, uden at tilknytte person til rollen.

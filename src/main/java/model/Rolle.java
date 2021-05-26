@@ -1,12 +1,16 @@
 package model;
 
+import data.ConnectionDatabase;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
-public class Rolle {
+public class Rolle extends ConnectionDatabase {
 
-    private final UUID rolleID;
+    private int rolleID;
     private String navn;
     private String type;
     private Person spillesAf;
@@ -15,14 +19,36 @@ public class Rolle {
     private static List<String> rolleTyper = new ArrayList<>();
 
     public Rolle(String navn, String type){
-        this.rolleID = UUID.randomUUID();
+        indsaetRolle(navn, type, null);
+        try{
+            int id = 0;
+            PreparedStatement queryStatement = connection.prepareStatement("SELECT * FROM roller ORDER BY id DESC LIMIT 1");
+            ResultSet queryResultSet = queryStatement.executeQuery();
+            while(queryResultSet.next()){
+                id = queryResultSet.getInt("id");
+            }
+            this.rolleID = id;
+        } catch(SQLException e){
+            e.printStackTrace();
+        }
         this.navn = navn;
         this.type = type;
         KrediteringSystem.getSamletRoller().add(this);
     }
 
     public Rolle(String navn, String type, Person spillesAF){
-        this.rolleID = UUID.randomUUID();
+        indsaetRolle(navn, type, spillesAF);
+        try{
+            int id = 0;
+            PreparedStatement queryStatement = connection.prepareStatement("SELECT * FROM roller ORDER BY id DESC LIMIT 1");
+            ResultSet queryResultSet = queryStatement.executeQuery();
+            while(queryResultSet.next()){
+                id = queryResultSet.getInt("id");
+            }
+            this.rolleID = id;
+        } catch(SQLException e){
+            e.printStackTrace();
+        }
         this.navn = navn;
         this.type = type;
         this.spillesAf = spillesAF;
@@ -64,7 +90,7 @@ public class Rolle {
 
     //Gettere og settere
 
-    public UUID getRolleID() {
+    public int getRolleID() {
         return rolleID;
     }
 

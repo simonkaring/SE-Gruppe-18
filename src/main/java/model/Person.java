@@ -1,15 +1,19 @@
 package model;
 
+import data.ConnectionDatabase;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
-public class Person {
+public class Person extends ConnectionDatabase {
 
-    private final UUID personID;
+    private int personID;
     private String fornavn;
     private String efternavn;
     private String nationalitet;
@@ -18,7 +22,18 @@ public class Person {
     private String rolle;
 
     public Person(String fornavn, String efternavn, LocalDate alder, String nationalitet) {
-        this.personID = UUID.randomUUID();
+        indsaetPerson(fornavn, efternavn, nationalitet, Integer.parseInt(alder.format(DateTimeFormatter.ofPattern("dd"))), Integer.parseInt(alder.format(DateTimeFormatter.ofPattern("MM"))), Integer.parseInt(alder.format(DateTimeFormatter.ofPattern("yyyy"))));
+        try{
+            int id = 0;
+            PreparedStatement queryStatement = connection.prepareStatement("SELECT * FROM personer ORDER BY id DESC LIMIT 1");
+            ResultSet queryResultSet = queryStatement.executeQuery();
+            while(queryResultSet.next()){
+                id = queryResultSet.getInt("id");
+            }
+            this.personID = id;
+        } catch(SQLException e){
+            e.printStackTrace();
+        }
         this.fornavn = fornavn;
         this.efternavn = efternavn;
         this.alder = alder;
@@ -42,7 +57,7 @@ public class Person {
 
     //Gettere og settere
 
-    public UUID getPersonID() {
+    public int getPersonID() {
         return personID;
     }
 

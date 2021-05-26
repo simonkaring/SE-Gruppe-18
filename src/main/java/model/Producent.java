@@ -1,25 +1,40 @@
 package model;
 
+import data.ConnectionDatabase;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
-public class Producent {
+public class Producent extends ConnectionDatabase {
 
-    private final UUID producentID;
+    private int producentID;
     private String navn;
     private List<Program> programmer;
 
     public Producent(String navn){
-        this.producentID = UUID.randomUUID();
+        indsaetProducent(navn);
+        try{
+            int id = 0;
+            PreparedStatement queryStatement = connection.prepareStatement("SELECT * FROM producenter ORDER BY id DESC LIMIT 1");
+            ResultSet queryResultSet = queryStatement.executeQuery();
+            while(queryResultSet.next()){
+                id = queryResultSet.getInt("id");
+            }
+            this.producentID = id;
+        } catch(SQLException e){
+            e.printStackTrace();
+        }
         this.navn = navn;
         this.programmer = new ArrayList<>();
         KrediteringSystem.getSamletProducenter().add(this);
     }
 
     //Opretter et program, som bliver sat en på "programmer"-listen.
-    public void opretProgram(String navn){
-        Program nytProgram = new Program(navn);
+    public void opretProgram(String navn, Producent p){
+        Program nytProgram = new Program(navn, this);
         programmer.add(nytProgram);
     }
 
@@ -30,7 +45,7 @@ public class Producent {
 
     //Gettere og settere
 
-    public UUID getProducentID() {
+    public int getProducentID() {
         return producentID;
     }
 

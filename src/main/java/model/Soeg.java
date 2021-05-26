@@ -2,7 +2,6 @@ package model;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 public class Soeg {
 
@@ -63,20 +62,20 @@ public class Soeg {
     }
 
     //Søger på alle personer, programmer og producenter, og returner objektet med samme id.
-    public static Object soegPaaID(UUID id){
+    public static Object soegPaaID(int id){
         Object returner = null;
         for(Person person : KrediteringSystem.getSamletPersoner()){
-            if(person.getPersonID().equals(id)){
+            if(person.getPersonID() == id){
                 returner = person;
             }
         }
         for(Program program : KrediteringSystem.getSamletProgrammer()){
-            if(program.getProgramID().equals(id)){
+            if(program.getProgramID() == id){
                 returner = program;
             }
         }
         for(Producent producent : KrediteringSystem.getSamletProducenter()){
-            if(producent.getProducentID().equals(id)){
+            if(producent.getProducentID() ==id){
                 returner = producent;
             }
         }
