@@ -1,5 +1,7 @@
 package view;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -29,7 +31,7 @@ public class ProgramListController {
     @FXML private Button seeCredits;
     @FXML private Button searchButton;
     @FXML private Button addProgramButton;
-
+    TitleHolder holder = TitleHolder.getInstance();
     public ProgramListController() {
     }
     //Paramenter for initialization af programmet.
@@ -42,6 +44,7 @@ public class ProgramListController {
                 listView.getItems().add(pro.getTitel());
             }
         }
+        hideUIElement(holder.getIsViewer());
     }
 
     // Tilføjer program til listen af programmer under produceren "Placeholder".
@@ -56,7 +59,6 @@ public class ProgramListController {
     //Åbner editoren på det valgte program
     public void openEditor(){
         if(listView.getSelectionModel().getSelectedItem() != null) {
-            TitleHolder holder = TitleHolder.getInstance();
             holder.setTitle(listView.getSelectionModel().getSelectedItem().toString());
             holder.setIsViewer(false);
             try {
@@ -70,6 +72,7 @@ public class ProgramListController {
             }
         }
     }
+    //Åbner seer versionen af editor pagen, hvor dele af GUI er gemt.
     public void openViewerPage(){
         if(listView.getSelectionModel().getSelectedItem() != null) {
             TitleHolder holder = TitleHolder.getInstance();
@@ -85,6 +88,24 @@ public class ProgramListController {
                 e.printStackTrace();
             }
         }
+    }
+    //Fjerner del af GUI for bruger baseret på om de er en seer eller producer
+    public void hideUIElement(boolean b){
+        if(b) {
+            editCredits.setVisible(false);
+            programNameTextField.setVisible(false);
+            addProgramButton.setVisible(false);
+        }
+    }
+    //Feature der ikke blev færdig implementeret
+    public void soeg(){
+        Soeg.soegProgram(searchTextField.getText());
+        ObservableList<Program> input = FXCollections.observableArrayList();
+        ArrayList<Object> searchResults = new ArrayList<>(Soeg.getSoegeResultater());
+        for(Object o : searchResults){
+            input.add((Program) o);
+        }
+        listView.setItems(input);
     }
 }
 

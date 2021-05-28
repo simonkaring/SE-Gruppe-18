@@ -2,6 +2,7 @@ package model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
 
 public class Soeg {
@@ -35,7 +36,7 @@ public class Soeg {
     public static void soegProgram(String soegeTekst){
         soegeResultater.add(new ArrayList<>());
         for(Program programmer : KrediteringSystem.getSamletProgrammer()){
-            if(programmer.getTitel().contains(soegeTekst)){
+            if(programmer.getTitel().toLowerCase(Locale.ROOT).contains(soegeTekst.toLowerCase(Locale.ROOT))){
                 getSoegeResultater().get(0).add(programmer);
             }
         }

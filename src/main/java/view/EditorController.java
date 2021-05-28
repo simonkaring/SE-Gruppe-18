@@ -79,6 +79,7 @@ public class EditorController {
         }
         return actors;
     }
+    //Metode der finder det valgte program fra tidligere GUI
     public Program findProgram(){
         TitleHolder holder = TitleHolder.getInstance();
         ArrayList<Producent> producent = new ArrayList<>(KrediteringSystem.getSamletProducenter());
@@ -191,6 +192,8 @@ public class EditorController {
         int i = rolleTableView.getSelectionModel().getSelectedIndex();
         tableView.getSelectionModel().select(i);
     }
+
+    //Metode der gemmer dele af GUI baseret på en boolean
     public void hideGuiElements(boolean b){
         if(b){
             fornavnTextField.setVisible(false);
