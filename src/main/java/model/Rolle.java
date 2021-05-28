@@ -161,6 +161,14 @@ public class Rolle extends ConnectionDatabase {
     }
 
     public void setSpillesAf(Person spillesAf) {
+        try{
+            PreparedStatement insertStatement = connection.prepareStatement("UPDATE roller SET person_id = ? WHERE id = ?");
+            insertStatement.setInt(1, spillesAf.getPersonID());
+            insertStatement.setInt(2, this.rolleID);
+            insertStatement.execute();
+        } catch(SQLException e){
+            e.printStackTrace();
+        }
         this.spillesAf = spillesAf;
     }
 

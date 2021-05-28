@@ -100,7 +100,7 @@ public class KrediteringSystem extends ConnectionDatabase {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
+        //Henter data fra program_rolle tabellen.
         try {
             PreparedStatement queryStatement = connection.prepareStatement("SELECT * FROM program_rolle");
             ResultSet queryResultSet = queryStatement.executeQuery();
@@ -176,7 +176,7 @@ public class KrediteringSystem extends ConnectionDatabase {
         Producent producent3 = new Producent("Danmarks helt egen producent");
         producent1.opretProgram("Drengerøvene");
         producent1.opretProgram("Er sparegrisen tom?");
-        producent2.opretProgram("Den forsvundene skat");
+        producent2.opretProgram("Den forsvundne skat");
         producent2.opretProgram("Vild med lakridser");
         producent3.opretProgram("Den døve bager");
         producent3.opretProgram("Tordenskrald");
@@ -195,6 +195,8 @@ public class KrediteringSystem extends ConnectionDatabase {
         samletProgrammer.get(0).addRolle("Musik", "Lydteknikker", person5);
         samletProgrammer.get(0).addRolle("Lydeffekter", "Lydteknikker", person6);
         samletProgrammer.get(0).addRolle("Statist", "Statist", person7);
+        samletProgrammer.get(4).addRolle("Bagermester Jensen", "Skuespiller", person7);
+
     }
 
     //Gettere og settere
