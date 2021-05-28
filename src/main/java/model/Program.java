@@ -90,13 +90,6 @@ public class Program extends ConnectionDatabase {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        try {
-            PreparedStatement insertStatement = connection.prepareStatement("DELETE FROM roller WHERE rolle_id = ?");
-            insertStatement.setInt(1, rolle.getRolleID());
-            insertStatement.execute();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
         rollerIProgram.remove(rolle);
         rolle.fjernPersonFraRolle(rolle.getSpillesAf());
     }
