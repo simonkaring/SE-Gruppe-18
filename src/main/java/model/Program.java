@@ -158,9 +158,4 @@ public class Program extends ConnectionDatabase {
         return rollerIProgram;
     }
 
-    public void setRollerIProgram(List<Rolle> rollerIProgram) {
-        this.rollerIProgram = rollerIProgram;
-    }
-
-
 }

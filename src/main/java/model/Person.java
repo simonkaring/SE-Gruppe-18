@@ -148,7 +148,4 @@ public class Person extends ConnectionDatabase {
         return roller;
     }
 
-    public void setRoller(List<Rolle> roller) {
-        this.roller = roller;
-    }
 }

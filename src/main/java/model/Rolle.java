@@ -176,7 +176,4 @@ public class Rolle extends ConnectionDatabase {
         return rolleTyper;
     }
 
-    public static void setRolleTyper(List<String> rolleTyper) {
-        Rolle.rolleTyper = rolleTyper;
-    }
 }

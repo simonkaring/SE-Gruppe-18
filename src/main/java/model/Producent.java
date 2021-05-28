@@ -76,7 +76,4 @@ public class Producent extends ConnectionDatabase {
         return programmer;
     }
 
-    public void setProgrammer(List<Program> programmer) {
-        this.programmer = programmer;
-    }
 }
