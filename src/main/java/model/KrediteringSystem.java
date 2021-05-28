@@ -22,7 +22,7 @@ public class KrediteringSystem extends ConnectionDatabase {
         opstart();
         Main.main(args);
     }
-
+ 
     //Køres ved opstart af programmet, og henter al data fra databasen og opretter objekter af det.
     public static void opstart(){
         opretForbindelse();
