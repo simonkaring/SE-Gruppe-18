@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class KrediteringSystem extends ConnectionDatabase {
 
@@ -128,7 +129,7 @@ public class KrediteringSystem extends ConnectionDatabase {
         new Producent(navn);
     }
 
-    public static void opretProgram(String navn, Producent producent){
+    public static void opretProgram(Producent producent, String navn){
         producent.opretProgram(navn);
     }
 

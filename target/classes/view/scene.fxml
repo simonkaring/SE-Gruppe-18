@@ -38,12 +38,12 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="480.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.Controller">
+<VBox prefHeight="480.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.ProgramListController">
   <children>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="480.0" prefWidth="720.0" VBox.vgrow="ALWAYS">
          <children>
             <ListView fx:id="listView" layoutX="14.0" layoutY="7.0" prefHeight="467.0" prefWidth="320.0" />
-            <Button fx:id="seeCredits" layoutX="360.0" layoutY="122.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="102.0" text="Se Krediteringer" />
+            <Button fx:id="seeCredits" layoutX="360.0" layoutY="122.0" mnemonicParsing="false" onAction="#openEditor" prefHeight="29.0" prefWidth="102.0" text="Se Krediteringer" />
             <Button fx:id="editCredits" layoutX="360.0" layoutY="186.0" mnemonicParsing="false" onAction="#openEditor" prefHeight="29.0" prefWidth="119.0" text="Rediger Kreditering" />
             <Button fx:id="searchButton" layoutX="617.0" layoutY="56.0" mnemonicParsing="false" text="Søg" />
             <TextField fx:id="searchTextField" layoutX="360.0" layoutY="56.0" prefHeight="25.0" prefWidth="235.0" />
