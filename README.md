@@ -11,6 +11,7 @@ Run KrediteringSystem to populate database with information.
 
 ```
 --module-path /path/to/javafx-sdk-15.0.1/lib --add-modules javafx.controls,javafx.fxml
+--module-path /Users/sk/Downloads/javafx-sdk-16/lib --add-modules javafx.controls,javafx.fxml
 ```
 
 ## Scene builder 
