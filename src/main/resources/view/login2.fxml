@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="900.0" style="-fx-background-color: #121212;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.LoginController">
+   <children>
+      <Text fill="WHITE" layoutX="226.0" layoutY="303.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Brugernavn" wrappingWidth="201.2496795654297">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <JFXButton alignment="CENTER" buttonType="RAISED" layoutX="389.0" layoutY="580.0" onAction="#register" prefHeight="54.0" prefWidth="133.0" ripplerFill="WHITE" style="-fx-background-color: #00CD00;" text="Register" textFill="WHITE" AnchorPane.bottomAnchor="66.0" AnchorPane.leftAnchor="389.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </JFXButton>
+      <JFXButton alignment="CENTER" buttonType="RAISED" layoutX="342.0" layoutY="430.0" onAction="#login" prefHeight="105.0" prefWidth="223.0" ripplerFill="WHITE" style="-fx-background-color: #2E51B0 #2E51B0;" text="Log ind" textFill="WHITE" AnchorPane.leftAnchor="342.0" AnchorPane.topAnchor="430.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </JFXButton>
+      <JFXButton alignment="CENTER" buttonType="RAISED" layoutX="88.0" layoutY="57.0" onAction="#backToLoginHome" prefHeight="58.0" prefWidth="126.0" ripplerFill="WHITE" style="-fx-background-color: #95190C;" text="Tilbage" textFill="WHITE" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="40.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </JFXButton>
+      <Text fill="WHITE" layoutX="226.0" layoutY="356.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Adgangskode" wrappingWidth="173.85687255859375">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <PasswordField fx:id="passwordField" layoutX="465.0" layoutY="337.0" promptText="Adgangskode" />
+      <TextField fx:id="usernameTextField" layoutX="464.0" layoutY="283.0" promptText="Brugernavn" />
+   </children>
+</AnchorPane>

@@ -17,12 +17,6 @@ public class KrediteringSystem extends ConnectionDatabase {
     private static List<Program> samletProgrammer = new ArrayList<>();
     private static List<Rolle> samletRoller = new ArrayList<>();
     private static List<Person> samletPersoner = new ArrayList<>();
-
-    public static void main(String[] args) {
-
-        opstart();
-        Main.main(args);
-    }
  
     //Køres ved opstart af programmet, og henter al data fra databasen og opretter objekter af det.
     public static void opstart(){

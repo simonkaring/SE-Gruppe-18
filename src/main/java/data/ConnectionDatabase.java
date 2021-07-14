@@ -2,27 +2,54 @@ package data;
 
 import model.Person;
 import model.Producent;
-
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Connection;
 
 public class ConnectionDatabase {
 
-    public static java.sql.Connection connection = null;
-    public static String host="localhost";
-    public static String port="5432";
-    public static String db_name="TV2";
-    public static String username="postgres";
-    public static String password="root";
+//    private static DatabaseConnection instance;
+//    private Connection connection;
+//    private String url = "jdbc:postgresql://localhost:5432/jdbc";
+//    private String username = "root";
+//    private String password = "localhost";
 
-    public static void opretForbindelse(){
+    public static java.sql.Connection connection = null;
+    private static ConnectionDatabase instance;
+    private static String username="postgres";
+    private static String password="root";
+    private static String url="jdbc:postgresql://localhost:5432/TV2";
+
+    public static void opretForbindelse() {
         try {
             Class.forName("org.postgresql.Driver");
-            connection = DriverManager.getConnection("jdbc:postgresql://"+host+":"+port+"/"+db_name+"", ""+username+"", ""+password+"");
+            connection = DriverManager.getConnection(url, username, password);
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void DatabaseConnection() throws SQLException {
+        try {
+            Class.forName("org.postgresql.Driver");
+            this.connection = DriverManager.getConnection(url, username, password);
+        } catch (ClassNotFoundException ex) {
+            System.out.println("Database Connection Creation Failed : " + ex.getMessage());
+        }
+    }
+
+    public Connection getConnection() {
+        return connection;
+    }
+
+    public static ConnectionDatabase getInstance() throws SQLException {
+        if (instance == null) {
+            instance = new ConnectionDatabase();
+        } else if (instance.getConnection().isClosed()) {
+            instance = new ConnectionDatabase();
+        }
+        return instance;
     }
 
     public static void indsaetProducent(String navn){
