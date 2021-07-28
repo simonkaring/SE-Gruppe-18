@@ -16,12 +16,12 @@ public class LoginController extends SceneChanger {
 
     @FXML void login(ActionEvent event) {
         holder.setIsViewer(false);
-        changeScene("scene.fxml");
+        changeScene("scene3.fxml");
     }
 
     @FXML void register(ActionEvent event) {
         holder.setIsViewer(false);
-        changeScene("scene.fxml");
+        changeScene("scene2.fxml");
     }
 
 //    public void loginSystem(){

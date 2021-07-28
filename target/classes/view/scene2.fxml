@@ -1,15 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXListView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="900.0" style="-fx-background-color: #121212;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.ProductionController">
    <children>
-      <JFXButton alignment="CENTER" buttonType="RAISED" layoutX="98.0" layoutY="67.0" onAction="#logout" prefHeight="58.0" prefWidth="126.0" ripplerFill="WHITE" style="-fx-background-color: #95190C;" text="Logout" textFill="WHITE" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="40.0">
+      <JFXButton alignment="CENTER" buttonType="RAISED" layoutX="98.0" layoutY="67.0" onAction="#logout" prefHeight="58.0" prefWidth="126.0" ripplerFill="WHITE" style="-fx-background-color: #95190C;" text="Logout" textFill="WHITE" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="40.0">
          <font>
             <Font size="18.0" />
          </font>
       </JFXButton>
+      <JFXListView fx:id="productionList" layoutX="615.0" layoutY="62.0" prefHeight="700.0" prefWidth="454.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="450.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <TextField fx:id="searchTextField" layoutX="31.0" layoutY="48.0" prefHeight="26.0" prefWidth="271.0" promptText="Søg her" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="48.0" />
+      <JFXButton alignment="CENTER" buttonType="RAISED" layoutX="323.0" layoutY="45.0" onAction="#search" prefHeight="30.0" prefWidth="72.0" ripplerFill="WHITE" style="-fx-background-color: #2E51B0 #2E51B0 #2E51B0;" text="Søg" textFill="WHITE" AnchorPane.rightAnchor="490.0" AnchorPane.topAnchor="45.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </JFXButton>
+      <JFXButton alignment="CENTER" buttonType="RAISED" layoutX="39.0" layoutY="190.0" onAction="#viewCredits" prefHeight="60.0" prefWidth="370.0" ripplerFill="WHITE" style="-fx-background-color: #2E51B0 #2E51B0 #2E51B0;" text="Se Kreditering" textFill="WHITE" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="490.0" AnchorPane.topAnchor="200.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </JFXButton>
+      <JFXButton alignment="CENTER" buttonType="RAISED" layoutX="38.0" layoutY="284.0" onAction="#editCredits" prefHeight="60.0" prefWidth="370.0" ripplerFill="WHITE" style="-fx-background-color: #2E51B0 #2E51B0 #2E51B0;" text="Rediger Kreditering" textFill="WHITE" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="490.0" AnchorPane.topAnchor="300.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </JFXButton>
+      <JFXButton alignment="CENTER" buttonType="RAISED" layoutX="133.0" layoutY="506.0" onAction="#addProduction" prefHeight="33.0" prefWidth="183.0" ripplerFill="WHITE" style="-fx-background-color: #2E51B0 #2E51B0 #2E51B0;" text="Tilføj Produktion" textFill="WHITE" AnchorPane.rightAnchor="490.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </JFXButton>
+      <TextField fx:id="productionTextField" layoutX="54.0" layoutY="450.0" prefHeight="26.0" prefWidth="271.0" promptText="Navn på produktion" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="490.0" />
    </children>
 </AnchorPane>

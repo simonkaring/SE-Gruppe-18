@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" style="-fx-background-color: #121212;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.ProgramListController">
+   <children>
+      <JFXButton alignment="CENTER" buttonType="RAISED" layoutX="40.0" layoutY="710.0" prefHeight="50.0" prefWidth="150.0" ripplerFill="WHITE" style="-fx-background-color: #95190C;" text="Logout" textFill="WHITE">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </JFXButton>
+      <JFXListView fx:id="listView" layoutX="615.0" layoutY="62.0" prefHeight="800.0" prefWidth="500.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <TextField fx:id="searchTextField" layoutX="40.0" layoutY="48.0" prefHeight="26.0" prefWidth="280.0" promptText="Søg her" />
+      <JFXButton fx:id="searchButton" alignment="CENTER" buttonType="RAISED" layoutX="350.0" layoutY="45.0" onAction="#soeg" prefHeight="30.0" prefWidth="90.0" ripplerFill="WHITE" style="-fx-background-color: #2E51B0 #2E51B0 #2E51B0;" text="Søg" textFill="WHITE">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="seeCredits" alignment="CENTER" buttonType="RAISED" layoutX="40.0" layoutY="190.0" onAction="#openViewerPage" prefHeight="60.0" prefWidth="400.0" ripplerFill="WHITE" style="-fx-background-color: #2E51B0 #2E51B0 #2E51B0;" text="Se Kreditering" textFill="WHITE">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="editCredits" alignment="CENTER" buttonType="RAISED" layoutX="40.0" layoutY="284.0" onAction="#openEditor" prefHeight="60.0" prefWidth="400.0" ripplerFill="WHITE" style="-fx-background-color: #2E51B0 #2E51B0 #2E51B0;" text="Rediger Kreditering" textFill="WHITE">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="addProgramButton" alignment="CENTER" buttonType="RAISED" layoutX="240.0" layoutY="500.0" onAction="#addProgramButtonPushed" prefHeight="50.0" prefWidth="200.0" ripplerFill="WHITE" style="-fx-background-color: #2E51B0 #2E51B0 #2E51B0;" text="Tilføj Produktion" textFill="WHITE">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </JFXButton>
+      <TextField fx:id="programNameTextField" layoutX="40.0" layoutY="450.0" prefHeight="26.0" prefWidth="400.0" promptText="Navn på produktion" />
+   </children>
+</AnchorPane>

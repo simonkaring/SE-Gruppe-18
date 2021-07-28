@@ -1,63 +1,29 @@
 package view;
 
-import com.jfoenix.controls.JFXListView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.*;
+
+import java.io.IOException;
+
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import model.KrediteringSystem;
 import model.*;
+import model.Program;
 
 import java.util.ArrayList;
 
 
-public class ProductionController extends SceneChanger {
+public class ProductionListController {
 
-//    @FXML private JFXListView<?> productionList;
-//    @FXML private TextField searchTextField;
-//    @FXML private TextField productionTextField;
-//    TitleHolder holder = TitleHolder.getInstance();
-//
-//    @FXML private void initialize() {
-//        ArrayList<Producent> producent = new ArrayList<>(KrediteringSystem.getSamletProducenter());
-//        for (Producent p  : producent ) {
-//            ArrayList<Program> programs = new ArrayList<>(p.getProgrammer());
-//            for (Program pro : programs ) {
-//                productionList.getItems().add(pro.getTitel());
-//            }
-//        }
-//        hideUIElement(holder.getIsViewer());
-//    }
-//
-//    @FXML void addProduction(ActionEvent event) {
-//
-//    }
-//
-//    @FXML void editCredits(ActionEvent event) {
-//
-//    }
-//
-//    @FXML void logout(ActionEvent event) {
-//        changeScene("login_home.fxml");
-//    }
-//
-//    @FXML void search(ActionEvent event) {
-//        if(searchTextField == null){
-//
-//        }
-//    }
-//
-//    @FXML void viewCredits(ActionEvent event) {
-//
-//    }
 
+    //Initialize objekter i GUI
     @FXML private ListView listView;
     @FXML private TextField searchTextField;
     @FXML private TextField programNameTextField;
@@ -66,7 +32,7 @@ public class ProductionController extends SceneChanger {
     @FXML private Button searchButton;
     @FXML private Button addProgramButton;
     TitleHolder holder = TitleHolder.getInstance();
-    public ProductionController() {
+    public ProductionListController() {
     }
     //Paramenter for initialization af programmet.
     @FXML private void initialize() {
@@ -140,5 +106,6 @@ public class ProductionController extends SceneChanger {
         }
         listView.setItems(input);
     }
-////////////////////////////////////////////////////////////////////////////////////////
 }
+
+

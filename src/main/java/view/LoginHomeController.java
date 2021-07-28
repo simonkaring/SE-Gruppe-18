@@ -14,6 +14,6 @@ public class LoginHomeController extends SceneChanger {
 
     @FXML void loginAsViewer(ActionEvent event) {
         holder.setIsViewer(true);
-        changeScene("scene.fxml");
+        changeScene("scene3.fxml");
     }
 }

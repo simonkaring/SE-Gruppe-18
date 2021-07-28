@@ -7,8 +7,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
 
-import java.io.IOException;
-
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
@@ -16,7 +14,9 @@ import javafx.stage.Stage;
 import model.KrediteringSystem;
 import model.*;
 import model.Program;
-
+import javafx.scene.control.*;
+import javafx.scene.control.TreeTableColumn;
+import javafx.scene.control.TableColumn;
 import java.util.ArrayList;
 
 
@@ -35,8 +35,7 @@ public class ProgramListController {
     public ProgramListController() {
     }
     //Paramenter for initialization af programmet.
-    @FXML private void initialize()
-    {
+    @FXML private void initialize() {
         ArrayList<Producent> producent = new ArrayList<>(KrediteringSystem.getSamletProducenter());
         for (Producent p  : producent ){
             ArrayList<Program> programs = new ArrayList<>(p.getProgrammer());
@@ -57,12 +56,12 @@ public class ProgramListController {
         }
     }
     //Åbner editoren på det valgte program
-    public void openEditor(){
+    public void openEditor() {
         if(listView.getSelectionModel().getSelectedItem() != null) {
             holder.setTitle(listView.getSelectionModel().getSelectedItem().toString());
             holder.setIsViewer(false);
             try {
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("editor.fxml"));
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("editor2.fxml"));
                 Parent root = fxmlLoader.load();
                 Stage stage = new Stage();
                 stage.setScene(new Scene(root));
@@ -73,13 +72,13 @@ public class ProgramListController {
         }
     }
     //Åbner seer versionen af editor pagen, hvor dele af GUI er gemt.
-    public void openViewerPage(){
+    public void openViewerPage() {
         if(listView.getSelectionModel().getSelectedItem() != null) {
             TitleHolder holder = TitleHolder.getInstance();
             holder.setTitle(listView.getSelectionModel().getSelectedItem().toString());
             holder.setIsViewer(true);
             try {
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("editor.fxml"));
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("editor2.fxml"));
                 Parent root = fxmlLoader.load();
                 Stage stage = new Stage();
                 stage.setScene(new Scene(root));
@@ -90,7 +89,7 @@ public class ProgramListController {
         }
     }
     //Fjerner del af GUI for bruger baseret på om de er en seer eller producer
-    public void hideUIElement(boolean b){
+    public void hideUIElement(boolean b) {
         if(b) {
             editCredits.setVisible(false);
             programNameTextField.setVisible(false);
@@ -98,7 +97,7 @@ public class ProgramListController {
         }
     }
     //Feature der ikke blev færdig implementeret
-    public void soeg(){
+    public void soeg() {
         Soeg.soegProgram(searchTextField.getText());
         ObservableList<Program> input = FXCollections.observableArrayList();
         ArrayList<Object> searchResults = new ArrayList<>(Soeg.getSoegeResultater());
