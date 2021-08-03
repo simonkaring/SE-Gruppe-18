@@ -10,11 +10,11 @@ import java.io.IOException;
 public class SceneChanger
 {
 
-    void changeScene(String fxml) {
+    static void changeScene(String fxml) {
         // This method changes scene and can be called with 'extends SceneChanger' on the class
         Parent window1;
         try {
-            window1 = FXMLLoader.load(getClass().getResource(fxml));
+            window1 = FXMLLoader.load(SceneChanger.class.getResource(fxml));
             Stage window1Stage;
             Scene window1Scene = new Scene(window1, 1000, 800);
             window1Stage = Main.stg;
@@ -26,7 +26,7 @@ public class SceneChanger
 
     void openScenePopup(String fxml) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("editor.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fxml));
             Parent root = fxmlLoader.load();
             Stage stage = new Stage();
             stage.setScene(new Scene(root));

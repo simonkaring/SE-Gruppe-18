@@ -1,7 +1,9 @@
 package view;
 
+import data.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -31,6 +33,10 @@ public class ProgramListController {
     @FXML private Button seeCredits;
     @FXML private Button searchButton;
     @FXML private Button addProgramButton;
+    @FXML void logout(ActionEvent event) {
+        SceneChanger.changeScene("login_home.fxml");
+    }
+
     TitleHolder holder = TitleHolder.getInstance();
     public ProgramListController() {
     }
@@ -47,7 +53,7 @@ public class ProgramListController {
     }
 
     // Tilføjer program til listen af programmer under produceren "Placeholder".
-    public void addProgramButtonPushed() {
+    @FXML public void addProgramButtonPushed() {
         Producent producent = new Producent("Placeholder");
         int temp = producent.getProgrammer().size();
         if(programNameTextField.getText() != null) {
@@ -56,12 +62,13 @@ public class ProgramListController {
         }
     }
     //Åbner editoren på det valgte program
-    public void openEditor() {
+    @FXML public void openEditor() {
         if(listView.getSelectionModel().getSelectedItem() != null) {
             holder.setTitle(listView.getSelectionModel().getSelectedItem().toString());
             holder.setIsViewer(false);
             try {
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("editor2.fxml"));
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("editor.fxml"));
+//                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("editor2.fxml"));
                 Parent root = fxmlLoader.load();
                 Stage stage = new Stage();
                 stage.setScene(new Scene(root));
@@ -72,13 +79,14 @@ public class ProgramListController {
         }
     }
     //Åbner seer versionen af editor pagen, hvor dele af GUI er gemt.
-    public void openViewerPage() {
+    @FXML public void openViewerPage() {
         if(listView.getSelectionModel().getSelectedItem() != null) {
             TitleHolder holder = TitleHolder.getInstance();
             holder.setTitle(listView.getSelectionModel().getSelectedItem().toString());
             holder.setIsViewer(true);
             try {
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("editor2.fxml"));
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("editor.fxml"));
+//                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("editor2.fxml"));
                 Parent root = fxmlLoader.load();
                 Stage stage = new Stage();
                 stage.setScene(new Scene(root));
@@ -88,7 +96,7 @@ public class ProgramListController {
             }
         }
     }
-    //Fjerner del af GUI for bruger baseret på om de er en seer eller producer
+    // Removes GUI elements based on boolean value
     public void hideUIElement(boolean b) {
         if(b) {
             editCredits.setVisible(false);
@@ -96,8 +104,8 @@ public class ProgramListController {
             addProgramButton.setVisible(false);
         }
     }
-    //Feature der ikke blev færdig implementeret
-    public void soeg() {
+    // Search feature unfinished
+    @FXML public void search() {
         Soeg.soegProgram(searchTextField.getText());
         ObservableList<Program> input = FXCollections.observableArrayList();
         ArrayList<Object> searchResults = new ArrayList<>(Soeg.getSoegeResultater());
@@ -106,6 +114,15 @@ public class ProgramListController {
         }
         listView.setItems(input);
     }
+
+    @FXML public void removeProgram() {
+        if(listView.getSelectionModel().getSelectedItem() != null) {
+//            holder.setTitle(listView.getSelectionModel().getSelectedItem().toString());
+            String production = listView.getSelectionModel().getSelectedItem().toString();
+            DeleteProduction.deleteProduction(production); // Executes SQL query from data layer
+        }
+    }
+
 }
 
 

@@ -22,26 +22,28 @@ import com.jfoenix.controls.JFXTreeTableView;
 
 public class EditorController {
     //Initlaizer alle FXML objekterne
-//    @FXML private TableView<Person> tableView;
-//    @FXML private TableColumn fornavnColumn;
-//    @FXML private TableColumn efternavnColumn;
-//    @FXML private TableColumn alderColumn;
-//    @FXML private TableColumn nationalitetColumn;
-//    @FXML private TableColumn rolleColumn;
+    @FXML private TableView<Person> tableView;
+    @FXML private TableView<Rolle> rolleTableView;
+    @FXML private TableColumn fornavnColumn;
+    @FXML private TableColumn efternavnColumn;
+    @FXML private TableColumn alderColumn;
+    @FXML private TableColumn nationalitetColumn;
+    @FXML private TableColumn rolleColumn;
+
     @FXML private TextField fornavnTextField;
     @FXML private TextField efternavnTextField;
     @FXML private TextField nationalitetTextField;
     @FXML private TextField rolleTextField;
     @FXML private DatePicker dobDatePicker;
-//    @FXML private TableView<Rolle> rolleTableView;
+
     ////////////////////////////////////////////////////////////////////////////////
-    @FXML private JFXTreeTableView<?> tableView;
-    @FXML private TreeTableColumn<?, ?> fornavnColumn;
-    @FXML private TreeTableColumn<?, ?> efternavnColumn;
-    @FXML private TreeTableColumn<?, ?> alderColumn;
-    @FXML private TreeTableColumn<?, ?> nationalitetColumn;
-    @FXML private JFXTreeTableView<?> rolleTableView;
-    @FXML private TreeTableColumn<?, ?> rolleColumn;
+//    @FXML private JFXTreeTableView<Person> tableView;
+//    @FXML private JFXTreeTableView<Rolle> rolleTableView;
+//    @FXML private TreeTableColumn<?, ?> fornavnColumn;
+//    @FXML private TreeTableColumn<?, ?> efternavnColumn;
+//    @FXML private TreeTableColumn<?, ?> alderColumn;
+//    @FXML private TreeTableColumn<?, ?> nationalitetColumn;
+//    @FXML private TreeTableColumn<?, ?> rolleColumn;
     ////////////////////////////////////////////////////////////////////////////////
 
     @FXML private Button tilfojButton;

@@ -21,6 +21,10 @@ public class ScriptsSQL {
 
     }
 
+    void deleteProduktion() {
+
+    }
+
 
     boolean isLoginInformationCorrect(String username, String password) {
         return false;

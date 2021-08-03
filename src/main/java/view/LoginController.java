@@ -5,23 +5,23 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
 
-public class LoginController extends SceneChanger {
+public class LoginController {
     @FXML private TextField usernameTextField;
     @FXML private PasswordField passwordField;
     TitleHolder holder = TitleHolder.getInstance();
 
     @FXML void backToLoginHome(ActionEvent event) {
-        changeScene("login_home.fxml");
+        SceneChanger.changeScene("login_home.fxml");
     }
 
     @FXML void login(ActionEvent event) {
         holder.setIsViewer(false);
-        changeScene("scene3.fxml");
+        SceneChanger.changeScene("scene3.fxml");
     }
 
     @FXML void register(ActionEvent event) {
         holder.setIsViewer(false);
-        changeScene("scene2.fxml");
+        SceneChanger.changeScene("scene2.fxml");
     }
 
 //    public void loginSystem(){
