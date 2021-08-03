@@ -21,7 +21,7 @@ import javafx.scene.control.TableColumn;
 import com.jfoenix.controls.JFXTreeTableView;
 
 public class EditorController {
-    //Initlaizer alle FXML objekterne
+    // Initializes all FXML objects
     @FXML private TableView<Person> tableView;
     @FXML private TableView<Rolle> rolleTableView;
     @FXML private TableColumn fornavnColumn;
@@ -50,6 +50,8 @@ public class EditorController {
     @FXML private Button fjernButton;
     @FXML private Button hentButton;
     @FXML private Button saetButton;
+
+//    Labels dont seem to be in use
 //    @FXML private Label fornavnLabel;
 //    @FXML private Label efternavnLabel;
 //    @FXML private Label dobLabel;
@@ -68,9 +70,9 @@ public class EditorController {
             ArrayList<Program> programs = new ArrayList<>(p.getProgrammer());
             for (Program pro : programs) {
                 if (pro.getTitel().equals(holder.getTitle())) {
-                    System.out.println("Finds program");
+                    System.out.println("Found production");
                     ArrayList<Rolle> rolle = new ArrayList<>(pro.getRollerIProgram());
-                    System.out.println("Size of role array "+rolle.size());
+                    System.out.println("Size of role array " + rolle.size());
                     for (Rolle role : rolle) {
                         System.out.println("Adds actor");
                         actors.add(role.getSpillesAf());
@@ -89,18 +91,17 @@ public class EditorController {
             ArrayList<Program> programs = new ArrayList<>(p.getProgrammer());
             for(Program pro : programs){
                 if (pro.getTitel().equals(holder.getTitle())){
-                    System.out.println("Sucessfully found program");
+                    System.out.println("Successfully found production");
                     return pro;
                 }
             }
         }
-        System.out.println("Did not find matching program title");
+        System.out.println("Did not find matching production title");
         return null;
     }
 
     //Argumenter der sker når scenen initializer. Specificer hvad for nogle værdier de forskellige kolonner skal bruge.
-    @FXML
-    private void initialize() {
+    @FXML private void initialize() {
         fornavnColumn.setCellValueFactory(new PropertyValueFactory<Person, String>("fornavn"));
         efternavnColumn.setCellValueFactory(new PropertyValueFactory<Person, String>("efternavn"));
         alderColumn.setCellValueFactory(new PropertyValueFactory<Person, LocalDate>("alder"));

@@ -15,7 +15,7 @@
       </JFXButton>
       <JFXListView fx:id="listView" layoutX="615.0" layoutY="62.0" prefHeight="800.0" prefWidth="500.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <TextField fx:id="searchTextField" layoutX="40.0" layoutY="48.0" prefHeight="26.0" prefWidth="280.0" promptText="Søg her" />
-      <JFXButton fx:id="searchButton" alignment="CENTER" buttonType="RAISED" layoutX="350.0" layoutY="45.0" onAction="#soeg" prefHeight="30.0" prefWidth="90.0" ripplerFill="WHITE" style="-fx-background-color: #2E51B0 #2E51B0 #2E51B0;" text="Søg" textFill="WHITE">
+      <JFXButton fx:id="searchButton" alignment="CENTER" buttonType="RAISED" layoutX="350.0" layoutY="45.0" onAction="#search" prefHeight="30.0" prefWidth="90.0" ripplerFill="WHITE" style="-fx-background-color: #2E51B0 #2E51B0 #2E51B0;" text="Søg" textFill="WHITE">
          <font>
             <Font size="18.0" />
          </font>
@@ -25,16 +25,21 @@
             <Font size="18.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="editCredits" alignment="CENTER" buttonType="RAISED" layoutX="40.0" layoutY="284.0" onAction="#openEditor" prefHeight="60.0" prefWidth="400.0" ripplerFill="WHITE" style="-fx-background-color: #2E51B0 #2E51B0 #2E51B0;" text="Rediger Kreditering" textFill="WHITE">
+      <JFXButton fx:id="editCredits" alignment="CENTER" buttonType="RAISED" layoutX="40.0" layoutY="270.0" onAction="#openEditor" prefHeight="60.0" prefWidth="400.0" ripplerFill="WHITE" style="-fx-background-color: #2E51B0 #2E51B0 #2E51B0;" text="Rediger Kreditering" textFill="WHITE">
          <font>
             <Font size="18.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="addProgramButton" alignment="CENTER" buttonType="RAISED" layoutX="240.0" layoutY="500.0" onAction="#addProgramButtonPushed" prefHeight="50.0" prefWidth="200.0" ripplerFill="WHITE" style="-fx-background-color: #2E51B0 #2E51B0 #2E51B0;" text="Tilføj Produktion" textFill="WHITE">
+      <JFXButton fx:id="addProgramButton" alignment="CENTER" buttonType="RAISED" layoutX="240.0" layoutY="550.0" onAction="#addProgramButtonPushed" prefHeight="50.0" prefWidth="200.0" ripplerFill="WHITE" style="-fx-background-color: #2E51B0 #2E51B0 #2E51B0;" text="Tilføj Produktion" textFill="WHITE">
          <font>
             <Font size="18.0" />
          </font>
       </JFXButton>
-      <TextField fx:id="programNameTextField" layoutX="40.0" layoutY="450.0" prefHeight="26.0" prefWidth="400.0" promptText="Navn på produktion" />
+      <TextField fx:id="programNameTextField" layoutX="40.0" layoutY="500.0" prefHeight="26.0" prefWidth="400.0" promptText="Navn på produktion" />
+      <JFXButton alignment="CENTER" buttonType="RAISED" layoutX="40.0" layoutY="350.0" onAction="#deleteCredits" prefHeight="60.0" prefWidth="400.0" ripplerFill="WHITE" style="-fx-background-color: #95190C;" text="Fjern Kreditering" textFill="WHITE">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </JFXButton>
    </children>
 </AnchorPane>

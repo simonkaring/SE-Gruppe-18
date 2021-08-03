@@ -67,8 +67,8 @@ public class ProgramListController {
             holder.setTitle(listView.getSelectionModel().getSelectedItem().toString());
             holder.setIsViewer(false);
             try {
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("editor.fxml"));
-//                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("editor2.fxml"));
+//                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("editor.fxml"));
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("editor3.fxml"));
                 Parent root = fxmlLoader.load();
                 Stage stage = new Stage();
                 stage.setScene(new Scene(root));
@@ -85,8 +85,8 @@ public class ProgramListController {
             holder.setTitle(listView.getSelectionModel().getSelectedItem().toString());
             holder.setIsViewer(true);
             try {
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("editor.fxml"));
-//                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("editor2.fxml"));
+//                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("editor.fxml"));
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("editor3.fxml"));
                 Parent root = fxmlLoader.load();
                 Stage stage = new Stage();
                 stage.setScene(new Scene(root));
@@ -115,7 +115,7 @@ public class ProgramListController {
         listView.setItems(input);
     }
 
-    @FXML public void removeProgram() {
+    @FXML public void deleteCredits() {
         if(listView.getSelectionModel().getSelectedItem() != null) {
 //            holder.setTitle(listView.getSelectionModel().getSelectedItem().toString());
             String production = listView.getSelectionModel().getSelectedItem().toString();
