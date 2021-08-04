@@ -1,5 +1,6 @@
 package view;
 
+import com.jfoenix.controls.JFXButton;
 import data.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -30,9 +31,10 @@ public class ProgramListController {
     @FXML private TextField searchTextField;
     @FXML private TextField programNameTextField;
     @FXML private Button editCredits;
-    @FXML private Button seeCredits;
-    @FXML private Button searchButton;
+//    @FXML private Button seeCredits;
+//    @FXML private Button searchButton;
     @FXML private Button addProgramButton;
+    @FXML private JFXButton deleteCreditsButton;
     @FXML void logout(ActionEvent event) {
         SceneChanger.changeScene("login_home.fxml");
     }
@@ -102,6 +104,7 @@ public class ProgramListController {
             editCredits.setVisible(false);
             programNameTextField.setVisible(false);
             addProgramButton.setVisible(false);
+            deleteCreditsButton.setVisible(false);
         }
     }
     // Search feature unfinished

@@ -8,6 +8,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.*;
 
@@ -51,12 +53,11 @@ public class EditorController {
     @FXML private Button hentButton;
     @FXML private Button saetButton;
 
-//    Labels dont seem to be in use
-//    @FXML private Label fornavnLabel;
-//    @FXML private Label efternavnLabel;
-//    @FXML private Label dobLabel;
-//    @FXML private Label nationalitetLabel;
-//    @FXML private Label rolleLabel;
+    @FXML private Text fornavnLabel;
+    @FXML private Text efternavnLabel;
+    @FXML private Text dobLabel;
+    @FXML private Text nationalitetLabel;
+    @FXML private Text rolleLabel;
 
     Program currentProgram;
 
@@ -204,15 +205,18 @@ public class EditorController {
             nationalitetTextField.setVisible(false);
             rolleTextField.setVisible(false);
             dobDatePicker.setVisible(false);
-//            tilfojButton.setVisible(false);
-//            fjernButton.setVisible(false);
-//            hentButton.setVisible(false);
-//            saetButton.setVisible(false);
-//            fornavnLabel.setVisible(false);
-//            efternavnLabel.setVisible(false);
-//            dobLabel.setVisible(false);
-//            nationalitetLabel.setVisible(false);
-//            rolleLabel.setVisible(false);
+
+            tilfojButton.setVisible(false);
+            fjernButton.setVisible(false);
+            hentButton.setVisible(false);
+            saetButton.setVisible(false);
+            fornavnLabel.setVisible(false);
+            efternavnLabel.setVisible(false);
+            dobLabel.setVisible(false);
+            nationalitetLabel.setVisible(false);
+            rolleLabel.setVisible(false);
+//            AnchorPane anchorPane = new AnchorPane();
+//            anchorPane.setLeftAnchor(tableView, 0.0);
         }
     }
 }
