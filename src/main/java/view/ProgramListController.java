@@ -95,7 +95,7 @@ public class ProgramListController {
         Soeg.soegProgram(searchTextField.getText());
         ObservableList<Program> input = FXCollections.observableArrayList();
         ArrayList<Object> searchResults = new ArrayList<>(Soeg.getSoegeResultater());
-        for(Object o : searchResults){
+        for(Object o : searchResults) {
             input.add((Program) o);
         }
         listView.setItems(input);
@@ -104,8 +104,8 @@ public class ProgramListController {
     @FXML public void deleteCredits() {
         if(listView.getSelectionModel().getSelectedItem() != null) {
 //            holder.setTitle(listView.getSelectionModel().getSelectedItem().toString());
-            String production = listView.getSelectionModel().getSelectedItem().toString();
-            DeleteProduction.deleteProduction(production); // Executes SQL query from data layer
+            String productionTitle = listView.getSelectionModel().getSelectedItem().toString();
+            DeleteProduction.deleteProduction(productionTitle); // Executes SQL query from data layer
         }
     }
 

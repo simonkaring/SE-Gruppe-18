@@ -9,12 +9,6 @@ import java.sql.Connection;
 
 public class ConnectionDatabase {
 
-//    private static DatabaseConnection instance;
-//    private Connection connection;
-//    private String url = "jdbc:postgresql://localhost:5432/jdbc";
-//    private String username = "root";
-//    private String password = "localhost";
-
     public static java.sql.Connection connection = null;
     private static ConnectionDatabase instance;
     private static String username="postgres";
