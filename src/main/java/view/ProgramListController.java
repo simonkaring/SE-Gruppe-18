@@ -68,16 +68,8 @@ public class ProgramListController {
         if(listView.getSelectionModel().getSelectedItem() != null) {
             holder.setTitle(listView.getSelectionModel().getSelectedItem().toString());
             holder.setIsViewer(false);
-            try {
-//                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("editor.fxml"));
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("editor3.fxml"));
-                Parent root = fxmlLoader.load();
-                Stage stage = new Stage();
-                stage.setScene(new Scene(root));
-                stage.show();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+//            SceneChanger.openPopup("editor.fxml");
+            SceneChanger.openScenePopup("editor3.fxml");
         }
     }
     //Åbner seer versionen af editor pagen, hvor dele af GUI er gemt.
@@ -86,16 +78,7 @@ public class ProgramListController {
             TitleHolder holder = TitleHolder.getInstance();
             holder.setTitle(listView.getSelectionModel().getSelectedItem().toString());
             holder.setIsViewer(true);
-            try {
-//                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("editor.fxml"));
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("editor3.fxml"));
-                Parent root = fxmlLoader.load();
-                Stage stage = new Stage();
-                stage.setScene(new Scene(root));
-                stage.show();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            SceneChanger.openScenePopup("editor3.fxml");
         }
     }
     // Removes GUI elements based on boolean value

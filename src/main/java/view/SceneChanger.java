@@ -24,9 +24,9 @@ public class SceneChanger
         }
     }
 
-    void openScenePopup(String fxml) {
+    static void openScenePopup(String fxml) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fxml));
+            FXMLLoader fxmlLoader = new FXMLLoader(SceneChanger.class.getResource(fxml));
             Parent root = fxmlLoader.load();
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
