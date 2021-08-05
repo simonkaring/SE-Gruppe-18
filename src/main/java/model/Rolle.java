@@ -1,6 +1,7 @@
 package model;
 
 import data.ConnectionDatabase;
+import data.InsertRole;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,7 +20,8 @@ public class Rolle extends ConnectionDatabase {
     private static List<String> rolleTyper = new ArrayList<>();
 
     public Rolle(String navn, String type){
-        indsaetRolle(navn, type, null);
+//        indsaetRolle(navn, type, null);
+        InsertRole.insertRole(navn, type, null);
         try{
             int id = 0;
             PreparedStatement queryStatement = connection.prepareStatement("SELECT * FROM roller ORDER BY id DESC LIMIT 1");
@@ -37,7 +39,8 @@ public class Rolle extends ConnectionDatabase {
     }
 
     public Rolle(String navn, String type, Person spillesAF){
-        indsaetRolle(navn, type, spillesAF);
+//        indsaetRolle(navn, type, spillesAF);
+        InsertRole.insertRole(navn, type, spillesAF);
         try{
             int id = 0;
             PreparedStatement queryStatement = connection.prepareStatement("SELECT * FROM roller ORDER BY id DESC LIMIT 1");

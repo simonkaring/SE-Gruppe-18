@@ -6,25 +6,17 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.control.*;
-
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
-import javafx.stage.Stage;
 import model.KrediteringSystem;
 import model.*;
 import model.Program;
-import javafx.scene.control.*;
-import javafx.scene.control.TreeTableColumn;
-import javafx.scene.control.TableColumn;
 import java.util.ArrayList;
 
 public class ProgramListController {
 
-    //Initialize objekter i GUI
+    // Initialize objekter i GUI
     @FXML private ListView listView;
     @FXML private TextField searchTextField;
     @FXML private TextField programNameTextField;
@@ -40,7 +32,7 @@ public class ProgramListController {
     TitleHolder holder = TitleHolder.getInstance();
     public ProgramListController() {
     }
-    //Paramenter for initialization af programmet.
+    // Paramenter for initialization af programmet.
     @FXML private void initialize() {
         ArrayList<Producent> producent = new ArrayList<>(KrediteringSystem.getSamletProducenter());
         for (Producent p  : producent ){
@@ -63,7 +55,7 @@ public class ProgramListController {
             listView.getItems().add(producent.getProgrammer().get(temp));
         }
     }
-    //Åbner editoren på det valgte program
+    // Åbner editoren på det valgte program
     @FXML public void openEditor() {
         if(listView.getSelectionModel().getSelectedItem() != null) {
             System.out.println("\nOpening production in editor mode");
@@ -72,7 +64,7 @@ public class ProgramListController {
             SceneChanger.openScenePopup("editor3.fxml");
         }
     }
-    //Åbner seer versionen af editor pagen, hvor dele af GUI er gemt.
+    // Åbner seer versionen af editor pagen, hvor dele af GUI er gemt.
     @FXML public void openViewerPage() {
         if(listView.getSelectionModel().getSelectedItem() != null) {
             System.out.println("\nOpening production in viewer mode");

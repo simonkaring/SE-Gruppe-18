@@ -9,9 +9,11 @@ import static data.ConnectionDatabase.connection;
 
 public class InsertProduction {
 
+    private static String insertProductionSQL = "Insert INTO programmer (navn, producent_id) VALUES (?,?)";
+
     public static void insertProduction(String productionTitle, Producent production){
         try {
-            PreparedStatement insertStatement = connection.prepareStatement("Insert INTO programmer (navn, producent_id) VALUES (?,?)");
+            PreparedStatement insertStatement = connection.prepareStatement(insertProductionSQL);
             insertStatement.setString(1, productionTitle);
             insertStatement.setInt(2, production.getProducentID());
             insertStatement.execute();
