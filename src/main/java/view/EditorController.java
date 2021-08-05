@@ -129,8 +129,8 @@ public class EditorController {
         ArrayList<Rolle> roller = new ArrayList<>(currentProgram.getRollerIProgram());
             for(Rolle rolle : roller){
                 if(temprolle.get(0).getRolleID()==rolle.getRolleID()) {
-                    System.out.println(temprolle.get(0).getSpillesAf().getFornavn() + " is the person thats getting removed");
-                    System.out.println("Sucessfully removed the role!");
+                    System.out.println("Removing " + temprolle.get(0).getSpillesAf().getFornavn());
+                    System.out.println("Role successfully removed");
                     currentProgram.fjernRolle(rolle);
 
                 }

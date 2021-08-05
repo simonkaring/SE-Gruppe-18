@@ -22,9 +22,7 @@ import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.TableColumn;
 import java.util.ArrayList;
 
-
 public class ProgramListController {
-
 
     //Initialize objekter i GUI
     @FXML private ListView listView;
@@ -68,7 +66,7 @@ public class ProgramListController {
     //Åbner editoren på det valgte program
     @FXML public void openEditor() {
         if(listView.getSelectionModel().getSelectedItem() != null) {
-            System.out.println("Opening production in editor mode");
+            System.out.println("\nOpening production in editor mode");
             holder.setTitle(listView.getSelectionModel().getSelectedItem().toString());
             holder.setIsViewer(false);
             SceneChanger.openScenePopup("editor3.fxml");
@@ -77,7 +75,7 @@ public class ProgramListController {
     //Åbner seer versionen af editor pagen, hvor dele af GUI er gemt.
     @FXML public void openViewerPage() {
         if(listView.getSelectionModel().getSelectedItem() != null) {
-            System.out.println("Opening production in viewer mode");
+            System.out.println("\nOpening production in viewer mode");
             TitleHolder holder = TitleHolder.getInstance();
             holder.setTitle(listView.getSelectionModel().getSelectedItem().toString());
             holder.setIsViewer(true);
