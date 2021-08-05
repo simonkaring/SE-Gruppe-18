@@ -58,23 +58,26 @@ public class ProgramListController {
     @FXML public void addProgramButtonPushed() {
         Producent producent = new Producent("Placeholder");
         int temp = producent.getProgrammer().size();
-        if(programNameTextField.getText() != null) {
+        String productionTitle = programNameTextField.getText();
+        if(productionTitle != null) {
             producent.opretProgram(programNameTextField.getText());
+            System.out.println("Added Production: " + productionTitle);
             listView.getItems().add(producent.getProgrammer().get(temp));
         }
     }
     //Åbner editoren på det valgte program
     @FXML public void openEditor() {
         if(listView.getSelectionModel().getSelectedItem() != null) {
+            System.out.println("Opening production in editor mode");
             holder.setTitle(listView.getSelectionModel().getSelectedItem().toString());
             holder.setIsViewer(false);
-//            SceneChanger.openPopup("editor.fxml");
             SceneChanger.openScenePopup("editor3.fxml");
         }
     }
     //Åbner seer versionen af editor pagen, hvor dele af GUI er gemt.
     @FXML public void openViewerPage() {
         if(listView.getSelectionModel().getSelectedItem() != null) {
+            System.out.println("Opening production in viewer mode");
             TitleHolder holder = TitleHolder.getInstance();
             holder.setTitle(listView.getSelectionModel().getSelectedItem().toString());
             holder.setIsViewer(true);
@@ -102,10 +105,12 @@ public class ProgramListController {
     }
 
     @FXML public void deleteCredits() {
-        if(listView.getSelectionModel().getSelectedItem() != null) {
-//            holder.setTitle(listView.getSelectionModel().getSelectedItem().toString());
+        final Object selectedItem = listView.getSelectionModel().getSelectedItem();
+        if(selectedItem != null) {
             String productionTitle = listView.getSelectionModel().getSelectedItem().toString();
             DeleteProduction.deleteProduction(productionTitle); // Executes SQL query from data layer
+            System.out.println("Deleted Production: " + productionTitle);
+            listView.getItems().remove(selectedItem);
         }
     }
 

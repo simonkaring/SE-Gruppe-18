@@ -39,6 +39,7 @@ public class EditorController {
     @FXML private DatePicker dobDatePicker;
 
     ////////////////////////////////////////////////////////////////////////////////
+//    Tree table version needs looking at. Using default table instead atm
 //    @FXML private JFXTreeTableView<Person> tableView;
 //    @FXML private JFXTreeTableView<Rolle> rolleTableView;
 //    @FXML private TreeTableColumn<?, ?> fornavnColumn;
@@ -64,18 +65,17 @@ public class EditorController {
     //Metode til at tilføje alle medvirkende af et program ind i tableView tabellen
     public ObservableList<Person> getActors() {
         TitleHolder holder = TitleHolder.getInstance();
-        System.out.println(holder.getTitle());
+        System.out.println("Production Title: " + holder.getTitle());
         ObservableList<Person> actors = FXCollections.observableArrayList();
         ArrayList<Producent> producent = new ArrayList<>(KrediteringSystem.getSamletProducenter());
         for (Producent p : producent) {
             ArrayList<Program> programs = new ArrayList<>(p.getProgrammer());
             for (Program pro : programs) {
                 if (pro.getTitel().equals(holder.getTitle())) {
-                    System.out.println("Found production");
                     ArrayList<Rolle> rolle = new ArrayList<>(pro.getRollerIProgram());
-                    System.out.println("Size of role array " + rolle.size());
+                    System.out.println("Size of role array = " + rolle.size());
                     for (Rolle role : rolle) {
-                        System.out.println("Adds actor");
+//                        System.out.println("Actor added");
                         actors.add(role.getSpillesAf());
                         rolleTableView.getItems().add(role);
                     }
@@ -85,7 +85,7 @@ public class EditorController {
         return actors;
     }
     //Metode der finder det valgte program fra tidligere GUI
-    public Program findProgram(){
+    public Program findProgram() {
         TitleHolder holder = TitleHolder.getInstance();
         ArrayList<Producent> producent = new ArrayList<>(KrediteringSystem.getSamletProducenter());
         for(Producent p : producent){
@@ -108,10 +108,8 @@ public class EditorController {
         alderColumn.setCellValueFactory(new PropertyValueFactory<Person, LocalDate>("alder"));
         nationalitetColumn.setCellValueFactory(new PropertyValueFactory<Person, String>("nationalitet"));
         rolleColumn.setCellValueFactory(new PropertyValueFactory<>("navn"));
-        tableView.setItems(getActors());
-        Stage stage = new Stage();
         currentProgram = findProgram();
-        System.out.println(TitleHolder.getInstance().getIsViewer());
+        tableView.setItems(getActors());
         hideGuiElements(TitleHolder.getInstance().getIsViewer());
     }
 
@@ -198,8 +196,8 @@ public class EditorController {
     }
 
     //Metode der gemmer dele af GUI baseret på en boolean
-    public void hideGuiElements(boolean b){
-        if(b){
+    public void hideGuiElements(boolean b) {
+        if(b) {
             fornavnTextField.setVisible(false);
             efternavnTextField.setVisible(false);
             nationalitetTextField.setVisible(false);

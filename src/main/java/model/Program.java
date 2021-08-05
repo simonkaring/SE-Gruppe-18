@@ -14,13 +14,13 @@ public class Program extends ConnectionDatabase {
     private String titel;
     private List<Rolle> rollerIProgram;
 
-    public Program(String titel, Producent producent){
+    public Program(String titel, Producent producent) {
         indsaetProgram(titel, producent);
         try{
             int id = 0;
             PreparedStatement queryStatement = connection.prepareStatement("SELECT * FROM programmer ORDER BY id DESC LIMIT 1");
             ResultSet queryResultSet = queryStatement.executeQuery();
-            while(queryResultSet.next()){
+            while(queryResultSet.next()) {
                 id = queryResultSet.getInt("id");
             }
             this.programID = id;
@@ -32,7 +32,7 @@ public class Program extends ConnectionDatabase {
         KrediteringSystem.getSamletProgrammer().add(this);
     }
 
-    public Program(String titel, int programID){
+    public Program(String titel, int programID) {
         this.programID = programID;
         this.titel = titel;
         this.rollerIProgram = new ArrayList<>();
@@ -41,9 +41,9 @@ public class Program extends ConnectionDatabase {
 
 
     //Laver rolle i programmet i rollerIProgram-listen, uden at tilknytte person til rollen.
-    public void addRolle(String navn, String type){
-        for(Rolle rolleIProgram : getRollerIProgram()){
-            if(rolleIProgram.getNavn().equals(navn) && rolleIProgram.getType().equals(type)){
+    public void addRolle(String navn, String type) {
+        for(Rolle rolleIProgram : getRollerIProgram()) {
+            if(rolleIProgram.getNavn().equals(navn) && rolleIProgram.getType().equals(type)) {
                 return;
             }
         }
@@ -61,9 +61,9 @@ public class Program extends ConnectionDatabase {
     }
 
     //Laver rolle i programmet i rollerIProgram-listen, og tilknytter person til rollen.
-    public void addRolle(String navn, String type, Person person){
-        for(Rolle rolleIProgram : getRollerIProgram()){
-            if(rolleIProgram.getNavn().equals(navn) && rolleIProgram.getType().equals(type)){
+    public void addRolle(String navn, String type, Person person) {
+        for(Rolle rolleIProgram : getRollerIProgram()) {
+            if(rolleIProgram.getNavn().equals(navn) && rolleIProgram.getType().equals(type)) {
                 return;
             }
         }
@@ -82,7 +82,7 @@ public class Program extends ConnectionDatabase {
     }
 
     //Fjerner den valgte rolle fra programmet.
-    public void fjernRolle(Rolle rolle){
+    public void fjernRolle(Rolle rolle) {
         try {
             PreparedStatement insertStatement = connection.prepareStatement("DELETE FROM program_rolle WHERE rolle_id = ?");
             insertStatement.setInt(1, rolle.getRolleID());
@@ -96,7 +96,7 @@ public class Program extends ConnectionDatabase {
 
     public String udskrivRollerIProgram() {
         StringBuilder returner = new StringBuilder();
-        for(Rolle roller : rollerIProgram){
+        for(Rolle roller : rollerIProgram) {
             returner.append(roller);
             returner.append("\n");
         }

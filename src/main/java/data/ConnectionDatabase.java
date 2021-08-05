@@ -46,7 +46,7 @@ public class ConnectionDatabase {
         return instance;
     }
 
-    public static void indsaetProducent(String navn){
+    public static void indsaetProducent(String navn) {
         try {
             PreparedStatement insertStatement = connection.prepareStatement("Insert INTO producenter (navn) VALUES (?)");
             insertStatement.setString(1, navn);
@@ -56,7 +56,7 @@ public class ConnectionDatabase {
         }
     }
 
-    public static void indsaetProgram(String navn, Producent producent){
+    public static void indsaetProgram(String navn, Producent producent) {
         try {
             PreparedStatement insertStatement = connection.prepareStatement("Insert INTO programmer (navn, producent_id) VALUES (?,?)");
             insertStatement.setString(1, navn);
