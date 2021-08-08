@@ -3,15 +3,15 @@ package data;
 import model.Person;
 import model.Producent;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import static data.ConnectionDatabase.connection;
 
-public class ScriptsSQL {
+public class QueryDatabase {
 
     private static String deleteSQL = "DELETE FROM programmer WHERE navn=?";
     public static void deleteProduction(String production) {
-
         try {
             PreparedStatement deleteStatement = connection.prepareStatement(deleteSQL);
             deleteStatement.setString(1, production);
@@ -81,6 +81,70 @@ public class ScriptsSQL {
             e.printStackTrace();
         }
     }
+
+    private static String selectPersonSQL = "SELECT * FROM personer ORDER BY id";
+    public static ResultSet selectPerson() {
+        ResultSet queryResultSet = null;
+        try {
+            PreparedStatement queryStatement = connection.prepareStatement(selectPersonSQL);
+            queryResultSet = queryStatement.executeQuery();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return queryResultSet;
+    }
+
+    private static String selectProducerSQL = "SELECT * FROM producenter ORDER BY id";
+    public static ResultSet selectProducer() {
+        ResultSet queryResultSet = null;
+        try {
+            PreparedStatement queryStatement = connection.prepareStatement(selectProducerSQL);
+            queryResultSet = queryStatement.executeQuery();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return queryResultSet;
+    }
+
+    private static String selectProductionSQL = "SELECT * FROM programmer ORDER BY id";
+    public static ResultSet selectProduction() {
+        ResultSet queryResultSet = null;
+        try {
+            PreparedStatement queryStatement = connection.prepareStatement(selectProductionSQL);
+            queryResultSet = queryStatement.executeQuery();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return queryResultSet;
+    }
+
+    private static String selectRoleSQL = "SELECT * FROM roller ORDER BY id";
+    public static ResultSet selectRole() {
+        ResultSet queryResultSet = null;
+        try {
+            PreparedStatement queryStatement = connection.prepareStatement(selectRoleSQL);
+            queryResultSet = queryStatement.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return queryResultSet;
+    }
+
+    private static String production_roleSQL =  "SELECT * FROM program_rolle";
+    public static ResultSet selectProductionRole() {
+        ResultSet queryResultSet = null;
+        try {
+            PreparedStatement queryStatement = connection.prepareStatement(production_roleSQL);
+            queryResultSet = queryStatement.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return queryResultSet;
+    }
+
 
     boolean isLoginInformationCorrect(String username, String password) {
         boolean isLoginInformationCorrectBoolean = false;

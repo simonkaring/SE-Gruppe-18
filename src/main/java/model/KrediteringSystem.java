@@ -1,7 +1,7 @@
 package model;
 
 import data.ConnectionDatabase;
-import view.Main;
+import data.QueryDatabase;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,7 +9,6 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 public class KrediteringSystem extends ConnectionDatabase {
 
@@ -19,6 +18,70 @@ public class KrediteringSystem extends ConnectionDatabase {
     private static List<Person> samletPersoner = new ArrayList<>();
  
     //Køres ved opstart af programmet, og henter al data fra databasen og opretter objekter af det.
+    public static void opstart2() throws SQLException {
+        opretForbindelse();
+        int counter = 0;
+
+        // Retrieve producers
+        ResultSet selectProducerResultSet = QueryDatabase.selectProducer();
+        if(!selectProducerResultSet.isBeforeFirst()){
+            counter++;
+        }
+        while(selectProducerResultSet.next()){
+            new Producent(selectProducerResultSet.getString("navn"), selectProducerResultSet.getInt("id"));
+        }
+
+        // Retrieve Productions
+        ResultSet selectProductionResultSet = QueryDatabase.selectProduction();
+        if(!selectProductionResultSet.isBeforeFirst()){
+            counter++;
+        }
+        while(selectProductionResultSet.next()){
+            Program programmet = new Program(selectProductionResultSet.getString("navn"), selectProductionResultSet.getInt("id"));
+            for(Producent producent : samletProducenter){
+                if(producent.getProducentID() == selectProductionResultSet.getInt("producent_id")){
+                    producent.getProgrammer().add(programmet);
+                }
+            }
+        }
+
+        // Retrieve People
+        ResultSet selectPersonResultSet = QueryDatabase.selectPerson();
+        if(!selectPersonResultSet.isBeforeFirst()){
+            counter++;
+        }
+        while(selectPersonResultSet.next()){
+            new Person(selectPersonResultSet.getString("fornavn"),
+                    selectPersonResultSet.getString("efternavn"),
+                    LocalDate.of(selectPersonResultSet.getInt("aar"), selectPersonResultSet.getInt("maaned"), selectPersonResultSet.getInt("dag")),
+                    selectPersonResultSet.getString("nationalitet"), selectPersonResultSet.getInt("id")
+            );
+        }
+
+        // Retrieve Roles
+        ResultSet queryResultSet = QueryDatabase.selectRole();
+        if(!queryResultSet.isBeforeFirst()){
+            counter++;
+        }
+        while(queryResultSet.next()){
+            if(queryResultSet.getInt("person_id") > 0){
+                Person denValgtePerson = null;
+                for(Person person : samletPersoner){
+                    if(person.getPersonID() == queryResultSet.getInt("person_id")){
+                        denValgtePerson = person;
+                    }
+                }
+                Rolle rolle = new Rolle(queryResultSet.getString("navn"), queryResultSet.getString("type"), denValgtePerson, queryResultSet.getInt("id"));
+                denValgtePerson.getRoller().add(rolle);
+            } else {
+                new Rolle(queryResultSet.getString("navn"), queryResultSet.getString("type"), null, queryResultSet.getInt("id"));
+            }
+        }
+
+        // Retrieve Production Roles
+
+    }
+
     public static void opstart(){
         opretForbindelse();
         int counter = 0;

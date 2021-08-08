@@ -18,20 +18,23 @@ public class ProgramListController {
 
     // Initialize objekter i GUI
     @FXML private ListView listView;
-    @FXML private TextField searchTextField;
+    @FXML public static TextField searchTextField;
     @FXML private TextField programNameTextField;
     @FXML private Button editCredits;
 //    @FXML private Button seeCredits;
 //    @FXML private Button searchButton;
     @FXML private Button addProgramButton;
     @FXML private JFXButton deleteCreditsButton;
+
     @FXML void logout(ActionEvent event) {
+        System.out.println("Logging out. Opening login home scene");
         SceneChanger.changeScene("login_home.fxml");
     }
 
     TitleHolder holder = TitleHolder.getInstance();
     public ProgramListController() {
     }
+
     // Paramenter for initialization af programmet.
     @FXML private void initialize() {
         ArrayList<Producent> producent = new ArrayList<>(KrediteringSystem.getSamletProducenter());
@@ -55,25 +58,28 @@ public class ProgramListController {
             listView.getItems().add(producent.getProgrammer().get(temp));
         }
     }
+
     // Åbner editoren på det valgte program
     @FXML public void openEditor() {
         if(listView.getSelectionModel().getSelectedItem() != null) {
-            System.out.println("\nOpening production in editor mode");
+            System.out.println("Opening production in editor mode");
             holder.setTitle(listView.getSelectionModel().getSelectedItem().toString());
             holder.setIsViewer(false);
-            SceneChanger.openScenePopup("editor3.fxml");
+            SceneChanger.openScenePopup("editor3.fxml", 800,600);
         }
     }
+
     // Åbner seer versionen af editor pagen, hvor dele af GUI er gemt.
     @FXML public void openViewerPage() {
         if(listView.getSelectionModel().getSelectedItem() != null) {
-            System.out.println("\nOpening production in viewer mode");
+            System.out.println("Opening production in viewer mode");
             TitleHolder holder = TitleHolder.getInstance();
             holder.setTitle(listView.getSelectionModel().getSelectedItem().toString());
             holder.setIsViewer(true);
-            SceneChanger.openScenePopup("editor3.fxml");
+            SceneChanger.openScenePopup("editor3.fxml", 800, 600);
         }
     }
+
     // Removes GUI elements based on boolean value
     public void hideUIElement(boolean b) {
         if(b) {
@@ -83,6 +89,7 @@ public class ProgramListController {
             deleteCreditsButton.setVisible(false);
         }
     }
+
     // Search feature unfinished
     @FXML public void search() {
         Soeg.soegProgram(searchTextField.getText());
@@ -94,6 +101,7 @@ public class ProgramListController {
         listView.setItems(input);
     }
 
+    // Delete credits, destructive operation
     @FXML public void deleteCredits() {
         final Object selectedItem = listView.getSelectionModel().getSelectedItem();
         if(selectedItem != null) {

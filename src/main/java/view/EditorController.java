@@ -39,7 +39,7 @@ public class EditorController {
     @FXML private DatePicker dobDatePicker;
 
     ////////////////////////////////////////////////////////////////////////////////
-//    Tree table version needs looking at. Using default table instead atm
+//    Tree table version needs looking at. Using default table instead
 //    @FXML private JFXTreeTableView<Person> tableView;
 //    @FXML private JFXTreeTableView<Rolle> rolleTableView;
 //    @FXML private TreeTableColumn<?, ?> fornavnColumn;

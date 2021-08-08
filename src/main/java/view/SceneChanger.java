@@ -10,7 +10,7 @@ import java.io.IOException;
 public class SceneChanger
 {
 
-    static void changeScene(String fxml) {
+    public static void changeScene(String fxml) {
         // This method changes scene and can be called with 'extends SceneChanger' on the class
         Parent window1;
         try {
@@ -24,17 +24,17 @@ public class SceneChanger
         }
     }
 
-    static void openScenePopup(String fxml) {
+    public static void openScenePopup(String fxml, int horizontal, int vertical) {
+        // Opens a new scene like a popup
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(SceneChanger.class.getResource(fxml));
             Parent root = fxmlLoader.load();
             Stage stage = new Stage();
-            stage.setScene(new Scene(root));
+            stage.setScene(new Scene(root, horizontal, vertical));
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
     }
-
 }

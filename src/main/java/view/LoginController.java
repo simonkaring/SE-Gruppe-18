@@ -11,35 +11,19 @@ public class LoginController {
     TitleHolder holder = TitleHolder.getInstance();
 
     @FXML void backToLoginHome(ActionEvent event) {
+        System.out.println("Going back");
         SceneChanger.changeScene("login_home.fxml");
     }
 
     @FXML void login(ActionEvent event) {
+        System.out.println("Logging in");
         holder.setIsViewer(false);
         SceneChanger.changeScene("scene3.fxml");
     }
 
     @FXML void register(ActionEvent event) {
+        System.out.println("Opening register popup");
         holder.setIsViewer(false);
-        SceneChanger.changeScene("scene2.fxml");
+        SceneChanger.openScenePopup("register.fxml",600,300);
     }
-
-//    public void loginSystem(){
-//        if(usernameTextField.getText().equals("admin") && passwordField.getText().equals("admin")){
-//            holder.setIsViewer(false);
-//            changeScene("scene.fxml");
-//        }
-//        else{
-//            Alert alert = new Alert(Alert.AlertType.ERROR);
-//            alert.setTitle("Fejl");
-//            alert.setHeaderText("Forkert username eller password");
-//            alert.showAndWait();
-//        }
-//    }
-
-//    public void loginAsSeer(){
-//        holder.setIsViewer(true);
-//        changeScene("scene.fxml");
-//    }
-
 }
