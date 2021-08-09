@@ -11,12 +11,12 @@ public class LoginHomeController extends SceneChanger {
 
     @FXML void loginAsUser(ActionEvent event) {
         System.out.println("Opening login side");
-        changeScene("login2.fxml");
+        changeScene("login.fxml");
     }
 
     @FXML void loginAsViewer(ActionEvent event) {
         System.out.println("Opening viewer mode");
         holder.setIsViewer(true);
-        changeScene("scene3.fxml");
+        changeScene("production_viewer.fxml");
     }
 }

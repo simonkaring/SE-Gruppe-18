@@ -11,7 +11,7 @@ import model.*;
 import model.Production;
 import java.util.ArrayList;
 
-public class ProgramListController {
+public class ProductionListController {
 
     // Initialize objekter i GUI
     @FXML private ListView listView;
@@ -29,7 +29,7 @@ public class ProgramListController {
     }
 
     TitleHolder holder = TitleHolder.getInstance();
-    public ProgramListController() {
+    public ProductionListController() {
     }
 
     private ArrayList productionList = new ArrayList();
@@ -65,7 +65,7 @@ public class ProgramListController {
             System.out.println("Opening production in editor mode");
             holder.setTitle(listView.getSelectionModel().getSelectedItem().toString());
             holder.setIsViewer(false);
-            SceneChanger.openScenePopup("editor3.fxml", 800,600);
+            SceneChanger.openScenePopup("editor.fxml", 800,600);
         }
     }
 
@@ -76,7 +76,7 @@ public class ProgramListController {
             TitleHolder holder = TitleHolder.getInstance();
             holder.setTitle(listView.getSelectionModel().getSelectedItem().toString());
             holder.setIsViewer(true);
-            SceneChanger.openScenePopup("editor3.fxml", 800, 600);
+            SceneChanger.openScenePopup("editor.fxml", 800, 600);
         }
     }
 

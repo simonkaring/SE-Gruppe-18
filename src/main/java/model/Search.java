@@ -3,7 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Soeg {
+public class Search {
 
     private static List<List<Object>> soegeResultater;
 

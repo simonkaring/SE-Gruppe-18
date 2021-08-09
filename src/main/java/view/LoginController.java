@@ -18,7 +18,7 @@ public class LoginController {
     @FXML void login(ActionEvent event) {
         System.out.println("Logging in");
         holder.setIsViewer(false);
-        SceneChanger.changeScene("scene3.fxml");
+        SceneChanger.changeScene("production_viewer.fxml");
     }
 
     @FXML void register(ActionEvent event) {
