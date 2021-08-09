@@ -2,8 +2,6 @@ package view;
 
 import com.jfoenix.controls.JFXButton;
 import data.*;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -13,7 +11,6 @@ import model.KrediteringSystem;
 import model.*;
 import model.Program;
 import java.util.ArrayList;
-import java.util.Locale;
 
 public class ProgramListController {
 
@@ -94,12 +91,11 @@ public class ProgramListController {
         }
     }
 
-    // Search feature unfinished
+    // Searches from the list of programs and finds matches and partial matches
     @FXML public void search() {
         String searchText = searchTextField.getText();
-
         if(searchTextField.textProperty().get().isEmpty()) {
-            // Restore all items if there is empty search field
+            // Restore all items if there is an empty search field
             System.out.println("Empty search field, restoring program list");
             listView.getItems().clear();
             for (int i=0; i<programList.size(); i++){
@@ -120,6 +116,9 @@ public class ProgramListController {
             }
             System.out.println("Number of matches: " + matchesNumber);
         }
+
+        // Old search kept for future review
+
 //        Soeg.soegProgram(searchTextField.getText());
 //        ObservableList<Program> input = FXCollections.observableArrayList();
 //        ArrayList<Object> searchResults = new ArrayList<>(Soeg.getSoegeResultater());
@@ -129,7 +128,7 @@ public class ProgramListController {
 //        listView.setItems(input);
     }
 
-    // Delete credits, destructive operation
+    // Deletes credits, destructive operation
     @FXML public void deleteCredits() {
         final Object selectedItem = listView.getSelectionModel().getSelectedItem();
         if(selectedItem != null) {
