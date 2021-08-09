@@ -97,16 +97,6 @@ public class ProgramListController {
     // Search feature unfinished
     @FXML public void search() {
         String searchText = searchTextField.getText();
-        System.out.println("Search text: " + searchText);
-//        System.out.println(programList);
-
-//        if(programList.contains(searchText)){
-//            System.out.println("Match found");
-//        }
-
-        ObservableList listItems = listView.getItems();
-
-
 
         if(searchTextField.textProperty().get().isEmpty()) {
             // Restore all items if there is empty search field
@@ -117,14 +107,18 @@ public class ProgramListController {
             }
         }
         else if(searchText != null) {
+            System.out.println("Searching with: " + searchText);
             listView.getItems().clear();
+            int matchesNumber = 0;
             for (int i=0; i<programList.size(); i++){
                 String cellValue = programList.get(i).toString();
                 cellValue = cellValue.toLowerCase();
                 if(cellValue.contains(searchTextField.textProperty().get().toLowerCase())) {
+                    matchesNumber++;
                     listView.getItems().add(programList.get(i));
                 }
             }
+            System.out.println("Number of matches: " + matchesNumber);
         }
 //        Soeg.soegProgram(searchTextField.getText());
 //        ObservableList<Program> input = FXCollections.observableArrayList();
@@ -145,7 +139,6 @@ public class ProgramListController {
             listView.getItems().remove(selectedItem);
         }
     }
-
 }
 
 
