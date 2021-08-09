@@ -13,12 +13,13 @@ import model.KrediteringSystem;
 import model.*;
 import model.Program;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class ProgramListController {
 
     // Initialize objekter i GUI
     @FXML private ListView listView;
-    @FXML public static TextField searchTextField;
+    @FXML private TextField searchTextField;
     @FXML private TextField programNameTextField;
     @FXML private Button editCredits;
 //    @FXML private Button seeCredits;
@@ -35,13 +36,16 @@ public class ProgramListController {
     public ProgramListController() {
     }
 
+    private ArrayList programList = new ArrayList();
     // Paramenter for initialization af programmet.
     @FXML private void initialize() {
         ArrayList<Producent> producent = new ArrayList<>(KrediteringSystem.getSamletProducenter());
         for (Producent p  : producent ){
             ArrayList<Program> programs = new ArrayList<>(p.getProgrammer());
             for (Program pro : programs ){
+//                System.out.println(pro.getTitel());
                 listView.getItems().add(pro.getTitel());
+                programList.add(pro.getTitel());
             }
         }
         hideUIElement(holder.getIsViewer());
@@ -92,13 +96,43 @@ public class ProgramListController {
 
     // Search feature unfinished
     @FXML public void search() {
-        Soeg.soegProgram(searchTextField.getText());
-        ObservableList<Program> input = FXCollections.observableArrayList();
-        ArrayList<Object> searchResults = new ArrayList<>(Soeg.getSoegeResultater());
-        for(Object o : searchResults) {
-            input.add((Program) o);
+        String searchText = searchTextField.getText();
+        System.out.println("Search text: " + searchText);
+//        System.out.println(programList);
+
+//        if(programList.contains(searchText)){
+//            System.out.println("Match found");
+//        }
+
+        ObservableList listItems = listView.getItems();
+
+
+
+        if(searchTextField.textProperty().get().isEmpty()) {
+            // Restore all items if there is empty search field
+            System.out.println("Empty search field, restoring program list");
+            listView.getItems().clear();
+            for (int i=0; i<programList.size(); i++){
+                listView.getItems().add(programList.get(i));
+            }
         }
-        listView.setItems(input);
+        else if(searchText != null) {
+            listView.getItems().clear();
+            for (int i=0; i<programList.size(); i++){
+                String cellValue = programList.get(i).toString();
+                cellValue = cellValue.toLowerCase();
+                if(cellValue.contains(searchTextField.textProperty().get().toLowerCase())) {
+                    listView.getItems().add(programList.get(i));
+                }
+            }
+        }
+//        Soeg.soegProgram(searchTextField.getText());
+//        ObservableList<Program> input = FXCollections.observableArrayList();
+//        ArrayList<Object> searchResults = new ArrayList<>(Soeg.getSoegeResultater());
+//        for(Object o : searchResults) {
+//            input.add((Program) o);
+//        }
+//        listView.setItems(input);
     }
 
     // Delete credits, destructive operation
