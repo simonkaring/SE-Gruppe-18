@@ -1,6 +1,7 @@
 package model;
 
 import data.ConnectionDatabase;
+import data.QueryDatabase;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -8,14 +9,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Producent extends ConnectionDatabase {
+public class Producer extends ConnectionDatabase {
 
     private int producentID;
     private String navn;
-    private List<Program> programmer;
+    private List<Production> programmer;
 
-    public Producent(String navn){
-        indsaetProducent(navn);
+    public Producer(String navn){
+        QueryDatabase.insertProducer(navn);
         try{
             int id = 0;
             PreparedStatement queryStatement = connection.prepareStatement("SELECT * FROM producenter ORDER BY id DESC LIMIT 1");
@@ -32,7 +33,7 @@ public class Producent extends ConnectionDatabase {
         KrediteringSystem.getSamletProducenter().add(this);
     }
 
-    public Producent(String navn, int producentID){
+    public Producer(String navn, int producentID){
         this.producentID = producentID;
         this.navn = navn;
         this.programmer = new ArrayList<>();
@@ -41,8 +42,8 @@ public class Producent extends ConnectionDatabase {
 
     //Opretter et program, som bliver sat en på "programmer"-listen.
     public void opretProgram(String navn){
-        Program nytProgram = new Program(navn, this);
-        programmer.add(nytProgram);
+        Production nytProduction = new Production(navn, this);
+        programmer.add(nytProduction);
     }
 
     @Override
@@ -72,7 +73,7 @@ public class Producent extends ConnectionDatabase {
         this.navn = navn;
     }
 
-    public List<Program> getProgrammer() {
+    public List<Production> getProgrammer() {
         return programmer;
     }
 

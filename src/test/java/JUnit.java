@@ -26,9 +26,9 @@ public class JUnit extends Application {
 
     @Test
     void shouldShowSimpleAssertion() {
-        ProgramListController.searchTextField.setText("Test");
+//        ProgramListController.searchTextField.setText("Test");
 //        ProgramListController.searchTextField.
-        Assertions.assertNotNull(ProgramListController.searchTextField.getText());
+//        Assertions.assertNotNull(ProgramListController.searchTextField.getText());
 //        Assertions.assertEquals(1, 1);
     }
 

@@ -33,7 +33,7 @@ public class Soeg {
     //Søger i den statiske list samletProgrammer under KrediteringSystem.
     public static void soegProgram(String soegeTekst){
         soegeResultater.add(new ArrayList<>());
-        for(Program programmer : KrediteringSystem.getSamletProgrammer()){
+        for(Production programmer : KrediteringSystem.getSamletProgrammer()){
             if(programmer.getTitel().contains(soegeTekst)){
                 getSoegeResultater().get(0).add(programmer);
             }
@@ -54,7 +54,7 @@ public class Soeg {
     //Søger i den statiske list samletProducenter under KrediteringSystem.
     public static void soegProducent(String soegeTekst){
         soegeResultater.add(new ArrayList<>());
-        for(Producent producenter : KrediteringSystem.getSamletProducenter()){
+        for(Producer producenter : KrediteringSystem.getSamletProducenter()){
             if(producenter.getNavn().contains(soegeTekst)){
                 getSoegeResultater().get(2).add(producenter);
             }
@@ -69,14 +69,14 @@ public class Soeg {
                 returner = person;
             }
         }
-        for(Program program : KrediteringSystem.getSamletProgrammer()){
-            if(program.getProgramID() == id){
-                returner = program;
+        for(Production production : KrediteringSystem.getSamletProgrammer()){
+            if(production.getProgramID() == id){
+                returner = production;
             }
         }
-        for(Producent producent : KrediteringSystem.getSamletProducenter()){
-            if(producent.getProducentID() ==id){
-                returner = producent;
+        for(Producer producer : KrediteringSystem.getSamletProducenter()){
+            if(producer.getProducentID() ==id){
+                returner = producer;
             }
         }
         if(returner == null){

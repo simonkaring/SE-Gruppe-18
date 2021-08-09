@@ -1,7 +1,7 @@
 package data;
 
 import model.Person;
-import model.Producent;
+import model.Producer;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -49,7 +49,7 @@ public class QueryDatabase {
     }
 
     private static String insertProductionSQL = "Insert INTO programmer (navn, producent_id) VALUES (?,?)";
-    public static void insertProduction(String productionTitle, Producent production){
+    public static void insertProduction(String productionTitle, Producer production){
         try {
             PreparedStatement insertStatement = connection.prepareStatement(insertProductionSQL);
             insertStatement.setString(1, productionTitle);

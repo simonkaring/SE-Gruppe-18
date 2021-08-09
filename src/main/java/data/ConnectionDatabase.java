@@ -1,7 +1,7 @@
 package data;
 
 import model.Person;
-import model.Producent;
+import model.Producer;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -45,63 +45,5 @@ public class ConnectionDatabase {
         }
         return instance;
     }
-
-    public static void indsaetProducent(String navn) {
-        try {
-            PreparedStatement insertStatement = connection.prepareStatement("Insert INTO producenter (navn) VALUES (?)");
-            insertStatement.setString(1, navn);
-            insertStatement.execute();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void indsaetProgram(String navn, Producent producent) {
-        try {
-            PreparedStatement insertStatement = connection.prepareStatement("Insert INTO programmer (navn, producent_id) VALUES (?,?)");
-            insertStatement.setString(1, navn);
-            insertStatement.setInt(2, producent.getProducentID());
-            insertStatement.execute();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void indsaetPerson(String fornavn, String efternavn, String nationalitet, int dag, int maaned, int aar){
-        try {
-            PreparedStatement insertStatement = connection.prepareStatement("Insert INTO personer (fornavn, efternavn, nationalitet, dag, maaned, aar) VALUES (?,?,?,?,?,?)");
-            insertStatement.setString(1, fornavn);
-            insertStatement.setString(2, efternavn);
-            insertStatement.setString(3, nationalitet);
-            insertStatement.setInt(4, dag);
-            insertStatement.setInt(5, maaned);
-            insertStatement.setInt(6, aar);
-            insertStatement.execute();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void indsaetRolle(String navn, String type, Person person){
-        try {
-            PreparedStatement insertStatement;
-            if(person != null){
-                insertStatement = connection.prepareStatement("Insert INTO roller (navn, type, person_id) VALUES (?,?,?)");
-                insertStatement.setString(1, navn);
-                insertStatement.setString(2, type);
-                insertStatement.setInt(3, person.getPersonID());
-            } else {
-                insertStatement = connection.prepareStatement("Insert INTO roller (navn, type) VALUES (?,?)");
-                insertStatement.setString(1, navn);
-                insertStatement.setString(2, type);
-            }
-            insertStatement.execute();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-
 }
 

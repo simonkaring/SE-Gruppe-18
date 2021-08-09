@@ -1,6 +1,7 @@
 package model;
 
 import data.ConnectionDatabase;
+import data.QueryDatabase;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -8,14 +9,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Program extends ConnectionDatabase {
+public class Production extends ConnectionDatabase {
 
     private int programID;
     private String titel;
-    private List<Rolle> rollerIProgram;
+    private List<Role> rollerIProgram;
 
-    public Program(String titel, Producent producent) {
-        indsaetProgram(titel, producent);
+    public Production(String titel, Producer producer) {
+        QueryDatabase.insertProduction(titel, producer);
         try{
             int id = 0;
             PreparedStatement queryStatement = connection.prepareStatement("SELECT * FROM programmer ORDER BY id DESC LIMIT 1");
@@ -32,7 +33,7 @@ public class Program extends ConnectionDatabase {
         KrediteringSystem.getSamletProgrammer().add(this);
     }
 
-    public Program(String titel, int programID) {
+    public Production(String titel, int programID) {
         this.programID = programID;
         this.titel = titel;
         this.rollerIProgram = new ArrayList<>();
@@ -42,18 +43,18 @@ public class Program extends ConnectionDatabase {
 
     //Laver rolle i programmet i rollerIProgram-listen, uden at tilknytte person til rollen.
     public void addRolle(String navn, String type) {
-        for(Rolle rolleIProgram : getRollerIProgram()) {
-            if(rolleIProgram.getNavn().equals(navn) && rolleIProgram.getType().equals(type)) {
+        for(Role roleIProgram : getRollerIProgram()) {
+            if(roleIProgram.getNavn().equals(navn) && roleIProgram.getType().equals(type)) {
                 return;
             }
         }
-        Rolle rolle = new Rolle(navn, type);
-        rollerIProgram.add(rolle);
-        Rolle.addRolleType(rolle);
+        Role role = new Role(navn, type);
+        rollerIProgram.add(role);
+        Role.addRolleType(role);
         try {
             PreparedStatement insertStatement = connection.prepareStatement("Insert INTO program_rolle (program_id, rolle_id) VALUES (?,?)");
             insertStatement.setInt(1, this.programID);
-            insertStatement.setInt(2, rolle.getRolleID());
+            insertStatement.setInt(2, role.getRolleID());
             insertStatement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -62,19 +63,19 @@ public class Program extends ConnectionDatabase {
 
     //Laver rolle i programmet i rollerIProgram-listen, og tilknytter person til rollen.
     public void addRolle(String navn, String type, Person person) {
-        for(Rolle rolleIProgram : getRollerIProgram()) {
-            if(rolleIProgram.getNavn().equals(navn) && rolleIProgram.getType().equals(type)) {
+        for(Role roleIProgram : getRollerIProgram()) {
+            if(roleIProgram.getNavn().equals(navn) && roleIProgram.getType().equals(type)) {
                 return;
             }
         }
-        Rolle rolle = new Rolle(navn, type, person);
-        rollerIProgram.add(rolle);
-        Rolle.addRolleType(rolle);
-        person.getRoller().add(rolle);
+        Role role = new Role(navn, type, person);
+        rollerIProgram.add(role);
+        Role.addRolleType(role);
+        person.getRoller().add(role);
         try {
             PreparedStatement insertStatement = connection.prepareStatement("Insert INTO program_rolle (program_id, rolle_id) VALUES (?,?)");
             insertStatement.setInt(1, this.programID);
-            insertStatement.setInt(2, rolle.getRolleID());
+            insertStatement.setInt(2, role.getRolleID());
             insertStatement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -82,21 +83,21 @@ public class Program extends ConnectionDatabase {
     }
 
     //Fjerner den valgte rolle fra programmet.
-    public void fjernRolle(Rolle rolle) {
+    public void fjernRolle(Role role) {
         try {
             PreparedStatement insertStatement = connection.prepareStatement("DELETE FROM program_rolle WHERE rolle_id = ?");
-            insertStatement.setInt(1, rolle.getRolleID());
+            insertStatement.setInt(1, role.getRolleID());
             insertStatement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        rollerIProgram.remove(rolle);
-        rolle.fjernPersonFraRolle(rolle.getSpillesAf());
+        rollerIProgram.remove(role);
+        role.fjernPersonFraRolle(role.getSpillesAf());
     }
 
     public String udskrivRollerIProgram() {
         StringBuilder returner = new StringBuilder();
-        for(Rolle roller : rollerIProgram) {
+        for(Role roller : rollerIProgram) {
             returner.append(roller);
             returner.append("\n");
         }
@@ -105,14 +106,14 @@ public class Program extends ConnectionDatabase {
 
     //Udskriver krediteringen sorteret i forhold til static-listen rolleTyper i Rolle-klassen.
     //Der skal fikses så den ikke skriver typer ud, som ikke er i programmet.
-    public String udskrivKreditering(Producent producent){
+    public String udskrivKreditering(Producer producer){
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("Programmet er lavet af ").append(producent).append("\n\n");
-        for(String type : Rolle.getRolleTyper()){
+        stringBuilder.append("Programmet er lavet af ").append(producer).append("\n\n");
+        for(String type : Role.getRolleTyper()){
             stringBuilder.append(type).append("\n");
-            for(Rolle rolle : rollerIProgram){
-                if(rolle.getType().equals(type)){
-                    stringBuilder.append(rolle).append("\n");
+            for(Role role : rollerIProgram){
+                if(role.getType().equals(type)){
+                    stringBuilder.append(role).append("\n");
                 }
             }
             stringBuilder.append("\n");
@@ -147,7 +148,7 @@ public class Program extends ConnectionDatabase {
         this.titel = titel;
     }
 
-    public List<Rolle> getRollerIProgram() {
+    public List<Role> getRollerIProgram() {
         return rollerIProgram;
     }
 

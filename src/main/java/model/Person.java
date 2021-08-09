@@ -1,6 +1,7 @@
 package model;
 
 import data.ConnectionDatabase;
+import data.QueryDatabase;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,10 +19,10 @@ public class Person extends ConnectionDatabase {
     private String efternavn;
     private String nationalitet;
     private LocalDate alder;
-    private List<Rolle> roller;
+    private List<Role> roller;
 
     public Person(String fornavn, String efternavn, LocalDate alder, String nationalitet) {
-        indsaetPerson(fornavn, efternavn, nationalitet, Integer.parseInt(alder.format(DateTimeFormatter.ofPattern("dd"))), Integer.parseInt(alder.format(DateTimeFormatter.ofPattern("MM"))), Integer.parseInt(alder.format(DateTimeFormatter.ofPattern("yyyy"))));
+        QueryDatabase.insertPerson(fornavn, efternavn, nationalitet, Integer.parseInt(alder.format(DateTimeFormatter.ofPattern("dd"))), Integer.parseInt(alder.format(DateTimeFormatter.ofPattern("MM"))), Integer.parseInt(alder.format(DateTimeFormatter.ofPattern("yyyy"))));
         try{
             int id = 0;
             PreparedStatement queryStatement = connection.prepareStatement("SELECT * FROM personer ORDER BY id DESC LIMIT 1");
@@ -51,12 +52,12 @@ public class Person extends ConnectionDatabase {
         KrediteringSystem.getSamletPersoner().add(this);
     }
 
-    public void tilknytTilRolle(Rolle rolle){
-        rolle.tilknytPersonTilRolle(this);
+    public void tilknytTilRolle(Role role){
+        role.tilknytPersonTilRolle(this);
     }
 
-    public void fjernRolle(Rolle rolle){
-        rolle.fjernPersonFraRolle(this);
+    public void fjernRolle(Role role){
+        role.fjernPersonFraRolle(this);
     }
 
     @Override
@@ -144,7 +145,7 @@ public class Person extends ConnectionDatabase {
         this.alder = alder;
     }
 
-    public List<Rolle> getRoller() {
+    public List<Role> getRoller() {
         return roller;
     }
 

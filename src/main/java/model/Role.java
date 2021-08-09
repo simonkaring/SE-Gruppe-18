@@ -1,7 +1,7 @@
 package model;
 
 import data.ConnectionDatabase;
-import data.InsertRole;
+import data.QueryDatabase;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Rolle extends ConnectionDatabase {
+public class Role extends ConnectionDatabase {
 
     private int rolleID;
     private String navn;
@@ -19,9 +19,8 @@ public class Rolle extends ConnectionDatabase {
     //Afgør rækkefølgen krediteringen bliver udskrevet. Kan evt hardcodes.
     private static List<String> rolleTyper = new ArrayList<>();
 
-    public Rolle(String navn, String type){
-//        indsaetRolle(navn, type, null);
-        InsertRole.insertRole(navn, type, null);
+    public Role(String navn, String type){
+        QueryDatabase.insertRole(navn, type, null);
         try{
             int id = 0;
             PreparedStatement queryStatement = connection.prepareStatement("SELECT * FROM roller ORDER BY id DESC LIMIT 1");
@@ -38,9 +37,8 @@ public class Rolle extends ConnectionDatabase {
         KrediteringSystem.getSamletRoller().add(this);
     }
 
-    public Rolle(String navn, String type, Person spillesAF){
-//        indsaetRolle(navn, type, spillesAF);
-        InsertRole.insertRole(navn, type, spillesAF);
+    public Role(String navn, String type, Person spillesAF){
+        QueryDatabase.insertRole(navn, type, spillesAF);
         try{
             int id = 0;
             PreparedStatement queryStatement = connection.prepareStatement("SELECT * FROM roller ORDER BY id DESC LIMIT 1");
@@ -58,14 +56,14 @@ public class Rolle extends ConnectionDatabase {
         KrediteringSystem.getSamletRoller().add(this);
     }
 
-    public Rolle(String navn, String type, int rolleID){
+    public Role(String navn, String type, int rolleID){
         this.rolleID = rolleID;
         this.navn = navn;
         this.type = type;
         KrediteringSystem.getSamletRoller().add(this);
     }
 
-    public Rolle(String navn, String type, Person spillesAF, int rolleID){
+    public Role(String navn, String type, Person spillesAF, int rolleID){
         this.rolleID = rolleID;
         this.navn = navn;
         this.type = type;
@@ -112,13 +110,13 @@ public class Rolle extends ConnectionDatabase {
     }
 
     //Hvis der er en ny rolle type, vil den blive lagt ind i den statiske liste "rolleTyper".
-    public static void addRolleType(Rolle rolle){
+    public static void addRolleType(Role role){
         for(String rolleType : rolleTyper){
-            if(rolleType.equals(rolle.getType())){
+            if(rolleType.equals(role.getType())){
                 return;
             }
         }
-        rolleTyper.add(rolle.getType());
+        rolleTyper.add(role.getType());
     }
 
     //Gettere og settere
