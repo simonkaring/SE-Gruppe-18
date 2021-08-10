@@ -13,19 +13,19 @@ public class Producer extends ConnectionDatabase {
 
     private int producentID;
     private String navn;
-    private List<Production> programmer;
+    private final List<Production> programmer;
 
-    public Producer(String navn){
+    public Producer(String navn) {
         QueryDatabase.insertProducer(navn);
-        try{
+        try {
             int id = 0;
             PreparedStatement queryStatement = connection.prepareStatement("SELECT * FROM producenter ORDER BY id DESC LIMIT 1");
             ResultSet queryResultSet = queryStatement.executeQuery();
-            while(queryResultSet.next()){
+            while (queryResultSet.next()) {
                 id = queryResultSet.getInt("id");
             }
             this.producentID = id;
-        } catch(SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         this.navn = navn;
@@ -33,15 +33,15 @@ public class Producer extends ConnectionDatabase {
         KrediteringSystem.getSamletProducenter().add(this);
     }
 
-    public Producer(String navn, int producentID){
+    public Producer(String navn, int producentID) {
         this.producentID = producentID;
         this.navn = navn;
         this.programmer = new ArrayList<>();
         KrediteringSystem.getSamletProducenter().add(this);
     }
 
-    //Opretter et program, som bliver sat en på "programmer"-listen.
-    public void opretProgram(String navn){
+    // Opretter et program, som bliver sat en på "programmer"-listen.
+    public void opretProgram(String navn) {
         Production nytProduction = new Production(navn, this);
         programmer.add(nytProduction);
     }
@@ -51,7 +51,7 @@ public class Producer extends ConnectionDatabase {
         return navn;
     }
 
-    //Gettere og settere
+    // Gettere og settere
 
     public int getProducentID() {
         return producentID;
@@ -62,12 +62,12 @@ public class Producer extends ConnectionDatabase {
     }
 
     public void setNavn(String navn) {
-        try{
+        try {
             PreparedStatement insertStatement = connection.prepareStatement("UPDATE producenter SET navn = ? WHERE id = ?");
             insertStatement.setString(1, navn);
             insertStatement.setInt(2, this.producentID);
             insertStatement.execute();
-        } catch(SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         this.navn = navn;

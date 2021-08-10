@@ -9,8 +9,10 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
     static Stage stg;
-    @Override public void start(Stage primaryStage) throws Exception {
-        this.stg = primaryStage;
+
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        stg = primaryStage;
         // Starts program with the login_home gui interface
         System.out.println("Opening GUI");
         Parent root = FXMLLoader.load(getClass().getResource("login_home.fxml"));

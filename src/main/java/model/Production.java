@@ -13,19 +13,19 @@ public class Production extends ConnectionDatabase {
 
     private int programID;
     private String titel;
-    private List<Role> rollerIProgram;
+    private final List<Role> rollerIProgram;
 
     public Production(String titel, Producer producer) {
         QueryDatabase.insertProduction(titel, producer);
-        try{
+        try {
             int id = 0;
             PreparedStatement queryStatement = connection.prepareStatement("SELECT * FROM programmer ORDER BY id DESC LIMIT 1");
             ResultSet queryResultSet = queryStatement.executeQuery();
-            while(queryResultSet.next()) {
+            while (queryResultSet.next()) {
                 id = queryResultSet.getInt("id");
             }
             this.programID = id;
-        } catch(SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         this.titel = titel;
@@ -41,10 +41,10 @@ public class Production extends ConnectionDatabase {
     }
 
 
-    //Laver rolle i programmet i rollerIProgram-listen, uden at tilknytte person til rollen.
+    // Laver rolle i programmet i rollerIProgram-listen, uden at tilknytte person til rollen.
     public void addRolle(String navn, String type) {
-        for(Role roleIProgram : getRollerIProgram()) {
-            if(roleIProgram.getNavn().equals(navn) && roleIProgram.getType().equals(type)) {
+        for (Role roleIProgram : getRollerIProgram()) {
+            if (roleIProgram.getNavn().equals(navn) && roleIProgram.getType().equals(type)) {
                 return;
             }
         }
@@ -61,10 +61,10 @@ public class Production extends ConnectionDatabase {
         }
     }
 
-    //Laver rolle i programmet i rollerIProgram-listen, og tilknytter person til rollen.
+    // Laver rolle i programmet i rollerIProgram-listen, og tilknytter person til rollen.
     public void addRolle(String navn, String type, Person person) {
-        for(Role roleIProgram : getRollerIProgram()) {
-            if(roleIProgram.getNavn().equals(navn) && roleIProgram.getType().equals(type)) {
+        for (Role roleIProgram : getRollerIProgram()) {
+            if (roleIProgram.getNavn().equals(navn) && roleIProgram.getType().equals(type)) {
                 return;
             }
         }
@@ -82,7 +82,7 @@ public class Production extends ConnectionDatabase {
         }
     }
 
-    //Fjerner den valgte rolle fra programmet.
+    // Fjerner den valgte rolle fra programmet.
     public void fjernRolle(Role role) {
         try {
             PreparedStatement insertStatement = connection.prepareStatement("DELETE FROM program_rolle WHERE rolle_id = ?");
@@ -97,22 +97,22 @@ public class Production extends ConnectionDatabase {
 
     public String udskrivRollerIProgram() {
         StringBuilder returner = new StringBuilder();
-        for(Role roller : rollerIProgram) {
+        for (Role roller : rollerIProgram) {
             returner.append(roller);
             returner.append("\n");
         }
         return returner.toString();
     }
 
-    //Udskriver krediteringen sorteret i forhold til static-listen rolleTyper i Rolle-klassen.
-    //Der skal fikses så den ikke skriver typer ud, som ikke er i programmet.
-    public String udskrivKreditering(Producer producer){
+    // Udskriver krediteringen sorteret i forhold til static-listen rolleTyper i Rolle-klassen.
+    // Der skal fikses så den ikke skriver typer ud, som ikke er i programmet.
+    public String udskrivKreditering(Producer producer) {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("Programmet er lavet af ").append(producer).append("\n\n");
-        for(String type : Role.getRolleTyper()){
+        for (String type : Role.getRolleTyper()) {
             stringBuilder.append(type).append("\n");
-            for(Role role : rollerIProgram){
-                if(role.getType().equals(type)){
+            for (Role role : rollerIProgram) {
+                if (role.getType().equals(type)) {
                     stringBuilder.append(role).append("\n");
                 }
             }
@@ -126,7 +126,7 @@ public class Production extends ConnectionDatabase {
         return titel;
     }
 
-    //Gettere og settere
+    // Gettere og settere
 
     public int getProgramID() {
         return programID;
@@ -137,12 +137,12 @@ public class Production extends ConnectionDatabase {
     }
 
     public void setTitel(String titel) {
-        try{
+        try {
             PreparedStatement insertStatement = connection.prepareStatement("UPDATE programmer SET navn = ? WHERE id = ?");
             insertStatement.setString(1, titel);
             insertStatement.setInt(2, this.programID);
             insertStatement.execute();
-        } catch(SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         this.titel = titel;

@@ -7,8 +7,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class SceneChanger
-{
+public class SceneChanger {
 
     public static void changeScene(String fxml) {
         // This method changes scene and can be called with 'extends SceneChanger' on the class

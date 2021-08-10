@@ -16,7 +16,7 @@ public class KrediteringSystem extends ConnectionDatabase {
     private static List<Production> samletProgrammer = new ArrayList<>();
     private static List<Role> samletRoller = new ArrayList<>();
     private static List<Person> samletPersoner = new ArrayList<>();
- 
+
     //Køres ved opstart af programmet, og henter al data fra databasen og opretter objekter af det.
     public static void opstart2() throws SQLException {
         opretForbindelse();
@@ -24,22 +24,22 @@ public class KrediteringSystem extends ConnectionDatabase {
 
         // Retrieve producers
         ResultSet selectProducerResultSet = QueryDatabase.selectProducer();
-        if(!selectProducerResultSet.isBeforeFirst()){
+        if (!selectProducerResultSet.isBeforeFirst()) {
             counter++;
         }
-        while(selectProducerResultSet.next()){
+        while (selectProducerResultSet.next()) {
             new Producer(selectProducerResultSet.getString("navn"), selectProducerResultSet.getInt("id"));
         }
 
         // Retrieve Productions
         ResultSet selectProductionResultSet = QueryDatabase.selectProduction();
-        if(!selectProductionResultSet.isBeforeFirst()){
+        if (!selectProductionResultSet.isBeforeFirst()) {
             counter++;
         }
-        while(selectProductionResultSet.next()){
+        while (selectProductionResultSet.next()) {
             Production programmet = new Production(selectProductionResultSet.getString("navn"), selectProductionResultSet.getInt("id"));
-            for(Producer producer : samletProducenter){
-                if(producer.getProducentID() == selectProductionResultSet.getInt("producent_id")){
+            for (Producer producer : samletProducenter) {
+                if (producer.getProducentID() == selectProductionResultSet.getInt("producent_id")) {
                     producer.getProgrammer().add(programmet);
                 }
             }
@@ -47,10 +47,10 @@ public class KrediteringSystem extends ConnectionDatabase {
 
         // Retrieve People
         ResultSet selectPersonResultSet = QueryDatabase.selectPerson();
-        if(!selectPersonResultSet.isBeforeFirst()){
+        if (!selectPersonResultSet.isBeforeFirst()) {
             counter++;
         }
-        while(selectPersonResultSet.next()){
+        while (selectPersonResultSet.next()) {
             new Person(selectPersonResultSet.getString("fornavn"),
                     selectPersonResultSet.getString("efternavn"),
                     LocalDate.of(selectPersonResultSet.getInt("aar"), selectPersonResultSet.getInt("maaned"), selectPersonResultSet.getInt("dag")),
@@ -60,14 +60,14 @@ public class KrediteringSystem extends ConnectionDatabase {
 
         // Retrieve Roles
         ResultSet queryResultSet = QueryDatabase.selectRole();
-        if(!queryResultSet.isBeforeFirst()){
+        if (!queryResultSet.isBeforeFirst()) {
             counter++;
         }
-        while(queryResultSet.next()){
-            if(queryResultSet.getInt("person_id") > 0){
+        while (queryResultSet.next()) {
+            if (queryResultSet.getInt("person_id") > 0) {
                 Person denValgtePerson = null;
-                for(Person person : samletPersoner){
-                    if(person.getPersonID() == queryResultSet.getInt("person_id")){
+                for (Person person : samletPersoner) {
+                    if (person.getPersonID() == queryResultSet.getInt("person_id")) {
                         denValgtePerson = person;
                     }
                 }
@@ -82,17 +82,17 @@ public class KrediteringSystem extends ConnectionDatabase {
 
     }
 
-    public static void opstart(){
+    public static void opstart() {
         opretForbindelse();
         int counter = 0;
         //Indsætter producenter fra database til programmet.
         try {
             PreparedStatement queryStatement = connection.prepareStatement("SELECT * FROM producenter ORDER BY id");
             ResultSet queryResultSet = queryStatement.executeQuery();
-            if(!queryResultSet.isBeforeFirst()){
+            if (!queryResultSet.isBeforeFirst()) {
                 counter++;
             }
-            while(queryResultSet.next()){
+            while (queryResultSet.next()) {
                 new Producer(queryResultSet.getString("navn"), queryResultSet.getInt("id"));
             }
         } catch (SQLException e) {
@@ -102,13 +102,13 @@ public class KrediteringSystem extends ConnectionDatabase {
         try {
             PreparedStatement queryStatement = connection.prepareStatement("SELECT * FROM programmer ORDER BY id");
             ResultSet queryResultSet = queryStatement.executeQuery();
-            if(!queryResultSet.isBeforeFirst()){
+            if (!queryResultSet.isBeforeFirst()) {
                 counter++;
             }
-            while(queryResultSet.next()){
+            while (queryResultSet.next()) {
                 Production programmet = new Production(queryResultSet.getString("navn"), queryResultSet.getInt("id"));
-                for(Producer producer : samletProducenter){
-                    if(producer.getProducentID() == queryResultSet.getInt("producent_id")){
+                for (Producer producer : samletProducenter) {
+                    if (producer.getProducentID() == queryResultSet.getInt("producent_id")) {
                         producer.getProgrammer().add(programmet);
                     }
                 }
@@ -120,10 +120,10 @@ public class KrediteringSystem extends ConnectionDatabase {
         try {
             PreparedStatement queryStatement = connection.prepareStatement("SELECT * FROM personer ORDER BY id");
             ResultSet queryResultSet = queryStatement.executeQuery();
-            if(!queryResultSet.isBeforeFirst()){
+            if (!queryResultSet.isBeforeFirst()) {
                 counter++;
             }
-            while(queryResultSet.next()){
+            while (queryResultSet.next()) {
                 new Person(queryResultSet.getString("fornavn"),
                         queryResultSet.getString("efternavn"),
                         LocalDate.of(queryResultSet.getInt("aar"), queryResultSet.getInt("maaned"), queryResultSet.getInt("dag")),
@@ -137,14 +137,14 @@ public class KrediteringSystem extends ConnectionDatabase {
         try {
             PreparedStatement queryStatement = connection.prepareStatement("SELECT * FROM roller ORDER BY id");
             ResultSet queryResultSet = queryStatement.executeQuery();
-            if(!queryResultSet.isBeforeFirst()){
+            if (!queryResultSet.isBeforeFirst()) {
                 counter++;
             }
-            while(queryResultSet.next()){
-                if(queryResultSet.getInt("person_id") > 0){
+            while (queryResultSet.next()) {
+                if (queryResultSet.getInt("person_id") > 0) {
                     Person denValgtePerson = null;
-                    for(Person person : samletPersoner){
-                        if(person.getPersonID() == queryResultSet.getInt("person_id")){
+                    for (Person person : samletPersoner) {
+                        if (person.getPersonID() == queryResultSet.getInt("person_id")) {
                             denValgtePerson = person;
                         }
                     }
@@ -162,11 +162,11 @@ public class KrediteringSystem extends ConnectionDatabase {
         try {
             PreparedStatement queryStatement = connection.prepareStatement("SELECT * FROM program_rolle");
             ResultSet queryResultSet = queryStatement.executeQuery();
-            while(queryResultSet.next()){
-                for(Production production : samletProgrammer){
-                    if(production.getProgramID() == queryResultSet.getInt("program_id")){
-                        for(Role role : samletRoller){
-                            if(role.getRolleID() == queryResultSet.getInt("rolle_id")){
+            while (queryResultSet.next()) {
+                for (Production production : samletProgrammer) {
+                    if (production.getProgramID() == queryResultSet.getInt("program_id")) {
+                        for (Role role : samletRoller) {
+                            if (role.getRolleID() == queryResultSet.getInt("rolle_id")) {
                                 production.getRollerIProgram().add(role);
                             }
                         }
@@ -177,31 +177,31 @@ public class KrediteringSystem extends ConnectionDatabase {
             e.printStackTrace();
         }
         //Hvis databasen er tom, oprettes der data.
-        if(counter == 4){
+        if (counter == 4) {
             opretData();
         }
     }
 
-    public static void opretProducent(String navn){
+    public static void opretProducent(String navn) {
         new Producer(navn);
     }
 
-    public static void opretProgram(Producer producer, String navn){
+    public static void opretProgram(Producer producer, String navn) {
         producer.opretProgram(navn);
     }
 
     //Laver rolle i programmet i rollerIProgram-listen, uden at tilknytte person til rollen.
-    public static void addRolle(Production production, String navn, String type){
+    public static void addRolle(Production production, String navn, String type) {
         production.addRolle(navn, type);
     }
 
     //Laver rolle i programmet i rollerIProgram-listen, og tilknytter person til rollen.
-    public static void addRolle(Production production, String navn, String type, Person person){
+    public static void addRolle(Production production, String navn, String type, Person person) {
         production.addRolle(navn, type, person);
     }
 
     //Fjerner den valgte rolle fra programmet.
-    public static void fjernRolle(Production production, Role role){
+    public static void fjernRolle(Production production, Role role) {
         production.fjernRolle(role);
     }
 
@@ -211,24 +211,24 @@ public class KrediteringSystem extends ConnectionDatabase {
 
     //Udskriver krediteringen sorteret i forhold til static-listen rolleTyper i Rolle-klassen.
     //Der skal fikses så den ikke skriver typer ud, som ikke er i programmet.
-    public static String udskrivKreditering(Producer producer, Production production){
+    public static String udskrivKreditering(Producer producer, Production production) {
         return production.udskrivKreditering(producer);
     }
 
     //Tilknyt person til rollen.
-    public static void tilknytPersonTilRolle(Role role, Person person){
+    public static void tilknytPersonTilRolle(Role role, Person person) {
         role.setSpillesAf(person);
     }
 
     //Fjern person fra rollen.
-    public static void fjernPersonFraRolle(Role role, Person person){
-        if(role.getSpillesAf().equals(person)){
+    public static void fjernPersonFraRolle(Role role, Person person) {
+        if (role.getSpillesAf().equals(person)) {
             role.setSpillesAf(null);
         }
     }
 
     //Hvis databasen er tom, opret data.
-    public static void opretData(){
+    public static void opretData() {
         Producer producer1 = new Producer("Den vilde producent");
         Producer producer2 = new Producer("ProdDK");
         Producer producer3 = new Producer("Danmarks helt egen producent");

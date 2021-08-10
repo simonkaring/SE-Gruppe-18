@@ -2,15 +2,15 @@ package data;
 
 import model.Person;
 import model.Producer;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import static data.ConnectionDatabase.connection;
+public class QueryDatabase extends ConnectionDatabase {
 
-public class QueryDatabase {
+    private static final String deleteSQL = "DELETE FROM programmer WHERE navn=?";
 
-    private static String deleteSQL = "DELETE FROM programmer WHERE navn=?";
     public static void deleteProduction(String production) {
         try {
             PreparedStatement deleteStatement = connection.prepareStatement(deleteSQL);
@@ -21,7 +21,8 @@ public class QueryDatabase {
         }
     }
 
-    private static String insertPersonSQL = "Insert INTO personer (fornavn, efternavn, nationalitet, dag, maaned, aar) VALUES (?,?,?,?,?,?)";
+    private static final String insertPersonSQL = "Insert INTO personer (fornavn, efternavn, nationalitet, dag, maaned, aar) VALUES (?,?,?,?,?,?)";
+
     public static void insertPerson(String firstname, String lastname, String nationality, int day, int month, int year) {
         try {
             PreparedStatement insertStatement = connection.prepareStatement(insertPersonSQL);
@@ -37,7 +38,8 @@ public class QueryDatabase {
         }
     }
 
-    private static String insertProducerSQL = "Insert INTO producenter (navn) VALUES (?)";
+    private static final String insertProducerSQL = "Insert INTO producenter (navn) VALUES (?)";
+
     public static void insertProducer(String navn) {
         try {
             PreparedStatement insertStatement = connection.prepareStatement(insertProducerSQL);
@@ -48,8 +50,9 @@ public class QueryDatabase {
         }
     }
 
-    private static String insertProductionSQL = "Insert INTO programmer (navn, producent_id) VALUES (?,?)";
-    public static void insertProduction(String productionTitle, Producer production){
+    private static final String insertProductionSQL = "Insert INTO programmer (navn, producent_id) VALUES (?,?)";
+
+    public static void insertProduction(String productionTitle, Producer production) {
         try {
             PreparedStatement insertStatement = connection.prepareStatement(insertProductionSQL);
             insertStatement.setString(1, productionTitle);
@@ -60,12 +63,13 @@ public class QueryDatabase {
         }
     }
 
-    private static String insertRoleSQL = "Insert INTO roller (navn, type, person_id) VALUES (?,?,?)";
-    private static String insertRoleElseSQL = "Insert INTO roller (navn, type) VALUES (?,?)";
+    private static final String insertRoleSQL = "Insert INTO roller (navn, type, person_id) VALUES (?,?,?)";
+    private static final String insertRoleElseSQL = "Insert INTO roller (navn, type) VALUES (?,?)";
+
     public static void insertRole(String navn, String type, Person person) {
         try {
             PreparedStatement insertStatement;
-            if(person != null){
+            if (person != null) {
                 insertStatement = connection.prepareStatement(insertRoleSQL);
                 insertStatement.setString(1, navn);
                 insertStatement.setString(2, type);
@@ -82,7 +86,8 @@ public class QueryDatabase {
         }
     }
 
-    private static String selectPersonSQL = "SELECT * FROM personer ORDER BY id";
+    private static final String selectPersonSQL = "SELECT * FROM personer ORDER BY id";
+
     public static ResultSet selectPerson() {
         ResultSet queryResultSet = null;
         try {
@@ -95,7 +100,8 @@ public class QueryDatabase {
         return queryResultSet;
     }
 
-    private static String selectProducerSQL = "SELECT * FROM producenter ORDER BY id";
+    private static final String selectProducerSQL = "SELECT * FROM producenter ORDER BY id";
+
     public static ResultSet selectProducer() {
         ResultSet queryResultSet = null;
         try {
@@ -108,7 +114,8 @@ public class QueryDatabase {
         return queryResultSet;
     }
 
-    private static String selectProductionSQL = "SELECT * FROM programmer ORDER BY id";
+    private static final String selectProductionSQL = "SELECT * FROM programmer ORDER BY id";
+
     public static ResultSet selectProduction() {
         ResultSet queryResultSet = null;
         try {
@@ -121,7 +128,8 @@ public class QueryDatabase {
         return queryResultSet;
     }
 
-    private static String selectRoleSQL = "SELECT * FROM roller ORDER BY id";
+    private static final String selectRoleSQL = "SELECT * FROM roller ORDER BY id";
+
     public static ResultSet selectRole() {
         ResultSet queryResultSet = null;
         try {
@@ -133,7 +141,8 @@ public class QueryDatabase {
         return queryResultSet;
     }
 
-    private static String production_roleSQL =  "SELECT * FROM program_rolle";
+    private static final String production_roleSQL = "SELECT * FROM program_rolle";
+
     public static ResultSet selectProductionRole() {
         ResultSet queryResultSet = null;
         try {

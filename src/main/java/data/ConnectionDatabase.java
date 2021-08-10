@@ -1,9 +1,6 @@
 package data;
 
-import model.Person;
-import model.Producer;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Connection;
 
@@ -11,9 +8,9 @@ public class ConnectionDatabase {
 
     public static java.sql.Connection connection = null;
     private static ConnectionDatabase instance;
-    private static String username="postgres";
-    private static String password="root";
-    private static String url="jdbc:postgresql://localhost:5432/TV2";
+    private static final String username = "postgres";
+    private static final String password = "root";
+    private static final String url = "jdbc:postgresql://localhost:5432/TV2";
 
     public static void opretForbindelse() {
         try {
@@ -27,7 +24,7 @@ public class ConnectionDatabase {
     private void DatabaseConnection() throws SQLException {
         try {
             Class.forName("org.postgresql.Driver");
-            this.connection = DriverManager.getConnection(url, username, password);
+            connection = DriverManager.getConnection(url, username, password);
         } catch (ClassNotFoundException ex) {
             System.out.println("Database Connection Creation Failed : " + ex.getMessage());
         }

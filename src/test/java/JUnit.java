@@ -10,7 +10,7 @@ public class JUnit extends Application {
 
     static Stage stg;
     @Override public void start(Stage primaryStage) throws Exception {
-        this.stg = primaryStage;
+        stg = primaryStage;
         // Starts program with the login_home gui interface
         Parent root = FXMLLoader.load(getClass().getResource("login_home.fxml"));
         primaryStage.setScene(new Scene(root, 1000, 800));

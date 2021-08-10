@@ -17,19 +17,19 @@ public class Role extends ConnectionDatabase {
     private Person spillesAf;
 
     //Afgør rækkefølgen krediteringen bliver udskrevet. Kan evt hardcodes.
-    private static List<String> rolleTyper = new ArrayList<>();
+    private static final List<String> rolleTyper = new ArrayList<>();
 
-    public Role(String navn, String type){
+    public Role(String navn, String type) {
         QueryDatabase.insertRole(navn, type, null);
-        try{
+        try {
             int id = 0;
             PreparedStatement queryStatement = connection.prepareStatement("SELECT * FROM roller ORDER BY id DESC LIMIT 1");
             ResultSet queryResultSet = queryStatement.executeQuery();
-            while(queryResultSet.next()){
+            while (queryResultSet.next()) {
                 id = queryResultSet.getInt("id");
             }
             this.rolleID = id;
-        } catch(SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         this.navn = navn;
@@ -37,17 +37,17 @@ public class Role extends ConnectionDatabase {
         KrediteringSystem.getSamletRoller().add(this);
     }
 
-    public Role(String navn, String type, Person spillesAF){
+    public Role(String navn, String type, Person spillesAF) {
         QueryDatabase.insertRole(navn, type, spillesAF);
-        try{
+        try {
             int id = 0;
             PreparedStatement queryStatement = connection.prepareStatement("SELECT * FROM roller ORDER BY id DESC LIMIT 1");
             ResultSet queryResultSet = queryStatement.executeQuery();
-            while(queryResultSet.next()){
+            while (queryResultSet.next()) {
                 id = queryResultSet.getInt("id");
             }
             this.rolleID = id;
-        } catch(SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         this.navn = navn;
@@ -56,14 +56,14 @@ public class Role extends ConnectionDatabase {
         KrediteringSystem.getSamletRoller().add(this);
     }
 
-    public Role(String navn, String type, int rolleID){
+    public Role(String navn, String type, int rolleID) {
         this.rolleID = rolleID;
         this.navn = navn;
         this.type = type;
         KrediteringSystem.getSamletRoller().add(this);
     }
 
-    public Role(String navn, String type, Person spillesAF, int rolleID){
+    public Role(String navn, String type, Person spillesAF, int rolleID) {
         this.rolleID = rolleID;
         this.navn = navn;
         this.type = type;
@@ -72,7 +72,7 @@ public class Role extends ConnectionDatabase {
     }
 
     //Tilknyt person til rollen.
-    public void tilknytPersonTilRolle(Person person){
+    public void tilknytPersonTilRolle(Person person) {
         try {
             PreparedStatement insertStatement = connection.prepareStatement("UPDATE roller SET person_id = ? WHERE id = ?");
             insertStatement.setInt(1, person.getPersonID());
@@ -85,8 +85,8 @@ public class Role extends ConnectionDatabase {
     }
 
     //Fjern person fra rollen.
-    public void fjernPersonFraRolle(Person person){
-        if(this.spillesAf.equals(person)){
+    public void fjernPersonFraRolle(Person person) {
+        if (this.spillesAf.equals(person)) {
             try {
                 PreparedStatement insertStatement = connection.prepareStatement("UPDATE roller SET person_id = null WHERE id = ?");
                 insertStatement.setInt(1, this.rolleID);
@@ -101,8 +101,8 @@ public class Role extends ConnectionDatabase {
     //Hvis rollen ikke er udfyldt af en person, vil den udskrive rollens navn, og "mangler" rolletypen.
     //Ellers udskriver den rollens navn og hvem der spiller rollen.
     @Override
-    public String toString(){
-        if(spillesAf == null){
+    public String toString() {
+        if (spillesAf == null) {
             return navn + " : mangler " + type;
         } else {
             return navn + " : " + spillesAf;
@@ -110,9 +110,9 @@ public class Role extends ConnectionDatabase {
     }
 
     //Hvis der er en ny rolle type, vil den blive lagt ind i den statiske liste "rolleTyper".
-    public static void addRolleType(Role role){
-        for(String rolleType : rolleTyper){
-            if(rolleType.equals(role.getType())){
+    public static void addRolleType(Role role) {
+        for (String rolleType : rolleTyper) {
+            if (rolleType.equals(role.getType())) {
                 return;
             }
         }
@@ -130,12 +130,12 @@ public class Role extends ConnectionDatabase {
     }
 
     public void setNavn(String navn) {
-        try{
+        try {
             PreparedStatement insertStatement = connection.prepareStatement("UPDATE roller SET navn = ? WHERE id = ?");
             insertStatement.setString(1, navn);
             insertStatement.setInt(2, this.rolleID);
             insertStatement.execute();
-        } catch(SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         this.navn = navn;
@@ -146,12 +146,12 @@ public class Role extends ConnectionDatabase {
     }
 
     public void setType(String type) {
-        try{
+        try {
             PreparedStatement insertStatement = connection.prepareStatement("UPDATE roller SET type = ? WHERE id = ?");
             insertStatement.setString(1, type);
             insertStatement.setInt(2, this.rolleID);
             insertStatement.execute();
-        } catch(SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         this.type = type;
@@ -162,12 +162,12 @@ public class Role extends ConnectionDatabase {
     }
 
     public void setSpillesAf(Person spillesAf) {
-        try{
+        try {
             PreparedStatement insertStatement = connection.prepareStatement("UPDATE roller SET person_id = ? WHERE id = ?");
             insertStatement.setInt(1, spillesAf.getPersonID());
             insertStatement.setInt(2, this.rolleID);
             insertStatement.execute();
-        } catch(SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         this.spillesAf = spillesAf;

@@ -13,23 +13,36 @@ import java.util.ArrayList;
 
 import javafx.scene.control.TableColumn;
 
-public class EditorController {
+public class EditorController extends SceneChanger {
+
     // Initializes all FXML objects
-    @FXML private TableView<Person> tableView;
-    @FXML private TableView<Role> rolleTableView;
-    @FXML private TableColumn fornavnColumn;
-    @FXML private TableColumn efternavnColumn;
-    @FXML private TableColumn alderColumn;
-    @FXML private TableColumn nationalitetColumn;
-    @FXML private TableColumn rolleColumn;
+    @FXML
+    private TableView<Person> tableView;
+    @FXML
+    private TableView<Role> rolleTableView;
+    @FXML
+    private TableColumn fornavnColumn;
+    @FXML
+    private TableColumn efternavnColumn;
+    @FXML
+    private TableColumn alderColumn;
+    @FXML
+    private TableColumn nationalitetColumn;
+    @FXML
+    private TableColumn rolleColumn;
 
-    @FXML private TextField fornavnTextField;
-    @FXML private TextField efternavnTextField;
-    @FXML private TextField nationalitetTextField;
-    @FXML private TextField rolleTextField;
-    @FXML private DatePicker dobDatePicker;
+    @FXML
+    private TextField fornavnTextField;
+    @FXML
+    private TextField efternavnTextField;
+    @FXML
+    private TextField nationalitetTextField;
+    @FXML
+    private TextField rolleTextField;
+    @FXML
+    private DatePicker dobDatePicker;
 
-    ////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
 //    Tree table version needs looking at. Using default table instead
 //    @FXML private JFXTreeTableView<Person> tableView;
 //    @FXML private JFXTreeTableView<Rolle> rolleTableView;
@@ -38,18 +51,27 @@ public class EditorController {
 //    @FXML private TreeTableColumn<?, ?> alderColumn;
 //    @FXML private TreeTableColumn<?, ?> nationalitetColumn;
 //    @FXML private TreeTableColumn<?, ?> rolleColumn;
-    ////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
 
-    @FXML private Button tilfojButton;
-    @FXML private Button fjernButton;
-    @FXML private Button hentButton;
-    @FXML private Button saetButton;
+    @FXML
+    private Button addNewPersonButton;
+    @FXML
+    private Button removeSelectedPersonButton;
+    @FXML
+    private Button retrievePersonDataButton;
+    @FXML
+    private Button savePersonDataButton;
 
-    @FXML private Text fornavnLabel;
-    @FXML private Text efternavnLabel;
-    @FXML private Text dobLabel;
-    @FXML private Text nationalitetLabel;
-    @FXML private Text rolleLabel;
+    @FXML
+    private Text fornavnLabel;
+    @FXML
+    private Text efternavnLabel;
+    @FXML
+    private Text dobLabel;
+    @FXML
+    private Text nationalitetLabel;
+    @FXML
+    private Text rolleLabel;
 
     Production currentProduction;
 
@@ -75,14 +97,15 @@ public class EditorController {
         }
         return actors;
     }
-    //Metode der finder det valgte program fra tidligere GUI
-    public Production findProgram() {
+
+    // Metode der finder det valgte program fra tidligere GUI
+    public static Production findProduction() {
         TitleHolder holder = TitleHolder.getInstance();
         ArrayList<Producer> producer = new ArrayList<>(KrediteringSystem.getSamletProducenter());
-        for(Producer p : producer){
+        for (Producer p : producer) {
             ArrayList<Production> productions = new ArrayList<>(p.getProgrammer());
-            for(Production pro : productions){
-                if (pro.getTitel().equals(holder.getTitle())){
+            for (Production pro : productions) {
+                if (pro.getTitel().equals(holder.getTitle())) {
                     System.out.println("Successfully found production");
                     return pro;
                 }
@@ -93,47 +116,47 @@ public class EditorController {
     }
 
     //Argumenter der sker når scenen initializer. Specificer hvad for nogle værdier de forskellige kolonner skal bruge.
-    @FXML private void initialize() {
+    @FXML
+    private void initialize() {
         fornavnColumn.setCellValueFactory(new PropertyValueFactory<Person, String>("fornavn"));
         efternavnColumn.setCellValueFactory(new PropertyValueFactory<Person, String>("efternavn"));
         alderColumn.setCellValueFactory(new PropertyValueFactory<Person, LocalDate>("alder"));
         nationalitetColumn.setCellValueFactory(new PropertyValueFactory<Person, String>("nationalitet"));
         rolleColumn.setCellValueFactory(new PropertyValueFactory<>("navn"));
-        currentProduction = findProgram();
+        currentProduction = findProduction();
         tableView.setItems(getActors());
         hideGuiElements(TitleHolder.getInstance().getIsViewer());
     }
 
     //Knap der tilføjer en ny medvirkende til programmet og fremviser det i listen.
-    public void onAddButtonPush() {
+    public void addNewPerson() {
         Person p = new Person(fornavnTextField.getText(), efternavnTextField.getText(), dobDatePicker.getValue(), nationalitetTextField.getText());
         tableView.getItems().add(p);
         //TODO Eventuelt tilføj ny tekstfield hvor man kan definer type af rolle eller erstat type med navn. (Burde man vise hvad navnet på rollen var, eller hvad for en type rolle det var?)
         Role r = new Role(rolleTextField.getText(), null, p);
         rolleTableView.getItems().add(r);
-        currentProduction.addRolle(rolleTextField.getText(),null, p);
+        currentProduction.addRolle(rolleTextField.getText(), null, p);
+        System.out.println("New person added to production");
     }
 
     //Knap der fjerner en medvirkende i programmet og fjerner den medvirkende i listen.
-    public void onRemoveButtonPush() {
+    public void removeSelectedPerson() {
         ObservableList<Role> temprolle = rolleTableView.getSelectionModel().getSelectedItems();
         ArrayList<Role> roller = new ArrayList<>(currentProduction.getRollerIProgram());
-            for(Role role : roller){
-                if(temprolle.get(0).getRolleID()== role.getRolleID()) {
-                    System.out.println("Removing " + temprolle.get(0).getSpillesAf().getFornavn());
-                    System.out.println("Role successfully removed");
-                    currentProduction.fjernRolle(role);
-
-                }
+        for (Role role : roller) {
+            if (temprolle.get(0).getRolleID() == role.getRolleID()) {
+                System.out.println("Removing " + temprolle.get(0).getSpillesAf().getFornavn());
+                System.out.println("Role successfully removed");
+                currentProduction.fjernRolle(role);
             }
+        }
         tableView.getItems().removeAll(tableView.getSelectionModel().getSelectedItems());
         rolleTableView.getItems().removeAll(rolleTableView.getSelectionModel().getSelectedItems());
     }
 
     //Knap der henter dataen om en valgt medvirkende og udfylder den i tekstfelterne på højre side.
-    public void onGetDataButtonPushed() {
+    public void retrievePersonData() {
         if (tableView.getSelectionModel().getSelectedItems() != null) {
-
             int index = tableView.getSelectionModel().getSelectedIndex();
             Person person = tableView.getItems().get(index);
             fornavnTextField.setText(person.getFornavn());
@@ -142,11 +165,12 @@ public class EditorController {
             dobDatePicker.setValue(person.getAlderDate());
             Role role = rolleTableView.getItems().get(index);
             rolleTextField.setText(role.getNavn());
+            System.out.println();
         }
     }
 
     //Knap der erstatter data på en valgt medvirkende.
-    public void onSetDataButtonPushed() {
+    public void savePersonData() {
         if (tableView.getSelectionModel().getSelectedItems() != null) {
 
             Person person = tableView.getSelectionModel().getSelectedItem();
@@ -164,41 +188,41 @@ public class EditorController {
             rolleTableView.refresh();
 
             ArrayList<Role> roller = new ArrayList<>(currentProduction.getRollerIProgram());
-                for(Role rolleliste : roller){
-                    if (role.getRolleID()==rolleliste.getRolleID()){
-                        int i = roller.indexOf(rolleliste);
-                        roller.get(i).setNavn(rolleTextField.getText());
-                        roller.get(i).setSpillesAf(person);
-                    }
+            for (Role rolleliste : roller) {
+                if (role.getRolleID() == rolleliste.getRolleID()) {
+                    int i = roller.indexOf(rolleliste);
+                    roller.get(i).setNavn(rolleTextField.getText());
+                    roller.get(i).setSpillesAf(person);
                 }
+            }
         }
     }
 
+    // Synchronize
     //Synkroniser den valgte medvirkende med den rigtige rolle i den anden tabel.
-    public void SyncronizerolleTableView() {
+    public void synchronizeRoleTableView() {
         int i = tableView.getSelectionModel().getSelectedIndex();
         rolleTableView.getSelectionModel().select(i);
     }
 
     //Synkroniser den valgte rolle med den rigtige medvirkende i den anden tabel.
-    public void SyncronizeTableView() {
+    public void synchronizeTableView() {
         int i = rolleTableView.getSelectionModel().getSelectedIndex();
         tableView.getSelectionModel().select(i);
     }
 
     //Metode der gemmer dele af GUI baseret på en boolean
     public void hideGuiElements(boolean b) {
-        if(b) {
+        if (b) {
             fornavnTextField.setVisible(false);
             efternavnTextField.setVisible(false);
             nationalitetTextField.setVisible(false);
             rolleTextField.setVisible(false);
             dobDatePicker.setVisible(false);
-
-            tilfojButton.setVisible(false);
-            fjernButton.setVisible(false);
-            hentButton.setVisible(false);
-            saetButton.setVisible(false);
+            addNewPersonButton.setVisible(false);
+            removeSelectedPersonButton.setVisible(false);
+            retrievePersonDataButton.setVisible(false);
+            savePersonDataButton.setVisible(false);
             fornavnLabel.setVisible(false);
             efternavnLabel.setVisible(false);
             dobLabel.setVisible(false);

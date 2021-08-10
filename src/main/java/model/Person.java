@@ -19,19 +19,19 @@ public class Person extends ConnectionDatabase {
     private String efternavn;
     private String nationalitet;
     private LocalDate alder;
-    private List<Role> roller;
+    private final List<Role> roller;
 
     public Person(String fornavn, String efternavn, LocalDate alder, String nationalitet) {
         QueryDatabase.insertPerson(fornavn, efternavn, nationalitet, Integer.parseInt(alder.format(DateTimeFormatter.ofPattern("dd"))), Integer.parseInt(alder.format(DateTimeFormatter.ofPattern("MM"))), Integer.parseInt(alder.format(DateTimeFormatter.ofPattern("yyyy"))));
-        try{
+        try {
             int id = 0;
             PreparedStatement queryStatement = connection.prepareStatement("SELECT * FROM personer ORDER BY id DESC LIMIT 1");
             ResultSet queryResultSet = queryStatement.executeQuery();
-            while(queryResultSet.next()){
+            while (queryResultSet.next()) {
                 id = queryResultSet.getInt("id");
             }
             this.personID = id;
-        } catch(SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         this.fornavn = fornavn;
@@ -52,16 +52,16 @@ public class Person extends ConnectionDatabase {
         KrediteringSystem.getSamletPersoner().add(this);
     }
 
-    public void tilknytTilRolle(Role role){
+    public void tilknytTilRolle(Role role) {
         role.tilknytPersonTilRolle(this);
     }
 
-    public void fjernRolle(Role role){
+    public void fjernRolle(Role role) {
         role.fjernPersonFraRolle(this);
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return fornavn + " " + efternavn;
     }
 
@@ -76,12 +76,12 @@ public class Person extends ConnectionDatabase {
     }
 
     public void setFornavn(String fornavn) {
-        try{
+        try {
             PreparedStatement insertStatement = connection.prepareStatement("UPDATE personer SET fornavn = ? WHERE id = ?");
             insertStatement.setString(1, fornavn);
             insertStatement.setInt(2, this.personID);
             insertStatement.execute();
-        } catch(SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         this.fornavn = fornavn;
@@ -92,12 +92,12 @@ public class Person extends ConnectionDatabase {
     }
 
     public void setEfternavn(String efternavn) {
-        try{
+        try {
             PreparedStatement insertStatement = connection.prepareStatement("UPDATE personer SET efternavn = ? WHERE id = ?");
             insertStatement.setString(1, efternavn);
             insertStatement.setInt(2, this.personID);
             insertStatement.execute();
-        } catch(SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         this.efternavn = efternavn;
@@ -108,12 +108,12 @@ public class Person extends ConnectionDatabase {
     }
 
     public void setNationalitet(String nationalitet) {
-        try{
+        try {
             PreparedStatement insertStatement = connection.prepareStatement("UPDATE personer SET nationalitet = ? WHERE id = ?");
             insertStatement.setString(1, nationalitet);
             insertStatement.setInt(2, this.personID);
             insertStatement.execute();
-        } catch(SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         this.nationalitet = nationalitet;
@@ -132,14 +132,14 @@ public class Person extends ConnectionDatabase {
     }
 
     public void setAlder(LocalDate alder) {
-        try{
+        try {
             PreparedStatement insertStatement = connection.prepareStatement("UPDATE personer SET dag = ?, maaned = ?, aar = ? WHERE id = ?");
             insertStatement.setInt(1, Integer.parseInt(alder.format(DateTimeFormatter.ofPattern("dd"))));
             insertStatement.setInt(2, Integer.parseInt(alder.format(DateTimeFormatter.ofPattern("MM"))));
             insertStatement.setInt(3, Integer.parseInt(alder.format(DateTimeFormatter.ofPattern("yyyy"))));
             insertStatement.setInt(4, this.personID);
             insertStatement.execute();
-        } catch(SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         this.alder = alder;

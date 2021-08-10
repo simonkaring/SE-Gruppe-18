@@ -16,12 +16,12 @@
             <Font size="18.0" />
          </font>
       </Text>
-      <JFXButton fx:id="tilfojButton" alignment="CENTER" buttonType="RAISED" layoutX="20.0" layoutY="370.0" onAction="#onAddButtonPush" prefHeight="40.0" prefWidth="250.0" ripplerFill="WHITE" style="-fx-background-color: #2E51B0 #2E51B0 #2E51B0;" text="Tilføj Ny Person" textFill="WHITE">
+      <JFXButton fx:id="addNewPersonButton" alignment="CENTER" buttonType="RAISED" layoutX="20.0" layoutY="370.0" onAction="#addNewPerson" prefHeight="40.0" prefWidth="250.0" ripplerFill="WHITE" style="-fx-background-color: #2E51B0 #2E51B0 #2E51B0;" text="Tilføj Ny Person" textFill="WHITE">
          <font>
             <Font size="18.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="saetButton" alignment="CENTER" buttonType="RAISED" layoutX="20.0" layoutY="540.0" onAction="#onSetDataButtonPushed" prefHeight="40.0" prefWidth="250.0" ripplerFill="WHITE" style="-fx-background-color: #2E51B0 #2E51B0 #2E51B0;" text="Gem Data" textFill="WHITE">
+      <JFXButton fx:id="savePersonDataButton" alignment="CENTER" buttonType="RAISED" layoutX="20.0" layoutY="540.0" onAction="#savePersonData" prefHeight="40.0" prefWidth="250.0" ripplerFill="WHITE" style="-fx-background-color: #2E51B0 #2E51B0 #2E51B0;" text="Gem Data" textFill="WHITE">
          <font>
             <Font size="18.0" />
          </font>
@@ -50,18 +50,18 @@
       <TextField fx:id="efternavnTextField" layoutX="20.0" layoutY="110.0" prefWidth="250.0" promptText="Efternavn" />
       <TextField fx:id="nationalitetTextField" layoutX="20.0" layoutY="250.0" prefWidth="250.0" promptText="Nationalitet" />
       <TextField fx:id="rolleTextField" layoutX="20.0" layoutY="320.0" prefWidth="250.0" promptText="Rolle" />
-      <JFXButton fx:id="fjernButton" alignment="CENTER" buttonType="RAISED" layoutX="20.0" layoutY="420.0" onAction="#onRemoveButtonPush" prefHeight="40.0" prefWidth="250.0" ripplerFill="WHITE" style="-fx-background-color: #95190C;" text="Fjern Person" textFill="WHITE">
+      <JFXButton fx:id="removeSelectedPersonButton" alignment="CENTER" buttonType="RAISED" layoutX="20.0" layoutY="420.0" onAction="#removeSelectedPerson" prefHeight="40.0" prefWidth="250.0" ripplerFill="WHITE" style="-fx-background-color: #95190C;" text="Fjern Person" textFill="WHITE">
          <font>
             <Font size="18.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="hentButton" alignment="CENTER" buttonType="RAISED" layoutX="20.0" layoutY="490.0" onAction="#onGetDataButtonPushed" prefHeight="40.0" prefWidth="250.0" ripplerFill="WHITE" style="-fx-background-color: #2E51B0 #2E51B0;" text="Hent Data" textFill="WHITE">
+      <JFXButton fx:id="retrievePersonDataButton" alignment="CENTER" buttonType="RAISED" layoutX="20.0" layoutY="490.0" onAction="#retrievePersonData" prefHeight="40.0" prefWidth="250.0" ripplerFill="WHITE" style="-fx-background-color: #2E51B0 #2E51B0;" text="Hent Data" textFill="WHITE">
          <font>
             <Font size="18.0" />
          </font>
       </JFXButton>
       <DatePicker fx:id="dobDatePicker" layoutX="20.0" layoutY="180.0" prefWidth="250.0" promptText="Fødselsdato" />
-      <TableView fx:id="tableView" layoutX="320.0" onMouseClicked="#SyncronizerolleTableView" prefHeight="600.0" prefWidth="400.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <TableView fx:id="tableView" layoutX="320.0" onMouseClicked="#synchronizeRoleTableView" prefHeight="600.0" prefWidth="400.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
          <columns>
             <TableColumn fx:id="fornavnColumn" prefWidth="120.0" text="Fornavn" />
             <TableColumn fx:id="efternavnColumn" prefWidth="120.0" text="Efternavn" />
@@ -69,7 +69,7 @@
             <TableColumn fx:id="nationalitetColumn" prefWidth="90.0" text="Nationalitet" />
          </columns>
       </TableView>
-      <TableView fx:id="rolleTableView" layoutX="682.0" layoutY="30.0" onMouseClicked="#SyncronizeTableView" prefHeight="600.0" prefWidth="80.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <TableView fx:id="rolleTableView" layoutX="682.0" layoutY="30.0" onMouseClicked="#synchronizeTableView" prefHeight="600.0" prefWidth="80.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <columns>
             <TableColumn fx:id="rolleColumn" prefWidth="79.0" text="Rolle" />
          </columns>
