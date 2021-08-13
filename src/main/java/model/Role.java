@@ -1,6 +1,6 @@
 package model;
 
-import data.ConnectionDatabase;
+
 import data.QueryDatabase;
 
 import java.sql.PreparedStatement;
@@ -9,7 +9,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Role extends ConnectionDatabase {
+import static data.ConnectionDatabase.connection;
+
+public class Role {
 
     private int rolleID;
     private String navn;

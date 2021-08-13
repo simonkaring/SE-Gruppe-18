@@ -17,7 +17,7 @@ public class KrediteringSystem extends ConnectionDatabase {
     private static List<Role> samletRoller = new ArrayList<>();
     private static List<Person> samletPersoner = new ArrayList<>();
 
-    //Køres ved opstart af programmet, og henter al data fra databasen og opretter objekter af det.
+    // Køres ved opstart af programmet, og henter al data fra databasen og opretter objekter af det.
     public static void opstart2() throws SQLException {
         opretForbindelse();
         int counter = 0;
@@ -85,7 +85,7 @@ public class KrediteringSystem extends ConnectionDatabase {
     public static void opstart() {
         opretForbindelse();
         int counter = 0;
-        //Indsætter producenter fra database til programmet.
+        // Indsætter producenter fra database til programmet.
         try {
             PreparedStatement queryStatement = connection.prepareStatement("SELECT * FROM producenter ORDER BY id");
             ResultSet queryResultSet = queryStatement.executeQuery();
@@ -98,7 +98,7 @@ public class KrediteringSystem extends ConnectionDatabase {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        //Indsætter programmer fra database til programmet.
+        // Indsætter programmer fra database til programmet.
         try {
             PreparedStatement queryStatement = connection.prepareStatement("SELECT * FROM programmer ORDER BY id");
             ResultSet queryResultSet = queryStatement.executeQuery();
@@ -116,7 +116,7 @@ public class KrediteringSystem extends ConnectionDatabase {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        //Indsætter personer fra database til programmet.
+        // Indsætter personer fra database til programmet.
         try {
             PreparedStatement queryStatement = connection.prepareStatement("SELECT * FROM personer ORDER BY id");
             ResultSet queryResultSet = queryStatement.executeQuery();
@@ -133,7 +133,7 @@ public class KrediteringSystem extends ConnectionDatabase {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        //Indsætter roller fra database til programmet.
+        // Indsætter roller fra database til programmet.
         try {
             PreparedStatement queryStatement = connection.prepareStatement("SELECT * FROM roller ORDER BY id");
             ResultSet queryResultSet = queryStatement.executeQuery();
@@ -158,7 +158,7 @@ public class KrediteringSystem extends ConnectionDatabase {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        //Henter data fra program_rolle tabellen.
+        // Henter data fra program_rolle tabellen.
         try {
             PreparedStatement queryStatement = connection.prepareStatement("SELECT * FROM program_rolle");
             ResultSet queryResultSet = queryStatement.executeQuery();
@@ -176,7 +176,7 @@ public class KrediteringSystem extends ConnectionDatabase {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        //Hvis databasen er tom, oprettes der data.
+        // Hvis databasen er tom, oprettes der data.
         if (counter == 4) {
             opretData();
         }
@@ -190,17 +190,17 @@ public class KrediteringSystem extends ConnectionDatabase {
         producer.opretProgram(navn);
     }
 
-    //Laver rolle i programmet i rollerIProgram-listen, uden at tilknytte person til rollen.
+    // Laver rolle i programmet i rollerIProgram-listen, uden at tilknytte person til rollen.
     public static void addRolle(Production production, String navn, String type) {
         production.addRolle(navn, type);
     }
 
-    //Laver rolle i programmet i rollerIProgram-listen, og tilknytter person til rollen.
+    // Laver rolle i programmet i rollerIProgram-listen, og tilknytter person til rollen.
     public static void addRolle(Production production, String navn, String type, Person person) {
         production.addRolle(navn, type, person);
     }
 
-    //Fjerner den valgte rolle fra programmet.
+    // Fjerner den valgte rolle fra programmet.
     public static void fjernRolle(Production production, Role role) {
         production.fjernRolle(role);
     }
@@ -209,25 +209,25 @@ public class KrediteringSystem extends ConnectionDatabase {
         return production.udskrivRollerIProgram();
     }
 
-    //Udskriver krediteringen sorteret i forhold til static-listen rolleTyper i Rolle-klassen.
-    //Der skal fikses så den ikke skriver typer ud, som ikke er i programmet.
+    // Udskriver krediteringen sorteret i forhold til static-listen rolleTyper i Rolle-klassen.
+    // Der skal fikses så den ikke skriver typer ud, som ikke er i programmet.
     public static String udskrivKreditering(Producer producer, Production production) {
         return production.udskrivKreditering(producer);
     }
 
-    //Tilknyt person til rollen.
+    // Tilknyt person til rollen.
     public static void tilknytPersonTilRolle(Role role, Person person) {
         role.setSpillesAf(person);
     }
 
-    //Fjern person fra rollen.
+    // Fjern person fra rollen.
     public static void fjernPersonFraRolle(Role role, Person person) {
         if (role.getSpillesAf().equals(person)) {
             role.setSpillesAf(null);
         }
     }
 
-    //Hvis databasen er tom, opret data.
+    // Hvis databasen er tom, opret data.
     public static void opretData() {
         Producer producer1 = new Producer("Den vilde producent");
         Producer producer2 = new Producer("ProdDK");
@@ -257,7 +257,7 @@ public class KrediteringSystem extends ConnectionDatabase {
 
     }
 
-    //Gettere og settere
+    // Gettere og settere
 
     public static List<Producer> getSamletProducenter() {
         return samletProducenter;

@@ -4,13 +4,10 @@ import data.ConnectionDatabase;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import java.time.LocalDate;
-import model.Production;
 import view.EditorController;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static data.ConnectionDatabase.connection;
 
 class PersonTest {
 

@@ -2,6 +2,7 @@ package view;
 
 import com.jfoenix.controls.JFXButton;
 import data.*;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
@@ -9,10 +10,11 @@ import javafx.scene.control.ListView;
 import model.KrediteringSystem;
 import model.*;
 import model.Production;
-
 import java.util.ArrayList;
 
-public class ProductionListController extends SceneChanger {
+import static view.SceneChanger.*;
+
+public class ProductionListController {
 
     // Initialize objekter i GUI
     @FXML
@@ -60,7 +62,7 @@ public class ProductionListController extends SceneChanger {
 
     // Adds production to a list under "Placeholder"
     @FXML
-    public void addProgramButtonPushed() {
+    public void addProduction() {
         Producer producer = new Producer("Placeholder");
         int temp = producer.getProgrammer().size();
         String productionTitle = programNameTextField.getText();
@@ -73,7 +75,7 @@ public class ProductionListController extends SceneChanger {
 
     // Åbner editoren på det valgte program
     @FXML
-    public void openEditor() {
+    public void editProduction() {
         if (listView.getSelectionModel().getSelectedItem() != null) {
             System.out.println("Opening production in editor mode");
             holder.setTitle(listView.getSelectionModel().getSelectedItem().toString());
@@ -84,7 +86,7 @@ public class ProductionListController extends SceneChanger {
 
     // Åbner seer versionen af editor pagen, hvor dele af GUI er gemt.
     @FXML
-    public void openViewerPage() {
+    public void viewProduction() {
         if (listView.getSelectionModel().getSelectedItem() != null) {
             System.out.println("Opening production in viewer mode");
             TitleHolder holder = TitleHolder.getInstance();
@@ -106,7 +108,7 @@ public class ProductionListController extends SceneChanger {
 
     // Searches from the list of programs and finds matches and partial matches
     @FXML
-    public void search() {
+    public void searchProductions() {
         String searchText = searchTextField.getText();
         if (searchTextField.textProperty().get().isEmpty()) {
             // Restore all items if there is an empty search field
@@ -141,9 +143,9 @@ public class ProductionListController extends SceneChanger {
 //        listView.setItems(input);
     }
 
-    // Deletes credits, destructive operation
+    // Deletes the production, destructive operation
     @FXML
-    public void deleteCredits() {
+    public void deleteProduction() {
         final Object selectedItem = listView.getSelectionModel().getSelectedItem();
         if (selectedItem != null) {
             String productionTitle = listView.getSelectionModel().getSelectedItem().toString();

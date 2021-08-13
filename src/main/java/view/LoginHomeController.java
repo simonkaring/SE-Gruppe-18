@@ -3,8 +3,10 @@ package view;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
+import static view.SceneChanger.*;
+
 // This class handles the home gui interface
-public class LoginHomeController extends SceneChanger {
+public class LoginHomeController {
 
     // TitleHolder changes what a viewer and user sees
     TitleHolder holder = TitleHolder.getInstance();

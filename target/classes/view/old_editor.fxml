@@ -48,8 +48,8 @@
          <children>
             <Button fx:id="retrievePersonDataButton" layoutX="451.0" layoutY="441.0" mnemonicParsing="false" onAction="#retrievePersonData" text="Hent data" AnchorPane.leftAnchor="451.0" />
             <Button fx:id="savePersonDataButton" layoutX="551.0" layoutY="441.0" mnemonicParsing="false" onAction="#savePersonData" text="Sæt data" />
-            <Button fx:id="addNewPersonButton" layoutX="449.0" layoutY="388.0" mnemonicParsing="false" onAction="#addNewPerson" prefHeight="25.0" prefWidth="69.0" text="Tilføj" />
-            <Button fx:id="removeSelectedPersonButton" layoutX="549.0" layoutY="388.0" mnemonicParsing="false" onAction="#removeSelectedPerson" prefHeight="25.0" prefWidth="64.0" text="Fjern" />
+            <Button fx:id="addNewPersonButton" layoutX="449.0" layoutY="388.0" mnemonicParsing="false" onAction="#addPerson" prefHeight="25.0" prefWidth="69.0" text="Tilføj" />
+            <Button fx:id="removeSelectedPersonButton" layoutX="549.0" layoutY="388.0" mnemonicParsing="false" onAction="#removePerson" prefHeight="25.0" prefWidth="64.0" text="Fjern" />
             <Label fx:id="fornavnLabel" layoutX="477.0" layoutY="32.0" prefHeight="17.0" prefWidth="74.0" text="Fornavn">
                <font>
                   <Font name="System Bold Italic" size="17.0" />

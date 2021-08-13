@@ -4,8 +4,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
+import static view.SceneChanger.*;
 
-public class LoginController extends SceneChanger {
+
+public class LoginController {
 
     @FXML
     private TextField usernameTextField;

@@ -5,7 +5,9 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.event.ActionEvent;
 
-public class RegisterController extends SceneChanger {
+import static view.SceneChanger.*;
+
+public class RegisterController {
 
     @FXML
     private PasswordField passwordField;

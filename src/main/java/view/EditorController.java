@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 import javafx.scene.control.TableColumn;
 
-public class EditorController extends SceneChanger {
+public class EditorController {
 
     // Initializes all FXML objects
     @FXML
@@ -129,7 +129,8 @@ public class EditorController extends SceneChanger {
     }
 
     //Knap der tilføjer en ny medvirkende til programmet og fremviser det i listen.
-    public void addNewPerson() {
+    @FXML
+    public void addPerson() {
         Person p = new Person(fornavnTextField.getText(), efternavnTextField.getText(), dobDatePicker.getValue(), nationalitetTextField.getText());
         tableView.getItems().add(p);
         //TODO Eventuelt tilføj ny tekstfield hvor man kan definer type af rolle eller erstat type med navn. (Burde man vise hvad navnet på rollen var, eller hvad for en type rolle det var?)
@@ -140,7 +141,8 @@ public class EditorController extends SceneChanger {
     }
 
     //Knap der fjerner en medvirkende i programmet og fjerner den medvirkende i listen.
-    public void removeSelectedPerson() {
+    @FXML
+    public void removePerson() {
         ObservableList<Role> temprolle = rolleTableView.getSelectionModel().getSelectedItems();
         ArrayList<Role> roller = new ArrayList<>(currentProduction.getRollerIProgram());
         for (Role role : roller) {
@@ -155,6 +157,7 @@ public class EditorController extends SceneChanger {
     }
 
     //Knap der henter dataen om en valgt medvirkende og udfylder den i tekstfelterne på højre side.
+    @FXML
     public void retrievePersonData() {
         if (tableView.getSelectionModel().getSelectedItems() != null) {
             int index = tableView.getSelectionModel().getSelectedIndex();
@@ -170,6 +173,7 @@ public class EditorController extends SceneChanger {
     }
 
     //Knap der erstatter data på en valgt medvirkende.
+    @FXML
     public void savePersonData() {
         if (tableView.getSelectionModel().getSelectedItems() != null) {
 

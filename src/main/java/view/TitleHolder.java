@@ -1,6 +1,7 @@
 package view;
 
 public class TitleHolder {
+
     private String title;
     private Boolean isViewer;
     private final static TitleHolder INSTANCE = new TitleHolder();

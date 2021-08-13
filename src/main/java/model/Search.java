@@ -7,14 +7,14 @@ public class Search {
 
     private static List<List<Object>> soegeResultater;
 
-    //Søgemetoden der søger på program, person og producent.
-    public static void soege(String soegeTekst) {
+    // Søgemetoden der søger på program, person og producent.
+    public static void search(String searchText) {
 
         soegeResultater = new ArrayList<>();
 
-        soegProgram(soegeTekst);
-        soegPerson(soegeTekst);
-        soegProducent(soegeTekst);
+        searchProductions(searchText);
+        searchPerson(searchText);
+        searchProducers(searchText);
 
         int tomSoegning = 0;
 
@@ -30,18 +30,18 @@ public class Search {
 
     }
 
-    //Søger i den statiske list samletProgrammer under KrediteringSystem.
-    public static void soegProgram(String soegeTekst) {
+    // Søger i den statiske list samletProgrammer under KrediteringSystem.
+    public static void searchProductions(String searchText) {
         soegeResultater.add(new ArrayList<>());
         for (Production programmer : KrediteringSystem.getSamletProgrammer()) {
-            if (programmer.getTitel().contains(soegeTekst)) {
+            if (programmer.getTitel().contains(searchText)) {
                 getSoegeResultater().get(0).add(programmer);
             }
         }
     }
 
-    //Søger i den statiske list samletPersoner under KrediteringSystem.
-    public static void soegPerson(String soegeTekst) {
+    // Søger i den statiske list samletPersoner under KrediteringSystem.
+    public static void searchPerson(String soegeTekst) {
         soegeResultater.add(new ArrayList<>());
         for (Person personer : KrediteringSystem.getSamletPersoner()) {
             if (personer.getFornavn().contains(soegeTekst) || personer.getEfternavn().contains(soegeTekst)) {
@@ -51,8 +51,8 @@ public class Search {
         }
     }
 
-    //Søger i den statiske list samletProducenter under KrediteringSystem.
-    public static void soegProducent(String soegeTekst) {
+    // Søger i den statiske list samletProducenter under KrediteringSystem.
+    public static void searchProducers(String soegeTekst) {
         soegeResultater.add(new ArrayList<>());
         for (Producer producenter : KrediteringSystem.getSamletProducenter()) {
             if (producenter.getNavn().contains(soegeTekst)) {
@@ -61,7 +61,7 @@ public class Search {
         }
     }
 
-    //Søger på alle personer, programmer og producenter, og returner objektet med samme id.
+    // Søger på alle personer, programmer og producenter, og returner objektet med samme id.
     public static Object soegPaaID(int id) {
         Object returner = null;
         for (Person person : KrediteringSystem.getSamletPersoner()) {
